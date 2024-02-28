@@ -34,3 +34,67 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+/my-next-app
+├── components
+│   ├── AddProduct.js
+│   ├── Dashboard.js
+│   ├── Concession.js
+│   ├── SupplierList.js
+│   ├── ProductList.js
+│   └── StockList.js
+├── pages
+│   ├── api
+│   ├── _app.js
+│   ├── _document.js
+│   ├── index.js
+│   └── manager
+│       ├── dashboard.js
+│       ├── concession.js
+│       ├── supplier_list.js
+│       ├── product_list.js
+│       └── stock_list.js
+├── public
+│   ├── favicon.ico
+│   └── vercel.svg
+├── styles
+│   ├── globals.css
+│   └── Home.module.css
+├── .gitignore
+├── next.config.js
+├── package.json
+├── postcss.config.js
+├── README.md
+└── yarn.lock
+
+
+/my-next-app
+├── components
+│   ├── Header.js
+│   ├── Footer.js
+│   ├── Layout.js
+│   └── OtherComponents.js
+├── pages
+│   ├── _app.js
+│   ├── _document.js
+│   ├── index.js
+│   ├── page.tsx
+│   └── manager
+│       ├── dashboard.js
+│       ├── concession.js
+│       ├── supplier_list.js
+│       ├── product_list.js
+│       └── stock_list.js
+├── public
+│   ├── favicon.ico
+│   └── vercel.svg
+├── styles
+│   ├── globals.css
+│   └── Home.module.css
+├── .gitignore
+├── next.config.js
+├── package.json
+├── postcss.config.js
+├── README.md
+└── yarn.lock
