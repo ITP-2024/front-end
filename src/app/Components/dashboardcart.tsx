@@ -1,4 +1,4 @@
-import Cart from "./cart";
+import Cart from "./card";
 
 const DashboardCart = () => {
   return (
