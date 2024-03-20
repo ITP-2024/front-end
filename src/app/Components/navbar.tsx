@@ -1,3 +1,4 @@
+import TopBar from "./topbar";
 const Navbar = () => {
   interface NavItem {
     title: string;
@@ -9,7 +10,7 @@ const Navbar = () => {
     {
       title: "Order Management",
       href: "#order",
-      dropdownItems: ["/Dashboard", "/Orders", "/Complains"],
+      dropdownItems: ["Dashboard", "Orders", "Complains"],
     },
     { title: "Inventory Management", href: "#Inventory" },
     { title: "Financial Management", href: "#finance" },
@@ -20,7 +21,7 @@ const Navbar = () => {
       <nav className="mt-[200px]">
         {navItems.map((item, index) => (
           <div key={index}>
-            <button className="block w-full h-[52px] bg-purple-400  flex items-center justify-between pl-8 pr-4 font-semibold  border-solid border-gray-300  hover:bg-fuchsia-800 mt-1 text-black hover:text-white ">
+            <button className="block w-full h-[52px] bg-purple-400  flex items-center justify-between pl-8 pr-4 font-semibold  border-solid border-gray-300  hover:bg-fuchsia-800 mt-1 text-black hover:text-white">
               {item.title}
               <svg
                 className="w-4.5 h-2.5 mt-2 "
