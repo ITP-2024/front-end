@@ -1,6 +1,7 @@
 export default function Page() {
     return (
         
-        <h1> theme</h1>
+        <><h1> Card</h1></>
+
     );
 }

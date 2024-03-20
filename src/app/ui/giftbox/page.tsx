@@ -1,6 +1,6 @@
 export default function Page() {
     return (
         
-        <h1>Select theme</h1>
+        <h1> Gift Box</h1>
     );
 }
