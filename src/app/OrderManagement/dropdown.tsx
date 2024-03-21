@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 
 interface DropDown {
   title: string;
@@ -19,8 +18,8 @@ const DropDown: React.FC = () => {
   const ordersByMenu: { [key: string]: DropDown[] } = {
     "Order Management": [
       { title: "Dashboard", link: "/dashboard" },
-      { title: "Orders" },
-      { title: "Complains" },
+      { title: "Orders", link: "/orders" },
+      { title: "Complaints", link: "/complian" },
     ],
     "Inventory Management": [
       { title: "Stock Management" },
@@ -35,9 +34,15 @@ const DropDown: React.FC = () => {
   };
 
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+  const [selectedOrderBy, setSelectedOrderBy] = useState<string | null>(null);
 
   const handleMenuClick = (title: string) => {
     setSelectedMenu(title === selectedMenu ? null : title);
+    setSelectedOrderBy(null);
+  };
+
+  const handleOrderByClick = (title: string) => {
+    setSelectedOrderBy(title === selectedOrderBy ? null : title);
   };
 
   return (
@@ -45,7 +50,11 @@ const DropDown: React.FC = () => {
       {menu.map((menuItem) => (
         <div key={menuItem.title} className="block mt-1">
           <button
-            className="w-[290px] h-[52px] bg-purple-400 flex items-center justify-between pl-8 pr-4 font-semibold border-solid border-gray-300 hover:bg-fuchsia-800 text-black hover:text-white"
+            className={`w-[290px] h-[52px] flex items-center justify-between pl-8 pr-4 font-semibold border-solid border-gray-300 text-black ${
+              selectedMenu === menuItem.title
+                ? "bg-fuchsia-800 text-white"
+                : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+            }`}
             onClick={() => handleMenuClick(menuItem.title)}
           >
             {menuItem.title}
@@ -78,15 +87,21 @@ const DropDown: React.FC = () => {
             )}
           </button>
           {selectedMenu === menuItem.title && (
-            <button className="w-[260px] ml-[30px]">
+            <div className="w-[260px] ml-[30px]">
               {ordersByMenu[selectedMenu].map((order) => (
-                <Link href={order.link || "/"} key={order.title}>
-                  <div className="text-black h-[35px] px-2 font-semibold font-['Inter'] flex items-center justify-between bg-purple-400 mt-[3px] hover:bg-fuchsia-800 hover:text-white">
-                    {order.title}
-                  </div>
-                </Link>
+                <div
+                  key={order.title}
+                  className={`text-black h-[35px] px-2 font-semibold font-['Inter'] flex items-center justify-between ${
+                    selectedOrderBy === order.title
+                      ? "bg-fuchsia-800 text-white"
+                      : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                  }`}
+                  onClick={() => handleOrderByClick(order.title)}
+                >
+                  {order.title}
+                </div>
               ))}
-            </button>
+            </div>
           )}
         </div>
       ))}
