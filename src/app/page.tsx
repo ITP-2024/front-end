@@ -1,11 +1,9 @@
-import Navbar from "./Components/navbar";
-import Dashboard from "./Components/dashboard";
+import Navbar from "./OrderManagement/navbar";
 
 export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <Dashboard />
     </div>
   );
 }
