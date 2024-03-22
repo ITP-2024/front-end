@@ -1,11 +1,11 @@
 import Navbar from "./OrderManagement/navbar";
-import Dashboard from "./OrderManagement/dashboard";
+import Complain from "./OrderManagement/complain";
 
 export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <Dashboard />
+      <Complain />
     </div>
   );
 }
