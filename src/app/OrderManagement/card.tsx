@@ -4,10 +4,9 @@ interface CartProps {
   value: string;
 }
 
-const Cart: React.FC<CartProps> = ({ icon, title, value }) => {
+const Card: React.FC<CartProps> = ({ icon, title, value }) => {
   return (
-    <div className="w-[317px] h-[155px] relative">
-      <div className="w-[317px] h-[155px] left-0 top-0 absolute bg-purple-400 rounded-[20px]" />
+    <div className="w-[250px] h-[155px] relative left-0 top-0  bg-purple-400 border-2 border-purple-800  rounded-[20px]">
       <div className="left-[13px]  absolute text-black text-[22px] mt-[10px] font-semibold font-['Inter']">
         {icon}
       </div>
@@ -21,4 +20,4 @@ const Cart: React.FC<CartProps> = ({ icon, title, value }) => {
   );
 };
 
-export default Cart;
+export default Card;

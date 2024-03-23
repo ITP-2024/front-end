@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 interface DropDown {
   title: string;
@@ -92,7 +91,7 @@ const DropDown: React.FC = () => {
               {ordersByMenu[selectedMenu].map((order) => (
                 <div
                   key={order.title}
-                  className={`text-black h-[35px] px-2 mt-[2px] font-semibold font-['Inter'] flex items-center justify-between ${
+                  className={`text-black h-[35px] px-2 mt-[2px] font-semibold font-['Inter'] flex items-center justify-between rounded-[15px] ${
                     selectedOrderBy === order.title
                       ? "bg-fuchsia-800 text-white"
                       : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"

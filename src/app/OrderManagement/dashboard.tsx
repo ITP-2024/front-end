@@ -1,9 +1,9 @@
-import Cart from "./card";
+import Card from "./card";
 
 const Dashboard = () => {
   return (
-    <div className="ml-[330px] flex justify-evenly mt-[120px]">
-      <Cart
+    <div className="ml-[330px] flex justify-start mt-[120px] gap-4">
+      <Card
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ const Dashboard = () => {
         title={"Total Order"}
         value={"142"}
       />
-      <Cart
+      <Card
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ const Dashboard = () => {
         title={"Today Order"}
         value={"34"}
       />
-      <Cart
+      <Card
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
