@@ -49,63 +49,70 @@ const Complain = () => {
         />
       </div>
       <div className="flex flex-col gap-4 mt-[50px] mr-[20px] ">
-        <div className="max-h-[100px] overflow-y-auto">
+        <div className="max-h-[200px] overflow-y-auto">
           <table className="w-full table-auto ">
             <thead>
-              <tr>
-                <th className="sticky top-0 bg-white text-black z-10">ID</th>
-                <th className="sticky top-0  z-10">Name</th>
-                <th className="sticky top-0  z-10">Age</th>
-                <th className="sticky top-0  z-10">City</th>
-                <th className="sticky top-0  z-10">Heading 5</th>
-                <th className="sticky top-0  z-10">City</th>
-                <th className="sticky top-0  z-10">Heading 5</th>
+              <tr className="h-12 ">
+                <th className="sticky top-0 bg-fuchsia-800 ">Complain ID</th>
+                <th className="sticky top-0 bg-fuchsia-800">Order ID</th>
+                <th className="sticky top-0 bg-fuchsia-800">Customer Mail</th>
+                <th className="sticky top-0 bg-fuchsia-800">Complain Type</th>
+                <th className="sticky top-0 bg-fuchsia-800">Complain Status</th>
+                <th className="sticky top-0 bg-fuchsia-800">
+                  Complain Details
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr className="h-12 text-center">
+                <td className="bg-zinc-300 text-black">1024</td>
+                <td className="bg-zinc-300 text-black">984AhB</td>
+                <td className="bg-zinc-300 text-black">saneef1231@gmail.com</td>
+                <td className="bg-zinc-300 text-black">Exchange</td>
+                <td className="bg-zinc-300 text-black">Processing</td>
+                <td className="bg-zinc-300 text-black">
+                  The color was mistake
+                </td>
+              </tr>
+              <tr className="h-12 text-center">
+                <td className="bg-zinc-400 text-black">4302</td>
+                <td className="bg-zinc-400 text-black">5784AQ</td>
+                <td className="bg-zinc-400 text-black">saheel87@gmail.com</td>
+                <td className="bg-zinc-400 text-black">Refund</td>
+                <td className="bg-zinc-400 text-black">Pending</td>
+                <td className="bg-zinc-400 text-black">
+                  The item was different
+                </td>
+              </tr>
+              <tr className="h-12">
                 <td>"fsfaft"</td>
                 <td>"fdsaf"</td>
                 <td>"dsfsf"</td>
                 <td>"asfaf"</td>
                 <td>fagaggg</td>
               </tr>
-              <tr>
+              <tr className="h-12">
                 <td>"fsfaft"</td>
                 <td>"fdsaf"</td>
                 <td>"dsfsf"</td>
                 <td>"asfaf"</td>
                 <td>fagaggg</td>
               </tr>
-              <tr>
+              <tr className="h-12">
                 <td>"fsfaft"</td>
                 <td>"fdsaf"</td>
                 <td>"dsfsf"</td>
                 <td>"asfaf"</td>
                 <td>fagaggg</td>
               </tr>
-              <tr>
+              <tr className="h-12">
                 <td>"fsfaft"</td>
                 <td>"fdsaf"</td>
                 <td>"dsfsf"</td>
                 <td>"asfaf"</td>
                 <td>fagaggg</td>
               </tr>
-              <tr>
-                <td>"fsfaft"</td>
-                <td>"fdsaf"</td>
-                <td>"dsfsf"</td>
-                <td>"asfaf"</td>
-                <td>fagaggg</td>
-              </tr>
-              <tr>
-                <td>"fsfaft"</td>
-                <td>"fdsaf"</td>
-                <td>"dsfsf"</td>
-                <td>"asfaf"</td>
-                <td>fagaggg</td>
-              </tr>
-              <tr>
+              <tr className="h-12">
                 <td>"fsfaft"</td>
                 <td>"fdsaf"</td>
                 <td>"dsfsf"</td>
