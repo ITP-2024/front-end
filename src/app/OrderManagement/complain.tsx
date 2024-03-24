@@ -1,9 +1,8 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
 import Card from "./card";
 import SearchBar from "./searchbar";
-const Complain: React.FC = () => {
+const Complain = () => {
   return (
     <div className="ml-[320px] mt-[100px]">
       <SearchBar title="Search Complain....." />
@@ -48,6 +47,74 @@ const Complain: React.FC = () => {
           title="Pending"
           value="03"
         />
+      </div>
+      <div className="flex flex-col gap-4 mt-[50px] mr-[20px] ">
+        <div className="max-h-[100px] overflow-y-auto">
+          <table className="w-full table-auto ">
+            <thead>
+              <tr>
+                <th className="sticky top-0 bg-white text-black z-10">ID</th>
+                <th className="sticky top-0  z-10">Name</th>
+                <th className="sticky top-0  z-10">Age</th>
+                <th className="sticky top-0  z-10">City</th>
+                <th className="sticky top-0  z-10">Heading 5</th>
+                <th className="sticky top-0  z-10">City</th>
+                <th className="sticky top-0  z-10">Heading 5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+              <tr>
+                <td>"fsfaft"</td>
+                <td>"fdsaf"</td>
+                <td>"dsfsf"</td>
+                <td>"asfaf"</td>
+                <td>fagaggg</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
