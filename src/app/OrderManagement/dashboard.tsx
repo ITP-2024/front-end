@@ -1,9 +1,9 @@
 import Card from "./card";
-
+import BarChart from "./barChart";
 const Dashboard = () => {
   return (
     <div>
-      <div className="ml-[330px] flex justify-start mt-[120px] gap-4">
+      <div className="ml-[330px] flex justify-start mt-[70px] gap-4">
         <Card
           icon={
             <svg
@@ -64,6 +64,9 @@ const Dashboard = () => {
           title={"Complains"}
           value={"04"}
         />
+      </div>
+      <div className="ml-[330px] mr-[20px] mt-[30px]">
+        <BarChart />
       </div>
     </div>
   );

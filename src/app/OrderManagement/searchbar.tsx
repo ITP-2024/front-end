@@ -14,7 +14,7 @@ const SearchBar: React.FC<CartProps> = ({ title }) => {
       return;
     }
 
-    console.log("Perform search or complain with query:", searchQuery);
+    console.log("Perform search:", searchQuery);
   };
   return (
     <form className=" w-[350px] relative" onSubmit={handleSubmit}>
