@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GiftBoxProvider } from '@/context/giftBox';
 
 
 interface GiftBoxOption {
@@ -13,8 +14,8 @@ interface GiftBoxOption {
 }
 
 const GiftBoxSelection: React.FC = () => {
-  const [options, setOptions] = useState<GiftBoxOption[]>([]);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [Options, setOptions] = useState<GiftBoxOption[]>([]);
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,13 +32,13 @@ const GiftBoxSelection: React.FC = () => {
   }, []);
 
   const handleOptionClick = (optionId: string) => {
-    setSelectedOption(optionId);
+    setSelectedTheme(optionId);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (selectedOption) {
-      console.log('Form submitted');
+    if (selectedTheme) {
+      console.log("Theme:",selectedTheme);
       router.push('/builder/card');
       
     } else {
@@ -46,13 +47,14 @@ const GiftBoxSelection: React.FC = () => {
   };
 
   return (
+    <GiftBoxProvider>
     <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
       <form onSubmit={handleSubmit}>
         <div className="SelectYourGiftBoxColor w-80 h-12 text-stone-900 text-xl font-medium">
           Select your gift box color
         </div>
         <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-          {options.map((option) => (
+          {Options.map((option) => (
             <div key={option.boxColorId} className="flex items-center">
               <div
                 id={option.boxColorId}
@@ -66,7 +68,7 @@ const GiftBoxSelection: React.FC = () => {
               <div
                 // htmlFor={option.BoxColorId}
                 className={`flex items-center cursor-pointer ${
-                  selectedOption === option.boxColorId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
+                  selectedTheme === option.boxColorId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
                 }`}
               >
                 <img
@@ -92,7 +94,9 @@ const GiftBoxSelection: React.FC = () => {
         </div>
       </form>
     </div>
+    </GiftBoxProvider>
   );
 };
+
 
 export default GiftBoxSelection;

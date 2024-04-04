@@ -1,56 +1,54 @@
-import { MongoClient, ObjectId } from 'mongodb';
-import { ProductImageWrapper } from '@/app/ui/products/ProductImageWrapper'; // Import the ProductImageWrapper component
+'use client'
+import { ProductImageWrapper } from '@/components/gift-box/ProductImageWrapper';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
-export const metadata = {
-    title: "Products · Saleor Storefront example",
-    description: "All products in Saleor Storefront example",
-};
-
-async function getProducts(channel: string, cursor?: string): Promise<any[]> {
-    const client = new MongoClient("mongodb+srv://madhini00:1234@cluster0.oqqgxrp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-    const db = client.db("KpopShop");
-
-    try {
-        await client.connect();
-
-        const db = client.db("KpopShop");
-        const productsCollection = db.collection('Product');
-
-        const query: any = { channel }; // Specify type as any to include _id property
-
-        if (cursor) {
-            query._id = { $gt: new ObjectId(cursor) }; // Convert cursor to ObjectId
-        }
-
-        const products = await productsCollection.find(query)
-            .sort({ _id: 1 })
-            .toArray();
-
-        return products;
-    } finally {
-        await client.close();
-    }
+interface Product {
+    productID: string;
+    name: string;
+    description: string;
+    price: number;
+    status: string;
+    image: string;
+    categoryID: string;
+    sizes: { size: string; quantity: number }[];
+    giftBoxProduct: boolean;
 }
 
-export default async function Page({
-    params,
-    searchParams,
-}: {
-    params: { channel: string };
-    searchParams: {
-        cursor: string | string[] | undefined;
-    };
-}) {
-    const cursor = typeof searchParams.cursor === "string" ? searchParams.cursor : undefined;
+const GiftBoxProducts: React.FC = () => {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+    const router = useRouter();
 
-    const products = await getProducts(params.channel, cursor);
+    useEffect(() => {
+        // Fetch gift box products from backend
+        axios.get<Product[]>('http://localhost:8080/products/giftbox-products')
+            .then(response => {
+                console.log(response.data);
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching gift box products:', error);
+            });
+    }, []);
+
+    const addToGiftBox = (product: Product) => {
+        setSelectedProducts(prevCart => [...prevCart, product]);
+        console.log(selectedProducts);
+    };
+
+    
+    const handleClick = () => {
+        router.push('/builder/giftbox');
+    };
 
     return (
         <div >
             <section className="mx-auto max-w-7xl pb-16">
                 <ul className="flex flex-wrap">
                     {products.map((product) => (
-                        <li key={product._id} className="p-4 flex-shrink-0 w-1/3">
+                        <li key={product.productID} className="p-4 flex-shrink-0 w-1/3">
                             <div className="flex flex-col">
                                 <ProductImageWrapper
                                     src={product.image}
@@ -63,6 +61,7 @@ export default async function Page({
                                 <button
                                     type="submit"
                                     className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-2 hover:bg-fuchsia-900"
+                                    onClick={() => addToGiftBox(product)}
                                 >
                                     Add to Gift Box
                                 </button>
@@ -71,7 +70,19 @@ export default async function Page({
                     ))}
                 </ul>
             </section>
+            <div className="flex justify-end">
+                <button
+                onClick={handleClick}
+                    className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-10 hover:bg-fuchsia-900"
+                >
+                    Next
+                </button>
+            </div>
         </div>
+
     );
 
-}
+
+};
+
+export default GiftBoxProducts;

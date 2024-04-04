@@ -2,6 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { GiftBoxProvider } from '@/context/giftBox';
+import Button from '@/components/gift-box/button';
+
+
 
 interface CardType {
     cardId: string;
@@ -10,9 +14,14 @@ interface CardType {
 }
 
 
+
 export default function Page() {
     const [options, setOptions] = useState<CardType[]>([]);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [selectedGreetingCard, setSelectedGreetingCard] = useState<string | null>(null);
+    const [cardMessage, setCardMessage] = useState<string>("");
+
+
+
     const router = useRouter();
 
     useEffect(() => {
@@ -29,16 +38,29 @@ export default function Page() {
     }, []);
 
     const handleOptionClick = (optionId: string) => {
-        setSelectedOption(optionId);
+        setSelectedGreetingCard(optionId);
+    };
+
+    const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCardMessage(event.target.value);
     };
 
     const handleClick = () => {
         router.push('/builder/products');
     };
 
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        router.push('/builder/products');
+        console.log("Message:", cardMessage);
+        console.log("card:", selectedGreetingCard);
+ 
+    };
+
     return (
+        <GiftBoxProvider>
         <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-            <form>
+        <form onSubmit={handleSubmit}>
                 <div className="SelectCard w-80 h-12 text-stone-900 text-xl font-medium">
                     Select a greeting card
                 </div>
@@ -50,7 +72,7 @@ export default function Page() {
                                 onClick={() => handleOptionClick(option.cardId)}
                             />
                             <div
-                                className={`flex items-center cursor-pointer ${selectedOption === option.cardId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
+                                className={`flex items-center cursor-pointer ${selectedGreetingCard === option.cardId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
                                     }`}
                             >
                                 <img
@@ -65,6 +87,7 @@ export default function Page() {
                     ))}
                 </div>
                 <div className="txtfield mt-8">
+                
                     <label htmlFor="dropdown" className="text-stone-900 text-xl font-medium">
                         Enter your message for greeting card
                     </label>
@@ -72,20 +95,24 @@ export default function Page() {
                         type="text"
                         placeholder="Enter your message..."
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none mt-5"
+                        value={cardMessage} 
+                        onChange={handleMessageChange}
                     /></div>
                 <div className="flex justify-end">
 
                     <button
-                        type="button"
+                        type="submit"
                         className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-10 hover:bg-fuchsia-900"
-                        onClick={handleClick}
+                       
                     >
                         Next
                     </button>
 
+                   
+
                 </div>
             </form>
         </div>
-
+        </GiftBoxProvider>
     );
 }
