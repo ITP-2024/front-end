@@ -17,14 +17,14 @@ const DropDown: React.FC = () => {
 
   const ordersByMenu: { [key: string]: DropDown[] } = {
     "Order Management": [
-      { title: "Dashboard"},
+      { title: "Dashboard", link: "/dashboard" },
       { title: "Orders", link: "/orders" },
       { title: "Complaints", link: "/complian" },
     ],
     "Inventory Management": [
-      { title: "Dashboard", link: "/dashboard" },
-      { title: "Product List", link: "/productlist" },
-      { title: "Stock List", link: "/stocklist" },
+      { title: "Dashboard" },
+      { title: "Products" },
+      { title: "Low Inventories" },
     ],
     "Financial Management": [
       { title: "Accounting" },
