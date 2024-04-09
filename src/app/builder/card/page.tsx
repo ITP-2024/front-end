@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { GiftBoxProvider } from '@/context/giftBox';
-import Button from '@/components/gift-box/button';
+import NextButton from '@/components/gift-box/next-button';
 
 
 
@@ -54,65 +54,55 @@ export default function Page() {
         router.push('/builder/products');
         console.log("Message:", cardMessage);
         console.log("card:", selectedGreetingCard);
- 
+
     };
 
     return (
         <GiftBoxProvider>
-        <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-        <form onSubmit={handleSubmit}>
-                <div className="SelectCard w-80 h-12 text-stone-900 text-xl font-medium">
-                    Select a greeting card
-                </div>
-                <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-                    {options.map((option) => (
-                        <div key={option.cardId} className="flex items-center">
-                            <div
-                                id={option.cardId}
-                                onClick={() => handleOptionClick(option.cardId)}
-                            />
-                            <div
-                                className={`flex items-center cursor-pointer ${selectedGreetingCard === option.cardId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
-                                    }`}
-                            >
-                                <img
-                                    src={option.image}
-                                    alt={option.type}
-                                    className="w-21 h-18"
-                                    onClick={() => handleOptionClick(option.cardId)} // Handle click on the image
+            <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
+                <form onSubmit={handleSubmit}>
+                    <div className="SelectCard w-80 h-12 text-stone-900 text-xl font-medium">
+                        Select a greeting card
+                    </div>
+                    <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
+                        {options.map((option) => (
+                            <div key={option.cardId} className="flex items-center">
+                                <div
+                                    id={option.cardId}
+                                    onClick={() => handleOptionClick(option.cardId)}
                                 />
-                                <span className="sr-only">{option.type}</span>
+                                <div
+                                    className={`flex items-center cursor-pointer ${selectedGreetingCard === option.cardId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
+                                        }`}
+                                >
+                                    <img
+                                        src={option.image}
+                                        alt={option.type}
+                                        className="w-21 h-18"
+                                        onClick={() => handleOptionClick(option.cardId)} // Handle click on the image
+                                    />
+                                    <span className="sr-only">{option.type}</span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-                <div className="txtfield mt-8">
-                
-                    <label htmlFor="dropdown" className="text-stone-900 text-xl font-medium">
-                        Enter your message for greeting card
-                    </label>
-                    <input
-                        type="text"
-                        placeholder="Enter your message..."
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none mt-5"
-                        value={cardMessage} 
-                        onChange={handleMessageChange}
-                    /></div>
-                <div className="flex justify-end">
+                        ))}
+                    </div>
+                    <div className="txtfield mt-8">
 
-                    <button
-                        type="submit"
-                        className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-10 hover:bg-fuchsia-900"
-                       
-                    >
-                        Next
-                    </button>
-
-                   
-
-                </div>
-            </form>
-        </div>
+                        <label htmlFor="dropdown" className="text-stone-900 text-xl font-medium">
+                            Enter your message for greeting card
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter your message..."
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none mt-5"
+                            value={cardMessage}
+                            onChange={handleMessageChange}
+                        /></div>
+                    <div className="flex justify-end">
+                        <NextButton />
+                    </div>
+                </form>
+            </div>
         </GiftBoxProvider>
     );
 }

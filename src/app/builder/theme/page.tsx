@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GiftBoxProvider } from '@/context/giftBox';
+import NextButton from '@/components/gift-box/next-button';
 
 
 interface GiftBoxOption {
@@ -85,13 +86,9 @@ const GiftBoxSelection: React.FC = () => {
           ))}
         </div>
         <div className="flex justify-end">
-          <button
-            type="submit"
-            className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-10 hover:bg-fuchsia-900"
-          >
-            Next
-          </button>
+        <NextButton/>
         </div>
+        
       </form>
     </div>
     </GiftBoxProvider>
