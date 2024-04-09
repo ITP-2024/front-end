@@ -13,6 +13,13 @@ pnpm dev
 # or
 bun dev
 ```
+Commit changes & Push changes
+```bash
+git add .
+git commit -m "Commit message describing your changes"
+# and
+git push origin <branch-name>
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
