@@ -7,14 +7,14 @@ import Complain from "./OrderManagement/complain";
 
 //Harsha
 import IDashboard from "./InventoryManagement/dashboard";
-// import Products from "./InventoryManagement/products";
+import Products from "./InventoryManagement/products";
 // import LowInventories from "./InventoryManagement/lowInventories";
 
 export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <ODashboard />
+      <Products />
     </div>
   );
 };
