@@ -1,5 +1,5 @@
 'use client'
-import { ProductImageWrapper } from '@/components/gift-box/ProductImageWrapper';
+import { ProductImageWrapper } from '@/components/common/ProductImageWrapper';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
