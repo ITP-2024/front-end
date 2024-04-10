@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router"; // Import useRouter hook from Next.js
 
 // Define interfaces for Dropdown and Menu items
 interface DropDownItem {
@@ -22,14 +23,14 @@ const DropDown: React.FC = () => {
   // Define orders by menu
   const ordersByMenu: { [key: string]: DropDownItem[] } = {
     "Order Management": [
-      { title: "Dashboard", link: "/OrderManagement/dashboard" },
-      { title: "Orders", link: "/OrderManagement/orders" },
-      { title: "Complaints", link: "/OrderManagement/complian" },
+      { title: "Dashboard", link: "../OrderManagement/dashboard" },
+      { title: "Orders", link: "../OrderManagement/orders" },
+      { title: "Complaints", link: "../OrderManagement/complian" },
     ],
     "Inventory Management": [
-      { title: "Dashboard", link: "/InventoryManagement/dashboard" },
-      { title: "Products", link: "/InventoryManagement/products" },
-      { title: "Low Inventories", link: "/InventoryManagement/lowInventories" },
+      { title: "Dashboard", link: "../InventoryManagement/dashboard" },
+      { title: "Products", link: "../InventoryManagement/products" },
+      { title: "Low Inventories", link: "../InventoryManagement/lowInventories" },
     ],
     "Financial Management": [
       { title: "Accounting" },
@@ -42,17 +43,23 @@ const DropDown: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
   const [selectedOrderBy, setSelectedOrderBy] = useState<string | null>(null);
 
+  // const router = useRouter(); // Initialize useRouter hook inside the component
+
   // Handle menu click event
   const handleMenuClick = (title: string) => {
     setSelectedMenu(title === selectedMenu ? null : title);
     setSelectedOrderBy(null);
+    
   };
 
   // Handle order click event
   const handleOrderByClick = (title: string) => {
     setSelectedOrderBy(title === selectedOrderBy ? null : title);
+    // if (link) {
+    //   router.push(link); // Navigate to the specified link using router.push
+    // }
   };
-
+  
   // Render the component
   return (
     <div className="mt-[200px]">

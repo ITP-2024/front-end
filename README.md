@@ -14,13 +14,14 @@ pnpm dev
 bun dev
 ```
 Commit changes & Push changes
+
 ```bash
 git add .
 git commit -m "Commit message describing your changes"
 # and
 git push origin <branch-name>
 ```
-
+Folder structure
 
 ```bash
 src/
