@@ -18,6 +18,7 @@ const config: Config = {
         darkmagenta: "#871a99",
         white: "#fff",
         darkslategray: "#323c47",
+        shadeofpurple: "#C395D9",
         black: "#000",
         "checkbox-empty": "#d5d5d5"
       },
