@@ -2,6 +2,7 @@
 
 import React, { ChangeEvent, useState } from 'react';
 
+// Define the interface for the Product object
 interface Product {
     productId: string;
     category: string;
@@ -15,11 +16,12 @@ interface Product {
 }
 
 const AddProduct = () => {
+    // State variables to manage the form fields, success message, and error message
     const [product, setProduct] = useState<Product>({
         productId: '',
         category: 'astro', // Set default value
         name: '',
-        size: 'extra-small', // Set default value
+        size: 'non', // Set default value
         imageUrl: '',
         description: '',
         giftBoxProduct: 'true', // Set default value
@@ -30,13 +32,28 @@ const AddProduct = () => {
     const [successMessage, setSuccessMessage] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
+    // Handle change in form fields
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        const requiresSize = value.toLowerCase().includes('t-shirt');
-        const newSize = requiresSize ? 'extra-small' : product.size;
-        setProduct({ ...product, [name]: value, size: newSize });
-    };
+    const { name, value } = e.target;
+    let newSize = product.size; // Default size value
+    let newGiftBoxProduct = product.giftBoxProduct; // Default GiftBox Product value
 
+    // Check if the product name is 't-shirt'
+    if (name === 'name' && value.toLowerCase() === 't-shirt') {
+        // Set size to the current size if it's not 'non', otherwise set it to 'medium'
+        newSize = product.size !== 'non' ? product.size : 'medium';
+        newGiftBoxProduct = 'false'; // Set GiftBox Product to 'false'
+    } else {
+        // For other product names, set GiftBox Product to 'true'
+        newGiftBoxProduct = 'true';
+        // For other product names, set size to 'non'
+        newSize = 'non';
+    }
+
+    setProduct({ ...product, [name]: value, size: newSize, giftBoxProduct: newGiftBoxProduct });
+};
+
+    // Handle form submission
     const handleSubmit = async () => {
         // Basic form validation
         if (!product.name || !product.price || !product.quantity || !product.category || !product.imageUrl || !product.description || !product.giftBoxProduct) {
@@ -44,6 +61,7 @@ const AddProduct = () => {
             return;
         }
         try {
+            // Send a POST request to the server with the product data
             const response = await fetch('/api/products', {
                 method: 'POST',
                 headers: {
@@ -52,6 +70,7 @@ const AddProduct = () => {
                 body: JSON.stringify(product),
             });
             if (response.ok) {
+                // If the request is successful, display success message and reset form
                 setSuccessMessage('Product successfully created!');
                 setErrorMessage(''); // Reset error message
                 
@@ -59,7 +78,7 @@ const AddProduct = () => {
                     productId: '',
                     category: 'astro',
                     name: '',
-                    size: 'extra-small',
+                    size: 'non',
                     imageUrl: '',
                     description: '',
                     giftBoxProduct: 'true',
@@ -73,20 +92,41 @@ const AddProduct = () => {
                 setSuccessMessage(''); // Reset success message
             }
         } catch (error) {
+            // If an error occurs, log it and display a generic error message
             console.error('Error:', error);
             setErrorMessage('An error occurred while creating the product.');
             setSuccessMessage(''); // Reset success message
         }
     };
 
+    // Function to clear form fields
+    const clearForm = () => {
+        setProduct({
+            productId: '',
+            category: 'astro',
+            name: '',
+            size: 'non',
+            imageUrl: '',
+            description: '',
+            giftBoxProduct: 'true',
+            price: 0.0,
+            quantity: 0,
+        });
+    };
+
+    // Function to handle cancel button click
+    const handleCancel = () => {
+        clearForm(); // Clear form fields
+    };
+
   	return (
-        
+        // Form layout
         <div className="w-full relative [backdrop-filter:blur(2.5px)] h-[978px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
             <div className="flex flex-col items-center bg-shadeofpurple justify-center">
-                <form>
+                <form>{/* Form fields */}
                     <div className="w-[863px] h-[656px] flex flex-row items-center justify-center">
                         <div className="w-[863px] relative bg-shadeofpurple h-[656px]">
-
+                            {/* Product Id */}
                             <div className="absolute top-[2px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -102,7 +142,7 @@ const AddProduct = () => {
                                     type="text" name='productId' value={product.productId} onChange={handleChange} placeholder="P001"/>
                                 </div>
                             </div>
-
+                            {/* Category */}
                             <div className="absolute top-[75px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -119,12 +159,23 @@ const AddProduct = () => {
                                     <option value="astro">Astro</option>
                                     <option value="bts">BTS</option>
                                     <option value="txt">TXT</option>
-                                    <option value="nce">NCE</option>
+                                    <option value="nce">NCT</option>
                                     <option value="exo">EXO</option>
+                                    <option value="blackpink">Blackpink</option>
+                                    <option value="straykids">Straykids</option>
+                                    <option value="astro">Astro</option>
+                                    <option value="got7">GOT7</option>
+                                    <option value="twie">TWICE</option>
+                                    <option value="tresure">Tresure</option>
+                                    <option value="shinee">Shinee</option>
+                                    <option value="mosta-x">Mosta X</option>
+                                    <option value="red-velvet">Red velvet</option>
+                                    <option value="new-jeans">New Jeans</option>
+                                    <option value="seventeen">Seventeen</option>
                                     </select>
                                 </div>
                             </div>
-
+                            {/* Name */}
                             <div className="absolute top-[148px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -141,7 +192,7 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
-
+                            {/* Size */}
                             <div className="absolute top-[221px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -160,10 +211,11 @@ const AddProduct = () => {
                                     <option value="medium">Medium</option>
                                     <option value="large">Large</option>
                                     <option value="excel">Excel</option>
+                                    <option value="non">Non</option>
                                     </select>
                                 </div>
                             </div>
-
+                            {/* Image URL */}
                             <div className="absolute top-[294px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -176,11 +228,11 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="text" name='imageUrl' value={product.imageUrl} onChange={handleChange} placeholder="<dev><img src=example.image</dev>"
+                                    type="text" name='imageUrl' value={product.imageUrl} onChange={handleChange} placeholder="https://i.ibb.co/s10903s/celine-white.png"
                                     />
                                 </div>
                             </div>
-
+                            {/* Description */}
                             <div className="absolute top-[367px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -197,7 +249,7 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
-
+                            {/* GiftBox Product */}
                             <div className="absolute top-[440px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -216,7 +268,7 @@ const AddProduct = () => {
                                     </select>
                                 </div>
                             </div>
-
+                            {/* Price */}
                             <div className="absolute top-[513px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -233,7 +285,7 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
-
+                            {/* Quantity */}
                             <div className="absolute top-[586px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -253,13 +305,13 @@ const AddProduct = () => {
                         </div>
                     </div>
                 </form>
-                
+                {/* Success and error messages */}
                 {successMessage && <div className="success-message">{successMessage}</div>}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
-
+                {/* Save and cancel buttons */}
                 <div className="w-[863px] h-[68px] flex flex-row items-center justify-center text-white">
                     <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5">
-                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta">
+                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
                             <div className="relative font-semibold">Cancel</div>
                         </button>
                     </div>

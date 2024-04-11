@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <LowInventories />
+      <AddProduct />
     </div>
   );
 };
