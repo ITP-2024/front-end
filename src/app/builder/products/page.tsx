@@ -1,9 +1,9 @@
 'use client'
-import { ProductImageWrapper } from '@/components/common/ProductImageWrapper';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import NextButton from '@/components/gift-box/next-button';
+import ProductItem from '@/components/common/product-item';
 
 interface Product {
     productID: string;
@@ -16,6 +16,7 @@ interface Product {
     sizes: { size: string; quantity: number }[];
     giftBoxProduct: boolean;
 }
+
 
 const GiftBoxProducts: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -32,53 +33,54 @@ const GiftBoxProducts: React.FC = () => {
             .catch(error => {
                 console.error('Error fetching gift box products:', error);
             });
+
+            const storedSelectedProducts = localStorage.getItem('selectedProducts');
+        if (storedSelectedProducts) {
+            setSelectedProducts(JSON.parse(storedSelectedProducts));
+        }
     }, []);
 
-    const addToGiftBox = (product: Product) => {
+    /*const addToCart = (product: Product) => {
         setSelectedProducts(prevCart => [...prevCart, product]);
         console.log(selectedProducts);
+    };*/
+
+    const addToGiftBox = (product: Product) => {
+        setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, product]);
     };
 
-    
-    const handleClick = () => {
-        router.push('/builder/giftbox');
+    const handleClick = (product: Product) => {
+        const index = selectedProducts.findIndex(p => p.productID === product.productID);
+        if (index === -1) {
+            addToGiftBox(product);
+        } else {
+            const updatedProducts = [...selectedProducts];
+            updatedProducts.splice(index, 1);
+            setSelectedProducts(updatedProducts);
+        }
     };
-
     return (
-        <div >
+        <div>
             <section className="mx-auto max-w-7xl pb-16">
                 <ul className="flex flex-wrap">
                     {products.map((product) => (
-                        <li key={product.productID} className="p-4 flex-shrink-0 w-1/3">
-                            <div className="flex flex-col">
-                                <ProductImageWrapper
-                                    src={product.image}
-                                    alt={product.name}
-                                    width={350}
-                                    height={250}
-                                />
-                                <h3>{product.name}</h3>
-                                <h3>Rs.{product.price}</h3>
-                                <button
-                                    type="submit"
-                                    className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-2 hover:bg-fuchsia-900"
-                                    onClick={() => addToGiftBox(product)}
-                                >
-                                    Add to Gift Box
-                                </button>
-                            </div>
-                        </li>
+                        
+                        <ProductItem 
+                        
+                            key={product.productID} 
+                            product={product} 
+                            action={'Add to Gift Box'} 
+                            handleClick={handleClick} 
+                            
+                        />
                     ))}
                 </ul>
             </section>
             <div className="flex justify-end">
-            <NextButton />
+                <NextButton />
             </div>
         </div>
-
     );
-
-
 };
 
 export default GiftBoxProducts;

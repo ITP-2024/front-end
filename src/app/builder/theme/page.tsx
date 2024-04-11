@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GiftBoxProvider } from '@/context/giftBox';
 import NextButton from '@/components/gift-box/next-button';
-
+import GiftBoxOption from '@/components/gift-box/giftbox-themes';
 
 interface GiftBoxOption {
   boxColorId: string;
@@ -15,7 +15,7 @@ interface GiftBoxOption {
 }
 
 const GiftBoxSelection: React.FC = () => {
-  const [Options, setOptions] = useState<GiftBoxOption[]>([]);
+  const [options, setOptions] = useState<GiftBoxOption[]>([]);
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const router = useRouter();
 
@@ -24,24 +24,28 @@ const GiftBoxSelection: React.FC = () => {
     axios.get<GiftBoxOption[]>('http://localhost:8080/giftBoxColor')
       .then(response => {
         console.log(response);
-        
         setOptions(response.data);
       })
       .catch(error => {
         console.error('Error fetching gift box options:', error);
       });
+
+    const storedTheme = localStorage.getItem('setSelectedTheme');
+    if (storedTheme) {
+      setSelectedTheme(storedTheme);
+    }
   }, []);
 
   const handleOptionClick = (optionId: string) => {
     setSelectedTheme(optionId);
+    localStorage.setItem('setSelectedTheme', optionId);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (selectedTheme) {
-      console.log("Theme:",selectedTheme);
-      router.push('/builder/card');
-      
+      console.log("Theme:", selectedTheme);
+      router.push(`/builder/card?theme=${selectedTheme}`);
     } else {
       toast.error('Please select a gift box color');
     }
@@ -49,51 +53,30 @@ const GiftBoxSelection: React.FC = () => {
 
   return (
     <GiftBoxProvider>
-    <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-      <form onSubmit={handleSubmit}>
-        <div className="SelectYourGiftBoxColor w-80 h-12 text-stone-900 text-xl font-medium">
-          Select your gift box color
-        </div>
-        <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-          {Options.map((option) => (
-            <div key={option.boxColorId} className="flex items-center">
-              <div
-                id={option.boxColorId}
-                // name="options"
-                // value={option.color}
-                // checked={selectedOption === option.BoxColorId}
-                onClick={() => handleOptionClick(option.boxColorId)}
-                // required
-                // style={{ display: 'none' }} // Hide the actual radio button
-              >
-              <div
-                // htmlFor={option.BoxColorId}
-                className={`flex items-center cursor-pointer ${
-                  selectedTheme === option.boxColorId ? 'border border-fuchsia-800 rounded-lg p-1' : ''
-                }`}
-              >
-                <img
-                  src={option.image}
-                  alt={option.color}
-                  className="w-21 h-18"
-                  onClick={() => handleOptionClick(option.boxColorId)} // Handle click on the image
-                />
-                <span className="sr-only">{option.color}</span>
-              </div>
-            </div>
-            </div>
-
-          ))}
-        </div>
-        <div className="flex justify-end">
-        <NextButton/>
-        </div>
-        
-      </form>
-    </div>
+      <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
+        <form onSubmit={handleSubmit}>
+          <div className="SelectYourGiftBoxColor w-80 h-12 text-stone-900 text-xl font-medium">
+            Select your gift box color {selectedTheme}
+          </div>
+          <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
+            {options.map((option) => (
+              <GiftBoxOption
+                key={option.boxColorId}
+                boxColorId={option.boxColorId}
+                color={option.color}
+                image={option.image}
+                selectedTheme={selectedTheme}
+                handleOptionClick={handleOptionClick}
+              />
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <NextButton />
+          </div>
+        </form>
+      </div>
     </GiftBoxProvider>
   );
 };
-
 
 export default GiftBoxSelection;
