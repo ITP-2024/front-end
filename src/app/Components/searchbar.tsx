@@ -1,10 +1,12 @@
 import React, { FormEvent, useState } from "react";
 import { CgSearch } from "react-icons/cg";
 
-interface CartProps {
+interface SearchBarProps {
   title: string;
+  onSearch: (query: string) => void;
 }
-const SearchBar: React.FC<CartProps> = ({ title }) => {
+
+const SearchBar: React.FC<SearchBarProps> = ({ title, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -14,8 +16,9 @@ const SearchBar: React.FC<CartProps> = ({ title }) => {
       return;
     }
 
-    console.log("Perform search:", searchQuery);
+    onSearch(searchQuery);
   };
+
   return (
     <form className=" w-[350px] relative" onSubmit={handleSubmit}>
       <div className="relative">
