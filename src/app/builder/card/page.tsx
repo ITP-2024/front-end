@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { GiftBoxProvider } from '@/context/giftBox';
-import NextButton from '@/components/gift-box/next-button';
+import Button from '@/components/gift-box/button';
 import GreetingCardOption from '@/components/gift-box/giftbox-card';
 import MessageInput from '@/components/gift-box/giftbox-msg';
 
@@ -62,7 +62,7 @@ export default function Page() {
         router.push('/builder/products');
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = () => {
         event.preventDefault();
         router.push('/builder/products');
         console.log("Message:", cardMessage);
@@ -91,7 +91,7 @@ export default function Page() {
                     </div>
                     <MessageInput value={cardMessage} onChange={handleMessageChange} />
                     <div className="flex justify-end">
-                        <NextButton />
+                        <Button label="Next" onClick={handleSubmit}/>
                     </div>
                 </form>
             </div>

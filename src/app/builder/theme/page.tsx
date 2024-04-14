@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GiftBoxProvider } from '@/context/giftBox';
-import NextButton from '@/components/gift-box/next-button';
+import Button from '@/components/gift-box/button';
 import GiftBoxOption from '@/components/gift-box/giftbox-themes';
 
 interface GiftBoxOption {
@@ -41,22 +41,22 @@ const GiftBoxSelection: React.FC = () => {
     localStorage.setItem('setSelectedTheme', optionId);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     if (selectedTheme) {
       console.log("Theme:", selectedTheme);
-      router.push(`/builder/card?theme=${selectedTheme}`);
+      router.push('/builder/card');
     } else {
       toast.error('Please select a gift box color');
     }
   };
 
+
   return (
     <GiftBoxProvider>
       <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="SelectYourGiftBoxColor w-80 h-12 text-stone-900 text-xl font-medium">
-            Select your gift box color {selectedTheme}
+            Select your gift box color
           </div>
           <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
             {options.map((option) => (
@@ -71,7 +71,7 @@ const GiftBoxSelection: React.FC = () => {
             ))}
           </div>
           <div className="flex justify-end">
-            <NextButton />
+          <Button label="Next" onClick={handleSubmit}/>
           </div>
         </form>
       </div>
