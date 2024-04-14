@@ -104,7 +104,12 @@ const Complain: React.FC = () => {
             value={pendingCount.toString()}
           />
         </div>
-        <div className="flex flex-col gap-4 mt-[50px] mr-[20px] ">
+        <div className="flex justify-end">
+          <button className="bg-purple-400 hover:bg-fuchsia-800 text-black font-bold py-2 px-4 mt-[25px] mr-[20px] rounded">
+            Update Status
+          </button>
+        </div>
+        <div className="flex flex-col gap-4 mt-[10px] mr-[20px] ">
           <div className="max-h-[350px] overflow-y-auto">
             <table className="w-full table-auto ">
               <thead>

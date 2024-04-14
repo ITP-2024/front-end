@@ -66,6 +66,16 @@ const Dashboard = () => {
           title={"Complains"}
           value={"04"}
         />
+        <button className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4 rounded flex items-center">
+          <svg
+            className="fill-current w-4 h-4 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+          </svg>
+          <span>Download Report</span>
+        </button>
       </div>
       <div className="ml-[330px] mr-[20px] mt-[30px]">
         <BarChart />

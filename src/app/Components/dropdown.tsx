@@ -17,9 +17,9 @@ const DropDown: React.FC = () => {
 
   const ordersByMenu: { [key: string]: DropDown[] } = {
     "Order Management": [
-      { title: "Dashboard", link: "/dashboard" },
-      { title: "Orders", link: "/orders" },
-      { title: "Complaints", link: "/complian" },
+      { title: "Dashboard", link: "/Dashboard" },
+      { title: "Orders", link: "/Order" },
+      { title: "Complains", link: "/Complian" },
     ],
     "Inventory Management": [
       { title: "Stock Management" },
