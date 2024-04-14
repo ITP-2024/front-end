@@ -1,8 +1,10 @@
 import Card from "../Components/card";
 import BarChart from "../Components/barChart";
+import Navbar from "../Components/navbar";
 const Dashboard = () => {
   return (
     <div>
+      <Navbar />
       <div className="ml-[330px] flex justify-start mt-[70px] gap-4">
         <Card
           icon={
