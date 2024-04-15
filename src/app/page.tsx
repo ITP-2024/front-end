@@ -11,11 +11,13 @@ import Products from "./InventoryManagement/products";
 import LowInventories from "./InventoryManagement/lowInventories";
 import AddProduct from "./InventoryManagement/addProduct";
 
+import TestProduct from "./InventoryManagement/testProduct";
+
 export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <Products/>
+      <TestProduct/>
     </div>
   );
 };

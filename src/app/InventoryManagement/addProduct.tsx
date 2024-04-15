@@ -179,7 +179,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="text" name='productId' value={product.productId} onChange={handleChange} placeholder="P001"/>
+                                        type="text" name='productId' value={product.productId} onChange={handleChange} placeholder="P001"style={{backgroundColor: 'transparent'}}/>
                                 </div>
                             </div>
                             {/* Category */}
@@ -195,7 +195,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                        name="category" value={product.category.name} onChange={handleChange}>
+                                        name="category" value={product.category.name} onChange={handleChange} style={{backgroundColor: 'transparent'}}>
                                         <option value="Astro">Astro</option>
                                         <option value="BTS">BTS</option>
                                         <option value="TXT">TXT</option>
@@ -227,7 +227,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="text" name='name' value={product.name} onChange={handleChange} placeholder="Bag"
+                                        type="text" name='name' value={product.name} onChange={handleChange} placeholder="Bag" style={{backgroundColor: 'transparent'}}
                                     />
                                 </div>
                             </div>
@@ -244,7 +244,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                        name="size" value={product.size.name} onChange={handleChange}>
+                                        name="size" value={product.size.name} onChange={handleChange} style={{backgroundColor: 'transparent'}}>
                                         <option value="Extra Small">Extra Small</option>
                                         <option value="Small">Small</option>
                                         <option value="Medium">Medium</option>
@@ -267,7 +267,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="text" name='imageUrl' value={product.imageUrl} onChange={handleChange} placeholder="https://i.ibb.co/s10903s/celine-white.png"
+                                        type="text" name='imageUrl' value={product.imageUrl} onChange={handleChange} placeholder="https://i.ibb.co/s10903s/celine-white.png" style={{backgroundColor: 'transparent'}}
                                     />
                                 </div>
                             </div>
@@ -284,7 +284,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <textarea className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name='description' value={product.description} onChange={handleChange}  placeholder="example description"
+                                        name='description' value={product.description} onChange={handleChange}  placeholder="example description" style={{backgroundColor: 'transparent'}}
                                     />
                                 </div>
                             </div>
@@ -301,7 +301,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                        name='giftBoxProduct' value={product.giftBoxProduct.toString()} onChange={handleChange}>
+                                        name='giftBoxProduct' value={product.giftBoxProduct.toString()} onChange={handleChange} style={{backgroundColor: 'transparent'}}>
                                         <option value="true">True</option>
                                         <option value="false">False</option>
                                     </select>
@@ -320,7 +320,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="number" step="0.01" min="1" name='price' value={product.price} onChange={handleChange} placeholder="2990.85"
+                                        type="number" step="0.01" min="1" name='price' value={product.price} onChange={handleChange} placeholder="2990.85" style={{backgroundColor: 'transparent'}}
                                     />
                                 </div>
                             </div>
@@ -337,7 +337,7 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="number" min="1" name='quantity' value={product.quantity} onChange={handleChange} placeholder="26"
+                                        type="number" min="1" name='quantity' value={product.quantity} onChange={handleChange} placeholder="26" style={{backgroundColor: 'transparent'}}
                                     />
                                 </div>
                             </div>
