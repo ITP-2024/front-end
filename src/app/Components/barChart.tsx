@@ -60,7 +60,7 @@ const BarChart: React.FC = () => {
         {
           label: "Orders",
           data: [18, 221, 490, 138, 282, 342, 575],
-          backgroundColor: "#9f3bff",
+          backgroundColor: "#871a99",
         },
       ],
     });

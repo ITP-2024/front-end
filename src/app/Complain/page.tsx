@@ -9,7 +9,7 @@ import { IoNotifications } from "react-icons/io5";
 
 const Complain: React.FC = () => {
   interface TableData {
-    id: number;
+    ComplainId: number;
     orderId: string;
     customerMail: string;
     complainType: string;
@@ -90,6 +90,7 @@ const Complain: React.FC = () => {
             Assign Complain
           </button>
         </div>
+
         <div className="flex flex-col gap-4 mt-[10px] mr-[20px] ">
           <div className="max-h-[350px] overflow-y-auto">
             <table className="w-full table-auto ">
