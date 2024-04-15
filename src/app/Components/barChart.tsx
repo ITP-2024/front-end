@@ -59,7 +59,7 @@ const BarChart: React.FC = () => {
       datasets: [
         {
           label: "Orders",
-          data: [181, 221, 490, 138, 282, 342, 575],
+          data: [18, 221, 490, 138, 282, 342, 575],
           backgroundColor: "#9f3bff",
         },
       ],
@@ -67,7 +67,7 @@ const BarChart: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white">
+    <div className="w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg ">
       <Bar data={chartData} options={chartOptions} />
     </div>
   );

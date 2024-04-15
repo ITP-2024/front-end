@@ -1,9 +1,8 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import Card from "../Components/card";
 import Navbar from "../Components/navbar";
-import SearchBar from "../Components/searchbar";
+import UpdateForm from "../Components/updateForm";
+
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
@@ -18,10 +17,10 @@ const Complain: React.FC = () => {
     complainDetails: string;
   }
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [tableData, setTableData] = useState<TableData[]>([]);
   const [count, setCount] = useState<number>(4);
   const [pendingCount, setPendingCount] = useState<number>(0);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     fetchTableData();
@@ -58,40 +57,16 @@ const Complain: React.FC = () => {
     }
   };
 
-  const filteredData = tableData.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        typeof value === "string" &&
-        value.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
+  const toggleForm = () => {
+    setShowForm((prevState) => !prevState);
+  };
 
   return (
     <div>
       <Navbar />
-      <div className="ml-[320px]">
-        <div className=" mt-[30px] mt-[90px]">
-          <SearchBar
-            title="Search "
-            onSearch={function (query: string): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
-          <div className="text-[36px] pr-9 grid justify-end">
-            <svg
-              stroke="#871a99"
-              fill="#871a99"
-              stroke-width="0"
-              viewBox="0 0 512 512"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M440.08 341.31c-1.66-2-3.29-4-4.89-5.93-22-26.61-35.31-42.67-35.31-118 0-39-9.33-71-27.72-95-13.56-17.73-31.89-31.18-56.05-41.12a3 3 0 0 1-.82-.67C306.6 51.49 282.82 32 256 32s-50.59 19.49-59.28 48.56a3.13 3.13 0 0 1-.81.65c-56.38 23.21-83.78 67.74-83.78 136.14 0 75.36-13.29 91.42-35.31 118-1.6 1.93-3.23 3.89-4.89 5.93a35.16 35.16 0 0 0-4.65 37.62c6.17 13 19.32 21.07 34.33 21.07H410.5c14.94 0 28-8.06 34.19-21a35.17 35.17 0 0 0-4.61-37.66zM256 480a80.06 80.06 0 0 0 70.44-42.13 4 4 0 0 0-3.54-5.87H189.12a4 4 0 0 0-3.55 5.87A80.06 80.06 0 0 0 256 480z"></path>
-            </svg>
-          </div>
-        </div>
-
+      <div
+        className={`ml-[320px] mt-[90px] ${showForm ? "filter blur-sm" : ""}`}
+      >
         <div className="flex justify-start mt-[20px] gap-4">
           <Card
             icon={<MdCloudDone />}
@@ -105,8 +80,14 @@ const Complain: React.FC = () => {
           />
         </div>
         <div className="flex justify-end">
-          <button className="bg-purple-400 hover:bg-fuchsia-800 text-black font-bold py-2 px-4 mt-[25px] mr-[20px] rounded">
+          <button
+            onClick={toggleForm}
+            className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4 mt-[25px] mr-[20px] rounded"
+          >
             Update Status
+          </button>
+          <button className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4 mt-[25px] mr-[20px] rounded">
+            Assign Complain
           </button>
         </div>
         <div className="flex flex-col gap-4 mt-[10px] mr-[20px] ">
@@ -129,19 +110,14 @@ const Complain: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredData.map((item, index) => (
-                  <tr
-                    key={index}
-                    className="h-12 text-center bg-zinc-300 text-black"
-                  >
-                    <td>{item.id}</td>
-                    <td>{item.orderId}</td>
-                    <td>{item.customerMail}</td>
-                    <td>{item.complainType}</td>
-                    <td>{item.complainStatus}</td>
-                    <td>{item.complainDetails}</td>
-                  </tr>
-                ))}
+                <tr className="h-12 text-center bg-zinc-300 text-black">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -150,6 +126,11 @@ const Complain: React.FC = () => {
           <IoNotifications />
         </button>
       </div>
+      {showForm && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <UpdateForm />
+        </div>
+      )}
     </div>
   );
 };
