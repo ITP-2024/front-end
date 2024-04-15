@@ -58,19 +58,6 @@ return (
                 {/* Mapping through the fetched products and displaying product details */}
                 {products.map((product, index) => (
                     <div key={index} className="flex flex-col items-end justify-start gap-[8px]">
-                        {/* Checkbox column */}
-                        <div className="w-[65px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
-                            <div className="self-stretch rounded-tl-3xs rounded-tr-none rounded-b-none bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                                <div className="w-[18px] relative rounded bg-thistle  h-[18px] border-[1px] border-solid border-black">
-                                    <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                                </div>
-                            </div>
-                            <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                                <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                                    <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                                </div>
-                            </div>
-                        </div>
 
                         {/* Product ID column */}
                         <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
@@ -89,7 +76,7 @@ return (
                                 <b className="relative tracking-[0.01em]">Product</b>
                             </div>
                             <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-start p-2.5 gap-[10px]">
-                                <img className="w-6 relative h-6 object-cover" alt="" src="Photo_kpopShop.png" />
+                                <img className="w-6 relative h-6 object-cover" alt="" src={product.imageUrl} />
                                 <div className="relative tracking-[0.01em]">{product.name}</div>
                             </div>
                         </div>
@@ -155,8 +142,8 @@ return (
                                 <b className="relative tracking-[0.01em]">Action</b>
                             </div>
                             <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center p-2.5 gap-[10px]">
-                            <button onClick={() => handleEdit(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="clarity:note-edit-solid.svg" /></button>
-                            <button onClick={() => handleDelete(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="ic:baseline-delete-forever.svg" /></button>
+                            <button onClick={() => handleEdit(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="" /></button>
+                            <button onClick={() => handleDelete(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="" /></button>
                         </div>
                         </div>
 

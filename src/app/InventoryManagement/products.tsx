@@ -35,55 +35,6 @@ const Products: FC = () => {
 
             <div className="relative w-full flex flex-row items-start justify-center p-2.5  text-left text-smi text-darkslategray">
                 {/* Section for displaying product details */}
-                <div className="w-[65px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
-                    {/* Checkbox column */}
-                    {/* (Each checkbox here seems to represent a product) */}
-                    <div className="self-stretch rounded-tl-3xs rounded-tr-none rounded-b-none bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded bg-thistle  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                    <div className="self-stretch rounded-t-none rounded-br-none rounded-bl-3xs bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
-                        </div>
-                    </div>
-                </div>
 
                 <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     {/* product Id column */}
