@@ -82,11 +82,9 @@ const Products: FC = () => {
                         </div>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5">
-                        <div className="w-[18px] relative rounded  h-[18px] border-[1px] border-solid border-black">
-                            <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5">
+                            <input type="checkbox" value={product.id} className="w-[18px] h-[18px] rounded border-[1px] border-solid border-black appearance-none checked:bg-darkmagenta checked:border-transparent" />
                         </div>
-                    </div>
                     ))}
                 </div>
 
@@ -182,8 +180,8 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                     <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center p-2.5 gap-[10px]">
-                        <button onClick={() => handleEdit(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="" /></button>
-                        <button onClick={() => handleDelete(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="" /></button>
+                        <button onClick={() => handleEdit(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="Edit" src="https://i.ibb.co/bJf0SfB/edit.png"/></button>
+                        <button onClick={() => handleDelete(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="Delete" src="https://i.ibb.co/cNX07t0/delete.png"/></button>
                     </div>
                     ))}
                 </div> 
