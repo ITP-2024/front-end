@@ -2,27 +2,37 @@
 
 import React, { ChangeEvent, useState } from 'react';
 
+interface Size {
+    id: string;
+    name: string;
+}
+
+interface Category {
+    id: string;
+    name: string;
+}
 interface Product {
     productId: string;
-    category: string;
+    category: Category;
     name: string;
-    size: string;
+    size: Size;
     imageUrl: string;
     description: string;
-    giftBoxProduct: string;
+    giftBoxProduct: boolean;
     price: number;
     quantity: number;
 }
 
 const AddProduct = () => {
+    // State variables to manage the form fields, success message, and error message
     const [product, setProduct] = useState<Product>({
         productId: '',
-        category: 'astro', // Set default value
+        category: { id: '66184676a1911b830d7893c0', name: 'Astro' }, // Set default value
         name: '',
-        size: 'extra-small', // Set default value
+        size: { id: '6618459ea1911b830d78279e', name: 'Non' }, // Set default value
         imageUrl: '',
         description: '',
-        giftBoxProduct: 'true', // Set default value
+        giftBoxProduct: true, // Set default value
         price: 0.0, // Set default value 
         quantity: 0, // Set default value
     });
@@ -30,13 +40,60 @@ const AddProduct = () => {
     const [successMessage, setSuccessMessage] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        const requiresSize = value.toLowerCase().includes('t-shirt');
-        const newSize = requiresSize ? 'extra-small' : product.size;
-        setProduct({ ...product, [name]: value, size: newSize });
+    // Mapping of category names to IDs
+    const categoryMap: { [key: string]: string } = {
+        "Astro": "66184676a1911b830d7893c0",
+        "BTS": "66184676a1911b830d7893c1",
+        "TXT": "66184676a1911b830d7893c2",
+        "NCT": "66184676a1911b830d7893c3",
+        "EXO": "66184676a1911b830d7893c4",
+        "Blackpink": "66184676a1911b830d7893c5",
+        "Stray Kids": "66184676a1911b830d7893c6",
+        "GOT7": "66184676a1911b830d7893c7",
+        "TWICE": "66184676a1911b830d7893c8",
+        "Treasure": "66184676a1911b830d7893c9",
+        "Shinee": "66184676a1911b830d7893ca",
+        "Monsta X": "66184676a1911b830d7893cb",
+        "Red Velvet": "66184676a1911b830d7893cc",
+        "New Jeans": "66184676a1911b830d7893cd",
+        "Seventeen": "66184676a1911b830d7893ce",
     };
 
+    // Mapping of size names to IDs
+    const sizeMap: { [key: string]: string } = {
+        "Extra Small": "6618459ea1911b830d782799",
+        "Small": "6618459ea1911b830d78279a",
+        "Medium": "6618459ea1911b830d78279b",
+        "Large": "6618459ea1911b830d78279c",
+        "Extra Large": "6618459ea1911b830d78279d",
+        "Non": "6618459ea1911b830d78279e",
+    };
+
+    // Handle change in form fields
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+
+        if (name === 'category') {
+            // If the user is selecting a category, map the selected name to its corresponding ID
+            const categoryId = categoryMap[value];
+            setProduct({ ...product, [name]: { id: categoryId, name: value } });
+        } else if (name === 'size') {
+            // If the user is selecting a size, map the selected name to its corresponding ID
+            const sizeId = sizeMap[value];
+            setProduct({ ...product, [name]: { id: sizeId, name: value } });
+        } else if (name === 'price') {
+            // For price, parse the value to a floating-point number before setting it
+            setProduct({ ...product, [name]: parseFloat(value) });
+        } else if (name === 'quantity') {
+            // For quantity, parse the value to an integer before setting it
+            setProduct({ ...product, [name]: parseInt(value, 10) });
+        } else {
+            // For other fields, simply update the value
+            setProduct({ ...product, [name]: value });
+        }
+    };
+
+    // Handle form submission
     const handleSubmit = async () => {
         // Basic form validation
         if (!product.name || !product.price || !product.quantity || !product.category || !product.imageUrl || !product.description || !product.giftBoxProduct) {
@@ -44,6 +101,7 @@ const AddProduct = () => {
             return;
         }
         try {
+            // Send a POST request to the server with the product data
             const response = await fetch('/api/products', {
                 method: 'POST',
                 headers: {
@@ -52,17 +110,18 @@ const AddProduct = () => {
                 body: JSON.stringify(product),
             });
             if (response.ok) {
+                // If the request is successful, display success message and reset form
                 setSuccessMessage('Product successfully created!');
                 setErrorMessage(''); // Reset error message
                 
                 setProduct({
                     productId: '',
-                    category: 'astro',
+                    category: { id: '66184676a1911b830d7893c0', name: 'Astro' },
                     name: '',
-                    size: 'extra-small',
+                    size: { id: '6618459ea1911b830d78279e', name: 'Non' },
                     imageUrl: '',
                     description: '',
-                    giftBoxProduct: 'true',
+                    giftBoxProduct: true,
                     price: 0.0,
                     quantity: 0,
                 });
@@ -73,20 +132,41 @@ const AddProduct = () => {
                 setSuccessMessage(''); // Reset success message
             }
         } catch (error) {
+            // If an error occurs, log it and display a generic error message
             console.error('Error:', error);
             setErrorMessage('An error occurred while creating the product.');
             setSuccessMessage(''); // Reset success message
         }
     };
 
+    // Function to clear form fields
+    const clearForm = () => {
+        setProduct({
+            productId: '',
+            category: { id: '66184676a1911b830d7893c0', name: 'Astro' },
+            name: '',
+            size: { id: '6618459ea1911b830d78279e', name: 'Non' },
+            imageUrl: '',
+            description: '',
+            giftBoxProduct: true,
+            price: 0.0,
+            quantity: 0,
+        });
+    };
+
+    // Function to handle cancel button click
+    const handleCancel = () => {
+        clearForm(); // Clear form fields
+    };
+
   	return (
-        
+        // Form layout
         <div className="w-full relative [backdrop-filter:blur(2.5px)] h-[978px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
             <div className="flex flex-col items-center bg-shadeofpurple justify-center">
-                <form>
+                <form>{/* Form fields */}
                     <div className="w-[863px] h-[656px] flex flex-row items-center justify-center">
                         <div className="w-[863px] relative bg-shadeofpurple h-[656px]">
-
+                            {/* Product Id */}
                             <div className="absolute top-[2px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -102,7 +182,7 @@ const AddProduct = () => {
                                     type="text" name='productId' value={product.productId} onChange={handleChange} placeholder="P001"/>
                                 </div>
                             </div>
-
+                            {/* Category */}
                             <div className="absolute top-[75px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -115,16 +195,26 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name="category" value={product.category} onChange={handleChange}>
-                                    <option value="astro">Astro</option>
-                                    <option value="bts">BTS</option>
-                                    <option value="txt">TXT</option>
-                                    <option value="nce">NCE</option>
-                                    <option value="exo">EXO</option>
+                                        name="category" value={product.category.name} onChange={handleChange}>
+                                        <option value="Astro">Astro</option>
+                                        <option value="BTS">BTS</option>
+                                        <option value="TXT">TXT</option>
+                                        <option value="NCT">NCT</option>
+                                        <option value="EXO">EXO</option>
+                                        <option value="Blackpink">Blackpink</option>
+                                        <option value="Stray Kids">Straykids</option>
+                                        <option value="GOT7">GOT7</option>
+                                        <option value="TWICE">TWICE</option>
+                                        <option value="Treasure">Tresure</option>
+                                        <option value="Shinee">Shinee</option>
+                                        <option value="Monsta X">Mosta X</option>
+                                        <option value="Red Velvet">Red velvet</option>
+                                        <option value="New Jeans">New Jeans</option>
+                                        <option value="Seventeen">Seventeen</option>
                                     </select>
                                 </div>
                             </div>
-
+                            {/* Name */}
                             <div className="absolute top-[148px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -141,7 +231,7 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
-
+                            {/* Size */}
                             <div className="absolute top-[221px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -154,16 +244,17 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name="size" value={product.size} onChange={handleChange}>
-                                    <option value="extra-small">Extra Small</option>
-                                    <option value="small">Small</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="large">Large</option>
-                                    <option value="excel">Excel</option>
+                                        name="size" value={product.size.name} onChange={handleChange}>
+                                        <option value="Extra Small">Extra Small</option>
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
+                                        <option value="Extra Large">Extra Large</option>
+                                        <option value="Non">Non</option>
                                     </select>
                                 </div>
                             </div>
-
+                            {/* Image URL */}
                             <div className="absolute top-[294px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -176,11 +267,11 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <input className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    type="text" name='imageUrl' value={product.imageUrl} onChange={handleChange} placeholder="<dev><img src=example.image</dev>"
+                                    type="text" name='imageUrl' value={product.imageUrl} onChange={handleChange} placeholder="https://i.ibb.co/s10903s/celine-white.png"
                                     />
                                 </div>
                             </div>
-
+                            {/* Description */}
                             <div className="absolute top-[367px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -197,7 +288,7 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
-
+                            {/* GiftBox Product */}
                             <div className="absolute top-[440px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -210,13 +301,13 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name='giftBoxProduct' value={product.giftBoxProduct} onChange={handleChange}>
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
+                                        name='giftBoxProduct' value={product.giftBoxProduct.toString()} onChange={handleChange}>
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
                                     </select>
                                 </div>
                             </div>
-
+                            {/* Price */}
                             <div className="absolute top-[513px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -233,7 +324,7 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
-
+                            {/* Quantity */}
                             <div className="absolute top-[586px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
                                     <div className="flex flex-col items-start justify-start p-2.5 z-[0]">
@@ -253,13 +344,13 @@ const AddProduct = () => {
                         </div>
                     </div>
                 </form>
-                
+                {/* Success and error messages */}
                 {successMessage && <div className="success-message">{successMessage}</div>}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
-
+                {/* Save and cancel buttons */}
                 <div className="w-[863px] h-[68px] flex flex-row items-center justify-center text-white">
                     <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5">
-                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta">
+                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
                             <div className="relative font-semibold">Cancel</div>
                         </button>
                     </div>
