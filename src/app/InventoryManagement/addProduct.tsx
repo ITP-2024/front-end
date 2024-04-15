@@ -2,15 +2,23 @@
 
 import React, { ChangeEvent, useState } from 'react';
 
-// Define the interface for the Product object
+interface Size {
+    id: string;
+    name: string;
+}
+
+interface Category {
+    id: string;
+    name: string;
+}
 interface Product {
     productId: string;
-    category: string;
+    category: Category;
     name: string;
-    size: string;
+    size: Size;
     imageUrl: string;
     description: string;
-    giftBoxProduct: string;
+    giftBoxProduct: boolean;
     price: number;
     quantity: number;
 }
@@ -19,12 +27,12 @@ const AddProduct = () => {
     // State variables to manage the form fields, success message, and error message
     const [product, setProduct] = useState<Product>({
         productId: '',
-        category: 'astro', // Set default value
+        category: { id: '66184676a1911b830d7893c0', name: 'Astro' }, // Set default value
         name: '',
-        size: 'non', // Set default value
+        size: { id: '6618459ea1911b830d78279e', name: 'Non' }, // Set default value
         imageUrl: '',
         description: '',
-        giftBoxProduct: 'true', // Set default value
+        giftBoxProduct: true, // Set default value
         price: 0.0, // Set default value 
         quantity: 0, // Set default value
     });
@@ -32,26 +40,58 @@ const AddProduct = () => {
     const [successMessage, setSuccessMessage] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
+    // Mapping of category names to IDs
+    const categoryMap: { [key: string]: string } = {
+        "Astro": "66184676a1911b830d7893c0",
+        "BTS": "66184676a1911b830d7893c1",
+        "TXT": "66184676a1911b830d7893c2",
+        "NCT": "66184676a1911b830d7893c3",
+        "EXO": "66184676a1911b830d7893c4",
+        "Blackpink": "66184676a1911b830d7893c5",
+        "Stray Kids": "66184676a1911b830d7893c6",
+        "GOT7": "66184676a1911b830d7893c7",
+        "TWICE": "66184676a1911b830d7893c8",
+        "Treasure": "66184676a1911b830d7893c9",
+        "Shinee": "66184676a1911b830d7893ca",
+        "Monsta X": "66184676a1911b830d7893cb",
+        "Red Velvet": "66184676a1911b830d7893cc",
+        "New Jeans": "66184676a1911b830d7893cd",
+        "Seventeen": "66184676a1911b830d7893ce",
+    };
+
+    // Mapping of size names to IDs
+    const sizeMap: { [key: string]: string } = {
+        "Extra Small": "6618459ea1911b830d782799",
+        "Small": "6618459ea1911b830d78279a",
+        "Medium": "6618459ea1911b830d78279b",
+        "Large": "6618459ea1911b830d78279c",
+        "Extra Large": "6618459ea1911b830d78279d",
+        "Non": "6618459ea1911b830d78279e",
+    };
+
     // Handle change in form fields
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    let newSize = product.size; // Default size value
-    let newGiftBoxProduct = product.giftBoxProduct; // Default GiftBox Product value
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
 
-    // Check if the product name is 't-shirt'
-    if (name === 'name' && value.toLowerCase() === 't-shirt') {
-        // Set size to the current size if it's not 'non', otherwise set it to 'medium'
-        newSize = product.size !== 'non' ? product.size : 'medium';
-        newGiftBoxProduct = 'false'; // Set GiftBox Product to 'false'
-    } else {
-        // For other product names, set GiftBox Product to 'true'
-        newGiftBoxProduct = 'true';
-        // For other product names, set size to 'non'
-        newSize = 'non';
-    }
-
-    setProduct({ ...product, [name]: value, size: newSize, giftBoxProduct: newGiftBoxProduct });
-};
+        if (name === 'category') {
+            // If the user is selecting a category, map the selected name to its corresponding ID
+            const categoryId = categoryMap[value];
+            setProduct({ ...product, [name]: { id: categoryId, name: value } });
+        } else if (name === 'size') {
+            // If the user is selecting a size, map the selected name to its corresponding ID
+            const sizeId = sizeMap[value];
+            setProduct({ ...product, [name]: { id: sizeId, name: value } });
+        } else if (name === 'price') {
+            // For price, parse the value to a floating-point number before setting it
+            setProduct({ ...product, [name]: parseFloat(value) });
+        } else if (name === 'quantity') {
+            // For quantity, parse the value to an integer before setting it
+            setProduct({ ...product, [name]: parseInt(value, 10) });
+        } else {
+            // For other fields, simply update the value
+            setProduct({ ...product, [name]: value });
+        }
+    };
 
     // Handle form submission
     const handleSubmit = async () => {
@@ -76,12 +116,12 @@ const AddProduct = () => {
                 
                 setProduct({
                     productId: '',
-                    category: 'astro',
+                    category: { id: '66184676a1911b830d7893c0', name: 'Astro' },
                     name: '',
-                    size: 'non',
+                    size: { id: '6618459ea1911b830d78279e', name: 'Non' },
                     imageUrl: '',
                     description: '',
-                    giftBoxProduct: 'true',
+                    giftBoxProduct: true,
                     price: 0.0,
                     quantity: 0,
                 });
@@ -103,12 +143,12 @@ const AddProduct = () => {
     const clearForm = () => {
         setProduct({
             productId: '',
-            category: 'astro',
+            category: { id: '66184676a1911b830d7893c0', name: 'Astro' },
             name: '',
-            size: 'non',
+            size: { id: '6618459ea1911b830d78279e', name: 'Non' },
             imageUrl: '',
             description: '',
-            giftBoxProduct: 'true',
+            giftBoxProduct: true,
             price: 0.0,
             quantity: 0,
         });
@@ -155,23 +195,22 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name="category" value={product.category} onChange={handleChange}>
-                                    <option value="astro">Astro</option>
-                                    <option value="bts">BTS</option>
-                                    <option value="txt">TXT</option>
-                                    <option value="nce">NCT</option>
-                                    <option value="exo">EXO</option>
-                                    <option value="blackpink">Blackpink</option>
-                                    <option value="straykids">Straykids</option>
-                                    <option value="astro">Astro</option>
-                                    <option value="got7">GOT7</option>
-                                    <option value="twie">TWICE</option>
-                                    <option value="tresure">Tresure</option>
-                                    <option value="shinee">Shinee</option>
-                                    <option value="mosta-x">Mosta X</option>
-                                    <option value="red-velvet">Red velvet</option>
-                                    <option value="new-jeans">New Jeans</option>
-                                    <option value="seventeen">Seventeen</option>
+                                        name="category" value={product.category.name} onChange={handleChange}>
+                                        <option value="Astro">Astro</option>
+                                        <option value="BTS">BTS</option>
+                                        <option value="TXT">TXT</option>
+                                        <option value="NCT">NCT</option>
+                                        <option value="EXO">EXO</option>
+                                        <option value="Blackpink">Blackpink</option>
+                                        <option value="Stray Kids">Straykids</option>
+                                        <option value="GOT7">GOT7</option>
+                                        <option value="TWICE">TWICE</option>
+                                        <option value="Treasure">Tresure</option>
+                                        <option value="Shinee">Shinee</option>
+                                        <option value="Monsta X">Mosta X</option>
+                                        <option value="Red Velvet">Red velvet</option>
+                                        <option value="New Jeans">New Jeans</option>
+                                        <option value="Seventeen">Seventeen</option>
                                     </select>
                                 </div>
                             </div>
@@ -205,13 +244,13 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name="size" value={product.size} onChange={handleChange}>
-                                    <option value="extra-small">Extra Small</option>
-                                    <option value="small">Small</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="large">Large</option>
-                                    <option value="excel">Excel</option>
-                                    <option value="non">Non</option>
+                                        name="size" value={product.size.name} onChange={handleChange}>
+                                        <option value="Extra Small">Extra Small</option>
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
+                                        <option value="Extra Large">Extra Large</option>
+                                        <option value="Non">Non</option>
                                     </select>
                                 </div>
                             </div>
@@ -262,9 +301,9 @@ const AddProduct = () => {
                                         <div className="w-[500px] relative rounded-tl-none rounded-tr-8xs rounded-br-8xs rounded-bl-none bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-12" />
                                     </div>
                                     <select className="w-[466px] h-[28px] absolute !m-[0] top-[20px] left-[28px] tracking-[0.01em] font-medium inline-block z-[1]"
-                                    name='giftBoxProduct' value={product.giftBoxProduct} onChange={handleChange}>
-                                    <option value="true">True</option>
-                                    <option value="false">False</option>
+                                        name='giftBoxProduct' value={product.giftBoxProduct.toString()} onChange={handleChange}>
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
                                     </select>
                                 </div>
                             </div>
