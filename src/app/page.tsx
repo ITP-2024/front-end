@@ -8,7 +8,7 @@ import Complain from "./OrderManagement/complain";
 // Harsha
 import IDashboard from "./InventoryManagement/dashboard"; // meke menue eket locofy ai eken gatta code eka balala update karanna (navigation)
 import Products from "./InventoryManagement/products";
-import LowInventories from "./InventoryManagement/lowInventories"; //mekata product eke table eka dala backend eke low invetory funtion eka connect karanna
+import LowInventories from "./InventoryManagement/lowInventories";
 import AddProduct from "./InventoryManagement/addProduct";
 
 import TestProduct from "./InventoryManagement/testProduct"; //edit function eka hariytm vada na eka karanna
@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <IDashboard/>
+      <LowInventories/>
     </div>
   );
 };
