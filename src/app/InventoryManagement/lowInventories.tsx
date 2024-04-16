@@ -42,12 +42,15 @@ const LowInventories: React.FC = () => {
             });
     }, []);
 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, product: Product) => {
-        if (event.target.checked) {
+    const handleCheckboxChange = (product: Product) => {
+        if (selectedProduct?.id === product.id) {
+            // If the selected product is the same as the product of the checkbox, deselect it
+            setSelectedProduct(null);
+            setNewQuantity(0);
+        } else {
+            // If the selected product is different from the product of the checkbox, select it
             setSelectedProduct(product);
             setNewQuantity(product.quantity);
-        } else {
-            setSelectedProduct(null);
         }
     };
 
@@ -58,7 +61,7 @@ const LowInventories: React.FC = () => {
     };
 
     const handleEditClick = () => {
-        if (selectedProduct) {
+        if (selectedProduct && selectedProduct.quantity !== newQuantity) {
             axios.put(`http://localhost:8080/api/products/${selectedProduct.id}`, {
                 ...selectedProduct,
                 quantity: newQuantity
@@ -66,6 +69,7 @@ const LowInventories: React.FC = () => {
             .then(response => {
                 setProducts(products.map(product => product.id === response.data.id ? response.data : product));
                 setSelectedProduct(null);
+                window.alert('Product successfully edited!');
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -95,8 +99,8 @@ const LowInventories: React.FC = () => {
                         </div>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch rounded-t-none rounded-br-none rounded-bl-3xs bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5">
-                        <input type="checkbox" id={`product-${product.id}`} value={product.id} onChange={(e) => handleCheckboxChange(e, product)} className="w-[18px] relative rounded h-[18px] border-[1px] border-solid border-black" />
+                    <div key={index} className="self-stretch rounded-t-none rounded-br-none  bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5">
+                        <input type="checkbox" id={`product-${product.id}`} value={product.id} onChange={() => handleCheckboxChange(product)} className="w-[18px] relative rounded h-[18px] border-[1px] border-solid border-black" />
                     </div>
                     ))}
                 </div>
@@ -193,4 +197,3 @@ const LowInventories: React.FC = () => {
 };
 
 export default LowInventories;
-
