@@ -1,22 +1,22 @@
 This is a [Next.js](https://nextjs.org/) project
 
+
 ## Getting Started
 
 First, run the development server:
-
 ```bash
 npm run dev
 ```
-Commit changes & Push changes
 
+Commit all changes & Push changes
 ```bash
 git add .
 git commit -m "Commit message describing your changes"
 # and
 git push origin <branch-name>
 ```
-Folder structure
 
+Now My Folder structure
 ```bash
 src/
 |-- app/
@@ -40,6 +40,52 @@ src/
 |   |   |-- searchbar.tsx
 |-- globals.css
 |-- page.tsx
+|-- layout.tsx
+```
+
+New Folder Structure
+```bash
+src/
+|-- pages/
+|   |-- OrderManagement/
+|   |   |-- index.tsx
+|   |   |-- orders.tsx
+|   |   |-- complain.tsx
+|   |   |-- searchbar.tsx
+|   |   |-- card.tsx
+|   |   |-- barChart.tsx
+|   |-- InventoryManagement/
+|   |   |-- index.tsx
+|   |   |-- products.tsx
+|   |   |-- lowInventories.tsx
+|   |   |-- addProduct.tsx
+|   |   |-- card.tsx
+|   |   |-- searchbar.tsx
+|   |-- financeManagement/
+|   |   |-- index.tsx
+|   |-- reviewManagement/
+|   |   |-- index.tsx
+|   |-- customerGiftbox/
+|   |   |-- index.tsx
+|   |-- customerCart/
+|   |   |-- index.tsx
+|   |-- api/
+|   |   |-- mongo.ts
+|   |   |-- products.ts
+|   |   |-- categories.ts
+|   |   |-- sizes.ts
+|   |   |-- giftBox.ts
+|-- components/
+|   |-- adminTopbar.tsx
+|   |-- adminDropdown.tsx
+|   |-- adminNavbar.tsx
+|   |-- header.tsx
+|   |-- foter.tsx
+|-- public/
+|   |-- user.svg
+|   |-- search.svg
+|-- globals.css
+|-- index.tsx
 |-- layout.tsx
 ```
 

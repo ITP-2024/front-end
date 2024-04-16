@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // Importing the Inter font from Google Fonts
-import "./globals.css"; // Importing global styles
+import { Inter } from "next/font/google";
+import "./globals.css";
 
 // Initialize the Inter font with Latin subset
 const inter = Inter({ subsets: ["latin"] });
@@ -18,11 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      {/* Apply the Inter font class to the body */}
-      <body className={inter.className}>
-        {/* Render the children components */}
-        {children}
+    <html lang="en"> 
+      <body className={inter.className}>  {/* Apply the Inter font class to the body */}
+        {children}   {/* Render the children components */}
       </body>
     </html>
   );
