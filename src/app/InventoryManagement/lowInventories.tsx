@@ -83,7 +83,24 @@ const LowInventories: React.FC = () => {
             
                 <SearchBar title="Search " /> {/* Render the SearchBar component with title prop */}
 
-                <button className="relative rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row flex-wrap items-center justify-center py-[0.75rem] px-[1rem] text-left text-[1rem] text-white font-inter border-[1px] border-solid border-darkmagenta">
+                <button 
+                    className="relative rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row flex-wrap items-center justify-center py-[0.75rem] px-[1rem] text-left text-[1rem] text-white font-inter border-[1px] border-solid border-darkmagenta"
+                    onClick={() => {
+                        axios({
+                            url: 'http://localhost:8080/api/reports/low-inventory',
+                            method: 'GET',
+                            responseType: 'blob', // Important
+                        })
+                        .then((response) => {
+                            const url = window.URL.createObjectURL(new Blob([response.data]));
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.setAttribute('download', 'low_inventory_report.pdf');
+                            document.body.appendChild(link);
+                            link.click();
+                        });
+                    }}
+                >
                     <div className="relative font-semibold">Print Report</div>
                 </button>
 
