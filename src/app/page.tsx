@@ -17,7 +17,8 @@ export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <TestProduct/>
+      <Products/>
     </div>
   );
 };
+

@@ -3,6 +3,7 @@ import SearchBar from "./searchbar";
 
 import React, { FC, useState, useEffect } from 'react';
 import axios from 'axios';
+import Router from 'next/router';
 
 interface Size {
     id: string;
@@ -70,11 +71,8 @@ const Products: FC = () => {
         fetchProducts();
     }, []);
 
-    const navigateToAddProduct = async () => {
-        if (typeof window !== 'undefined') {
-            const { default: Router } = await import('next/router');
-            Router.push('/InventoryManagement/addProduct');
-        }
+    const navigateToAddProduct = () => {
+        Router.push('/InventoryManagement/addProduct');
     };
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
@@ -85,21 +83,35 @@ const Products: FC = () => {
         }
     };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, id: string, fieldName: string) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, id: string, fieldName: string) => {
+        let value;
+        if (fieldName === 'quantity') {
+            value = parseInt(event.target.value);
+        } else if (fieldName === 'price') {
+            value = parseFloat(event.target.value);
+        } else if (fieldName === 'giftBoxProduct') {
+            value = event.target.value === 'True' ? true : false;
+        } else if (fieldName === 'size' || fieldName === 'category') {
+            value = { id: event.target.value, name: event.target.value };
+        } else {
+            value = event.target.value;
+        }
+    
         setEditedProducts({
             ...editedProducts,
             [id]: {
                 ...editedProducts[id],
-                [fieldName]: event.target.value
+                [fieldName]: value
             }
         });
     };
-
+    
     const handleEdit = async (id: string) => {
         if (selectedProducts.includes(id) && editedProducts[id]) {
             console.log(`Editing product with ID: ${id} and new value: ${editedProducts[id]}`);
             try {
-                await axios.put(`http://localhost:8080/api/products/${id}`, editedProducts[id]);
+                const { id: productId, ...productData } = editedProducts[id]; // Exclude 'id' from the request body
+                await axios.put(`http://localhost:8080/api/products/${id}`, productData);
                 fetchProducts(); // Refresh the products list after editing
             } catch (error) {
                 console.error('Error editing product:', error);
@@ -155,7 +167,7 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="text" value={product.productId} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="text" value={editedProducts[product.id]?.productId || product.productId} onChange={event => handleInputChange(event, product.id, 'productId')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
                         </div>
                     ))}
                 </div>
@@ -168,8 +180,8 @@ const Products: FC = () => {
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-start p-2.5 gap-[10px]">
                             <img className="w-6 relative h-6 object-cover" alt="" src={product.imageUrl} />
-                            <input type="text" value={product.name} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
-                            <input type="text" value={product.imageUrl} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '40%', marginRight: '2%'}} />
+                            <input type="text" value={editedProducts[product.id]?.name || product.name} onChange={event => handleInputChange(event, product.id, 'name')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="text" value={editedProducts[product.id]?.imageUrl || product.imageUrl} onChange={event => handleInputChange(event, product.id, 'imageUrl')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '40%', marginRight: '2%'}} />
                         </div>
                     ))}
                 </div>
@@ -181,7 +193,7 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="text" value={product.category ? product.category.name : ''} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="text" value={editedProducts[product.id]?.category?.name || product.category.name} onChange={event => handleInputChange(event, product.id, 'category')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
                         </div>
                     ))}
                 </div>
@@ -193,7 +205,7 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="text" value={product.size ? product.size.name : ''} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="text" value={editedProducts[product.id]?.size?.name || product.size.name} onChange={event => handleInputChange(event, product.id, 'size')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
                         </div>
                     ))}
                 </div>
@@ -205,7 +217,7 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
-                            <input type="text" value={product.giftBoxProduct ? 'True' : 'False'} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="text" value={product.giftBoxProduct ? 'True' : 'False'} onChange={event => handleInputChange(event, product.id, 'giftBoxProduct')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
                         </div>
                     ))}
                 </div>
@@ -217,7 +229,7 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="number" value={editedProducts[product.id]?.price || product.price} onChange={event => handleInputChange(event, product.id, 'price')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="number" step="0.01" value={editedProducts[product.id]?.price || product.price} onChange={event => handleInputChange(event, product.id, 'price')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
                         </div>
                     ))}
                 </div>
@@ -229,7 +241,7 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="number" value={product.quantity} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} readOnly />
+                            <input type="number" min="1" value={editedProducts[product.id]?.quantity || product.quantity} onChange={event => handleInputChange(event, product.id, 'quantity')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
                         </div>
                     ))}
                 </div>

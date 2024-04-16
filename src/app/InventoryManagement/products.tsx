@@ -1,30 +1,37 @@
 "use client";
-import { FC, useEffect, useState } from 'react';
-import axios from 'axios';
-
 import SearchBar from "./searchbar";
 
-type Product = {
+import React, { FC, useState, useEffect } from 'react';
+import axios from 'axios';
+import Router from 'next/router';
+
+interface Size {
+    id: string;
+    name: string;
+}
+
+interface Category {
+    id: string;
+    name: string;
+}
+
+interface Product {
     id: string;
     productId: string;
-    category: {
-      id: string;
-      name: string;
-    };
+    category: Category;
     name: string;
-    size: {
-      id: string;
-      name: string;
-    };
+    size: Size;
     imageUrl: string;
     description: string;
     giftBoxProduct: boolean;
     price: number;
     quantity: number;
-};
+}
 
 const Products: FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+    const [editedProducts, setEditedProducts] = useState<Record<string, Product>>({});
 
     const fetchProducts = async () => {
         try {
@@ -36,27 +43,92 @@ const Products: FC = () => {
         }
     };
 
+    async function fetchData() {
+        try {
+            const response = await axios.get('http://localhost:8080/api/products');
+            // Handle response here
+        } catch (error: any) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in Node.js
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
+        }
+    }
+
     useEffect(() => {
         fetchProducts();
     }, []);
 
-    const navigateToAddProduct = async () => {
-        if (typeof window !== 'undefined') {
-            const { default: Router } = await import('next/router');
-            Router.push('/InventoryManagement/addProduct');
+    const navigateToAddProduct = () => {
+        Router.push('/InventoryManagement/addProduct');
+    };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
+        if (event.target.checked) {
+            setSelectedProducts([...selectedProducts, id]);
+        } else {
+            setSelectedProducts(selectedProducts.filter(id => id !== id));
         }
     };
 
-    // Function to handle edit button click
-    const handleEdit = (productId: string) => {
-        console.log(`Editing product with ID: ${productId}`);
-        // Add your edit logic here
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, id: string, fieldName: string) => {
+        let value;
+        if (fieldName === 'quantity') {
+            value = parseInt(event.target.value);
+        } else if (fieldName === 'price') {
+            value = parseFloat(event.target.value);
+        } else if (fieldName === 'giftBoxProduct') {
+            value = event.target.value === 'True' ? true : false;
+        } else if (fieldName === 'size' || fieldName === 'category') {
+            value = { id: event.target.value, name: event.target.value };
+        } else {
+            value = event.target.value;
+        }
+    
+        setEditedProducts({
+            ...editedProducts,
+            [id]: {
+                ...editedProducts[id],
+                [fieldName]: value
+            }
+        });
     };
-
-    // Function to handle delete button click
-    const handleDelete = (productId: string) => {
-        console.log(`Deleting product with ID: ${productId}`);
-        // Add your delete logic here
+    
+    const handleEdit = async (id: string) => {
+        if (selectedProducts.includes(id) && editedProducts[id]) {
+            console.log(`Editing product with ID: ${id} and new value: ${editedProducts[id]}`);
+            try {
+                const { id: productId, ...productData } = editedProducts[id]; // Exclude 'id' from the request body
+                await axios.put(`http://localhost:8080/api/products/${id}`, productData);
+                fetchProducts(); // Refresh the products list after editing
+            } catch (error) {
+                console.error('Error editing product:', error);
+            }
+        }
+    };
+    
+    const handleDelete = async (id: string) => {
+        if (selectedProducts.includes(id)) {
+            console.log(`Deleting product with ID: ${id}`);
+            try {
+                await axios.delete(`http://localhost:8080/api/products/${id}`);
+                fetchProducts(); // Refresh the products list after deleting
+            } catch (error) {
+                console.error('Error deleting product:', error);
+            }
+        }
     };
 
     return (
@@ -75,7 +147,7 @@ const Products: FC = () => {
             <div className="relative w-full flex flex-row items-start justify-center p-2.5 text-left text-smi text-darkslategray">
             
                 {/* Checkbox column */}
-                <div className="w-[65px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[2.5%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch rounded-tl-3xs rounded-tr-none rounded-b-none bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5 ">
                         <div className="w-[18px] relative rounded bg-thistle  h-[18px] border-[1px] border-solid border-black">
                             <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-8xs  border-[2px] border-solid border-checkbox-empty" />
@@ -83,93 +155,94 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5">
-                            <input type="checkbox" value={product.id} className="w-[18px] h-[18px] rounded border-[1px] border-solid border-black appearance-none checked:bg-darkmagenta checked:border-transparent" />
+                            <input type="checkbox" value={product.id} onChange={event => handleCheckboxChange(event, product.id)} className="w-[18px] h-[18px] rounded border-[1px] border-solid border-black appearance-none checked:bg-darkmagenta checked:border-transparent" />
                         </div>
                     ))}
                 </div>
 
                 {/* Product ID column */}
-                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[5.5%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">Product ID</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                        <div className="relative tracking-[0.01em]">{product.productId}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
+                            <input type="text" value={editedProducts[product.id]?.productId || product.productId} onChange={event => handleInputChange(event, product.id, 'productId')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                        </div>
                     ))}
                 </div>
 
                 {/* Product column */}
-                <div className="w-[320px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[32%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">Product</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-start p-2.5 gap-[10px]">
-                        <img className="w-6 relative h-6 object-cover" alt="" src={product.imageUrl} />
-                        <div className="relative tracking-[0.01em]">{product.name}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-start p-2.5 gap-[10px]">
+                            <img className="w-6 relative h-6 object-cover" alt="" src={product.imageUrl} />
+                            <input type="text" value={editedProducts[product.id]?.name || product.name} onChange={event => handleInputChange(event, product.id, 'name')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <input type="text" value={editedProducts[product.id]?.imageUrl || product.imageUrl} onChange={event => handleInputChange(event, product.id, 'imageUrl')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '40%', marginRight: '2%'}} />
+                        </div>
                     ))}
                 </div>
 
                 {/* Category column */}
-                <div className="w-[140px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[8%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5  text-sm text-white">
                         <b className="relative tracking-[0.01em]">Category</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                        <div className="relative tracking-[0.01em]">{product.category.name}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
+                            <input type="text" value={editedProducts[product.id]?.category?.name || product.category.name} onChange={event => handleInputChange(event, product.id, 'category')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                        </div>
                     ))}
                 </div>
 
                 {/* Size column */}
-                <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[7.5%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5  text-sm text-white">
                         <b className="relative tracking-[0.01em]">Size</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                        <div className="relative tracking-[0.01em]">{product.size.name}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
+                            <input type="text" value={editedProducts[product.id]?.size?.name || product.size.name} onChange={event => handleInputChange(event, product.id, 'size')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                        </div>
                     ))}
                 </div>
 
                 {/* GiftBoxProduct column */}
-                <div className="w-[140px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[5.5%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">GiftBox Product</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
-                        <div className="relative tracking-[0.01em]">{product.giftBoxProduct ? 'True' : 'False'}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                            <input type="text" value={product.giftBoxProduct ? 'True' : 'False'} onChange={event => handleInputChange(event, product.id, 'giftBoxProduct')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                        </div>
                     ))}
                 </div>
 
                 {/* Price column */}
-                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[5.5%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5  text-sm text-white">
                         <b className="relative tracking-[0.01em]">Price</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                        <div className="relative tracking-[0.01em]">{product.price}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
+                            <input type="number" step="0.01" value={editedProducts[product.id]?.price || product.price} onChange={event => handleInputChange(event, product.id, 'price')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                        </div>
                     ))}
                 </div>
 
                 {/* Quantity column */}
-                <div className="w-[90px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[5.5%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5  text-sm text-white">
                         <b className="relative tracking-[0.01em]">Quantity</b>
                     </div>
                     {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                        <div className="relative tracking-[0.01em]">{product.quantity}</div>
-                    </div>
+                        <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
+                            <input type="number" min="1" value={editedProducts[product.id]?.quantity || product.quantity} onChange={event => handleInputChange(event, product.id, 'quantity')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                        </div>
                     ))}
                 </div>
 
@@ -180,8 +253,8 @@ const Products: FC = () => {
                     </div>
                     {products.map((product, index) => (
                     <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center p-2.5 gap-[10px]">
-                        <button onClick={() => handleEdit(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="Edit" src="https://i.ibb.co/bJf0SfB/edit.png"/></button>
-                        <button onClick={() => handleDelete(product.productId)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="Delete" src="https://i.ibb.co/cNX07t0/delete.png"/></button>
+                        <button onClick={() => handleEdit(product.id)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="Edit" src="https://i.ibb.co/bJf0SfB/edit.png"/></button>
+                        <button onClick={() => handleDelete(product.id)}><img className="w-6 relative h-6 overflow-hidden shrink-0" alt="Delete" src="https://i.ibb.co/cNX07t0/delete.png"/></button>
                     </div>
                     ))}
                 </div> 
