@@ -6,15 +6,13 @@ import { GiftBoxProvider } from '@/context/giftBox';
 import Button from '@/components/gift-box/button';
 import GreetingCardOption from '@/components/gift-box/giftbox-card';
 import MessageInput from '@/components/gift-box/giftbox-msg';
-
+import { toast } from 'react-toastify';
 
 interface CardType {
     cardId: string;
     type: string;
     image: string;
 }
-
-
 
 export default function Page() {
     const [options, setOptions] = useState<CardType[]>([]);
@@ -58,20 +56,26 @@ export default function Page() {
         localStorage.setItem('setCardMessage', event.target.value);
     };
 
-    const handleClick = () => {
-        router.push('/builder/products');
+    const backbtn = () => {
+        router.push('/builder/theme');
     };
 
     const handleSubmit = () => {
-        event.preventDefault();
-        router.push('/builder/products');
-        console.log("Message:", cardMessage);
-        console.log("card:", selectedGreetingCard);
+        if (selectedGreetingCard) {
+            console.log("Theme:", selectedGreetingCard);
+            router.push('/builder/products');
+            console.log("Message:", cardMessage);
+            console.log("card:", selectedGreetingCard);
+          } else {
+            toast.error('Please select a Greeting Card');
+          }
 
     };
+    console.log(options);
 
     return (
         <GiftBoxProvider>
+            
             <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
                 <form onSubmit={handleSubmit}>
                     <div className="SelectCard w-80 h-12 text-stone-900 text-xl font-medium">
@@ -90,7 +94,8 @@ export default function Page() {
                         ))}
                     </div>
                     <MessageInput value={cardMessage} onChange={handleMessageChange} />
-                    <div className="flex justify-end">
+                    <div className="flex items-center justify-between">
+                        <Button label="back" onClick={backbtn}/>
                         <Button label="Next" onClick={handleSubmit}/>
                     </div>
                 </form>

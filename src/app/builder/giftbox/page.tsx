@@ -3,35 +3,38 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '@/components/gift-box/button';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import ConfirmationModal from '@/components/gift-box/toast-confirm';
+
+interface Product {
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+
+}
 
 const GiftBoxSummary: React.FC = () => {
   //const [selectedProducts, setSelectedProducts] = useState<{ productName: string; count: number }[]>([]);
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [selectedGreetingCard, setSelectedGreetingCard] = useState<string | null>(null);
   const [cardMessage, setCardMessage] = useState<string>("");
-  const [selectedProducts, setSelectedProducts] = useState<{ productId: string; name: string; price: number; quantity: number; }[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<{ id: string; productId: string; name: string; price: number; quantity: number; }[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+
   const [giftBoxId, setGiftBoxId] = useState<string | null>(
     typeof localStorage !== 'undefined' ? localStorage.getItem('giftBoxId') || null : null
   );
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  
-  useEffect(() => {
-    // Retrieve the initial buttonClicked state from localStorage during client-side rendering
-    const savedState = localStorage.getItem('buttonClicked');
-    if (savedState) {
-      setButtonClicked(JSON.parse(savedState));
-    }
-  }, []);
-
-
-
+  const [isDeleted, setIsDeleted] = useState(false);
   const router = useRouter();
 
   // Calculate the total amount
   const totalAmount = selectedProducts.reduce((total, product) => {
-    return total + product.quantity * product.price + 1300;
-  }, 0);
+    return total + product.quantity * product.price;
+  }, 0) + 1200;
 
 
 
@@ -75,9 +78,9 @@ const GiftBoxSummary: React.FC = () => {
         productId: selectedProduct.productId,
         name: selectedProduct.name,
         price: selectedProduct.price,
-        quantity: selectedProduct.quantity,
-        totalPrice: selectedProduct.price * selectedProduct.quantity
+        quantity: selectedProduct.quantity
       }));
+
 
       const giftBoxPayload = {
         giftBoxId: giftBoxId,
@@ -104,15 +107,13 @@ const GiftBoxSummary: React.FC = () => {
         localStorage.setItem('giftBoxId', createdGiftBoxId);
       }
       console.log('GiftBox saved:', response.data);
+      toast.success('Gift Box Successfully Saved');
 
     } catch (error) {
       console.error('Error saving GiftBox:', error);
     }
-    setIsButtonVisible(true);
-    setButtonClicked(true);
+
   };
-
-
 
 
 
@@ -154,13 +155,14 @@ const GiftBoxSummary: React.FC = () => {
 
 
     // Retrieve selected products from local storage
-    const storedSelectedProducts: { productId: string; quantity: number }[] = [];
+    const storedSelectedProducts: { id: string; productId: string; quantity: number }[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key && key.endsWith('quantity')) {
+        const id = key.slice(0, -9);
         const productId = key.slice(0, -9); // Remove '_count' suffix
         const quantity = parseInt(localStorage.getItem(key) || '0');
-        storedSelectedProducts.push({ productId, quantity });
+        storedSelectedProducts.push({ id, productId, quantity });
       }
     }
 
@@ -183,9 +185,10 @@ const GiftBoxSummary: React.FC = () => {
 
       // Map product IDs to product names in selected products array
       const updatedSelectedProducts = storedSelectedProducts.map((selectedProduct) => ({
+        id: selectedProduct.id,
         productId: selectedProduct.productId,
         name: productNames[selectedProduct.productId], // Use 'name' instead of 'productName'
-        price: parseFloat(productPrices[selectedProduct.productId]), // Use 'price' instead of 'productPrice'
+        price: parseFloat(productPrices[selectedProduct.productId]),
         quantity: selectedProduct.quantity
       }));
 
@@ -216,15 +219,34 @@ const GiftBoxSummary: React.FC = () => {
     }
   }, []);
 
-  console.log('GiftBox :' + giftBoxId);
+  console.log('GiftBox :' + giftBoxId + 'products' + selectedProducts);
+  console.log(JSON.stringify(selectedProducts, null, 2));
 
-  const handleDeleteButton = () => {
-    setIsButtonVisible(false);
+  const handleDelete = async () => {
+    setIsModalOpen(true);
   };
+
+  const handleModalConfirm = async () => {
+    try {
+      // Make an HTTP request to delete the gift box based on its ID
+      await axios.delete(`http://localhost:8080/giftBox/${giftBoxId}`);
+      setIsModalOpen(false); // Close the confirmation modal upon successful deletion
+      router.push('/builder');
+    } catch (error) {
+      console.error('Error deleting gift box:', error);
+    }
+  };
+
+  const newGiftBox = () => {
+    router.push('/builder');
+};
+
+
 
   return (
     <div className='flex justify-center'>
-      <div><h2 className='text-xl, font-bold text-center leading-10 text-black' >Gift Box Summary</h2>
+      <div>
+        <h2 className='text-xl, font-bold text-center leading-10 text-black' >Gift Box Summary</h2>
         <table className="min-w-half divide-y divide-gray-200">
           <thead className="bg-gray-100">
             <tr>
@@ -264,9 +286,9 @@ const GiftBoxSummary: React.FC = () => {
 
             <tr>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">{selectedTheme} Color Gift Box</td>
-              <td className="text-sm font-medium text-center text-gray-900">1300</td>
+              <td className="text-sm font-medium text-center text-gray-900">1200</td>
               <td className="text-sm font-medium text-center text-gray-900">1</td>
-              <td className="text-sm font-medium text-center text-gray-900">1300</td>
+              <td className="text-sm font-medium text-center text-gray-900">1200</td>
             </tr>
             <tr>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Greeting Card: {selectedGreetingCard} </td>
@@ -283,14 +305,16 @@ const GiftBoxSummary: React.FC = () => {
           </tbody>
         </table>
         <div className="flex items-center justify-between">
-        
-        <Button label={buttonClicked ? 'Update Gift Box' : 'Save Gift Box'} onClick={saveGiftBox} />
-          <Button label="Add to Cart" onClick={saveGiftBox} />
-          
+
+          <Button label="Save Gift Box" onClick={saveGiftBox} />
+          <Button label="Create New" onClick={newGiftBox} />
+
         </div>
         <div className="flex items-center justify-between">
-        {isButtonVisible && (
-        <Button label="Delete Gift Box" onClick={handleDeleteButton} />)}</div>
+          <ConfirmationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleModalConfirm} />
+          <Button label="Add to Cart" onClick={saveGiftBox} />
+          {giftBoxId && !isDeleted && <Button label="Delete Gift Box" onClick={handleDelete} />}
+        </div>
       </div>
     </div>
   );

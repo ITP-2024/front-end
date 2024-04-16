@@ -72,7 +72,7 @@ const GiftBoxProducts: React.FC = () => {
                 </ul>
             </section>
             <div className="flex justify-end">
-            <NextButton />
+            
             </div>
         </div>
 

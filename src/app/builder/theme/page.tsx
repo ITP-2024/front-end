@@ -46,7 +46,7 @@ const GiftBoxSelection: React.FC = () => {
       console.log("Theme:", selectedTheme);
       router.push('/builder/card');
     } else {
-      toast.error('Please select a gift box color');
+      toast.error('Please select a Color');
     }
   };
 

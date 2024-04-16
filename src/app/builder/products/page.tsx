@@ -4,39 +4,45 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/gift-box/button';
 import ProductItem from '@/components/common/product-item';
+import { toast } from 'react-toastify';
+import { useGiftBoxContext } from '@/context/giftBox';
 
 interface Product {
+    id: string;
     productId: string;
     name: string;
     price: number;
     imageUrl: string;
     quantity: number;
+
 }
 
 
+
 const GiftBoxProducts: React.FC = () => {
+    
     const [products, setProducts] = useState<Product[]>([]);
     //const [selectedProducts, setSelectedProducts] = useState<{ productId: string; name: string; price: number; quantity: number; }[]>([]);
     const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-    
+    const [searchQuery, setSearchQuery] = useState<string>("");
     const getQuantity = (productId: string): number => {
         const selectedProduct = selectedProducts.find(product => product.productId === productId);
         return selectedProduct ? selectedProduct.quantity : 0; // Return the quantity if the product is found, otherwise return 0
     };
-    
+
 
     useEffect(() => {
         // Fetch gift box products from backend
         axios.get<Product[]>('http://localhost:8080/products/giftbox-products')
             .then(response => {
-                console.log(response.data);
+                console.log('response' + response.data);
                 setProducts(response.data);
             })
             .catch(error => {
                 console.error('Error fetching gift box products:', error);
             });
 
-            const storedSelectedProducts = localStorage.getItem('selectedProducts');
+        const storedSelectedProducts = localStorage.getItem('selectedProducts');
         if (storedSelectedProducts) {
             setSelectedProducts(JSON.parse(storedSelectedProducts));
         }
@@ -61,27 +67,64 @@ const GiftBoxProducts: React.FC = () => {
             setSelectedProducts(updatedProducts);
         }
     };
-    console.log(selectedProducts);
+
+    const router = useRouter();
+
+    const route = () => {
+        if (selectedProducts.length > 0) {
+            router.push('/builder/giftbox');
+            console.log('selected products' + selectedProducts)
+        } else {
+            toast.error('Please select at least one product');
+        }
+    };
+
+    const backbtn = () => {
+        router.push('/builder/card');
+    };
+
+    console.log('products' + selectedProducts);
+    console.log(JSON.stringify(selectedProducts, null, 2));
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+    };
+
+    // Filter products based on search query
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
+
         <div>
+            <div className="p-4">
+                <input
+                    type="text"
+                    placeholder="Search products"
+                    value={searchQuery}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className="border p-2 rounded w-full"
+                />
+            </div>
             <section className="mx-auto max-w-7xl pb-16">
                 <ul className="flex flex-wrap">
-                    {products.map((product) => (
-                        
-                        <ProductItem 
-                        
-                            key={product.productId} 
-                            product={{ ...product, quantity: getQuantity(product.productId) }}
-                            action={'Add to Gift Box'} 
-                            handleClick={handleClick} 
-                            
-                        />
-                    ))}
+                {filteredProducts.map((product) => (
+                    <ProductItem
+                        key={product.id}
+                        product={{ ...product, quantity: getQuantity(product.id) }}
+                        action={'Add to Gift Box'}
+                        handleClick={handleClick}
+                        isVisible={product.name.toLowerCase().includes(searchQuery.toLowerCase())}
+                    />
+                ))}
+
                 </ul>
             </section>
-            <div className="flex justify-end">
-            <Button label="Next"/>
-            </div>
+            <div className="flex items-center justify-between">
+                        <Button label="back" onClick={backbtn}/>
+                        <Button label="Next" onClick={route}/>
+                    </div>
         </div>
     );
 };

@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Gift Box Builder · KpopShop Nexus"
+  title: "KpopShop Nexus"
 };
 export default function RootLayout({
   children,

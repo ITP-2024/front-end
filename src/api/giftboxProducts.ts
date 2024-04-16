@@ -12,13 +12,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 interface Product {
-  productID: string;
+  productId: string;
   name: string;
-  description: string;
   price: number;
-  status: string;
-  image: string;
-  categoryID: string;
-  sizes: { size: string; quantity: number }[];
-  giftBoxProduct: boolean;
+  imageUrl: string;
+  quantity: number;
+
 }

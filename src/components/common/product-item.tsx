@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ProductImageWrapper } from './ProductImageWrapper';
 
 interface Product {
+    id: string;
     productId: string;
     name: string;
     price: number;
@@ -9,10 +10,13 @@ interface Product {
     quantity: number;
 }
 
+
+
 interface ProductProps {
     product: Product;
     action: 'Add to Cart' | 'Add to Gift Box';
     handleClick: (product: Product) => void;
+    isVisible: boolean;
 }
 
 const ProductItem: React.FC<ProductProps> = ({ product, action, handleClick }) => {
@@ -20,11 +24,11 @@ const ProductItem: React.FC<ProductProps> = ({ product, action, handleClick }) =
     const [quantity, setQuantity] = useState<number>(0);
 
     useEffect(() => {
-        const storedQuantity = localStorage.getItem(product.productId + '_quantity');
+        const storedQuantity = localStorage.getItem(product.id + '_quantity');
         if (storedQuantity) {
             setQuantity(parseInt(storedQuantity));
         }
-        const storedSelected = localStorage.getItem(product.productId + '_isSelected');
+        const storedSelected = localStorage.getItem(product.id + '_isSelected');
         if (storedSelected) {
             setIsSelected(storedSelected === 'true');
         }
@@ -34,22 +38,22 @@ const ProductItem: React.FC<ProductProps> = ({ product, action, handleClick }) =
         const updatedQuantity = quantity + 1; // Increment quantity
         setIsSelected(true); // Mark as selected
         setQuantity(updatedQuantity); // Update state immediately
-        localStorage.setItem(product.productId + '_isSelected', 'true');
-        localStorage.setItem(product.productId + '_quantity', String(updatedQuantity)); // Store updated quantity
+        localStorage.setItem(product.id + '_isSelected', 'true');
+        localStorage.setItem(product.id + '_quantity', String(updatedQuantity)); // Store updated quantity
         handleClick(product);
     };
 
     const handleRemoveButtonClick = () => {
         const updatedQuantity = Math.max(0, quantity - 1); // Decrement quantity, but not below 0
         setQuantity(updatedQuantity); // Update state immediately
-        localStorage.setItem(product.productId + '_quantity', String(updatedQuantity)); // Store updated quantity
+        localStorage.setItem(product.id + '_quantity', String(updatedQuantity)); // Store updated quantity
     };
 
 
 
     return (
-        <li key={product.productId} className="p-4 flex-shrink-0 w-1/3">
-            <div className={`relative flex flex-col ${isSelected ? 'border border-fuchsia-800 rounded-lg p-2' : ''}`}>
+        <li key={product.id} className="p-4 flex-shrink-0 w-1/3">
+            <div className={`relative flex flex-col ${isSelected ? 'border border-fuchsia-800 rounded-lg p-2' : ''} h-full w-full`}>
                 <ProductImageWrapper
                     src={product.imageUrl}
                     alt={product.name}
@@ -58,7 +62,8 @@ const ProductItem: React.FC<ProductProps> = ({ product, action, handleClick }) =
                 />
                 <h3>{product.name}</h3>
                 <h3>Rs.{product.price}</h3>
-                <div className="flex items-center justify-between">
+                <div className="flex-grow"></div>
+                <div className="flex items-center justify-between flex-grow">
                 <button
                     type="button"
                     className="bg-fuchsia-800 text-white px-9 py-2 rounded-md mt-2 hover:bg-fuchsia-900"
