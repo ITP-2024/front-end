@@ -11,9 +11,8 @@ import Products from "./InventoryManagement/products";
 import LowInventories from "./InventoryManagement/lowInventories";
 import AddProduct from "./InventoryManagement/addProduct";
 
-import TestProduct from "./InventoryManagement/testProduct"; //edit function eka hariytm vada na eka karanna
+import TestProduct from "./InventoryManagement/testProduct"; 
 
-//report granorate part ekak add karanna
 //navigations  venne nattnm intelig idea eken frontend eka open karala copilot danna
 
   
@@ -21,7 +20,7 @@ export default function Home() {
   return (
     <div className="page">
       <Navbar />
-      <LowInventories/>
+      <TestProduct/>
     </div>
   );
 };

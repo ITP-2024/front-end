@@ -31,16 +31,18 @@ const LowInventories: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [newQuantity, setNewQuantity] = useState<number>(0);
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/products/low-inventory')
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-            });
-    }, []);
+          .then(response => {
+            setProducts(response.data);
+            setFilteredProducts(response.data);
+          })
+          .catch(error => {
+            console.error('There was an error!', error);
+          });
+      }, []);
 
     const handleCheckboxChange = (product: Product) => {
         if (selectedProduct?.id === product.id) {
@@ -58,6 +60,14 @@ const LowInventories: React.FC = () => {
         if (selectedProduct?.id === product.id) {
             setNewQuantity(Number(event.target.value));
         }
+    };
+
+    const handleSearch = (query: string) => {
+        const lowerCaseQuery = query.toLowerCase();
+        const filtered = products.filter(product => 
+          product.productId.toLowerCase().includes(lowerCaseQuery)
+        );
+        setFilteredProducts(filtered);
     };
 
     const handleEditClick = () => {
@@ -81,7 +91,7 @@ const LowInventories: React.FC = () => {
         <div className="ml-[320px]">
             <div className=" mt-[30px] mt-[90px]">
             
-                <SearchBar title="Search " /> {/* Render the SearchBar component with title prop */}
+            <SearchBar title="Search " onSearch={handleSearch} /> 
 
                 <button 
                     className="relative rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row flex-wrap items-center justify-center py-[0.75rem] px-[1rem] text-left text-[1rem] text-white font-inter border-[1px] border-solid border-darkmagenta"

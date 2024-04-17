@@ -5,10 +5,11 @@ import { CgSearch } from "react-icons/cg"; // Importing the search icon
 // Define the props interface for the SearchBar component
 interface SearchBarProps {
   title: string; // Title for the search bar placeholder
+  onSearch: (query: string) => void; // Function to be called when the form is submitted
 }
 
 // Define the SearchBar component
-const SearchBar: React.FC<SearchBarProps> = ({ title }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ title, onSearch }) => {
   // State hook to manage the search query
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -16,14 +17,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ title }) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission behavior
 
-    // If search query is empty, show alert and return
-    if (searchQuery.trim() === "") {
-      alert("Please enter a search query.");
-      return;
-    }
-
-    // Log the search query
-    console.log("Perform search:", searchQuery);
+    // Call the onSearch function passed from the parent component
+    onSearch(searchQuery);
   };
 
   // Return the JSX for the SearchBar component
@@ -47,5 +42,4 @@ const SearchBar: React.FC<SearchBarProps> = ({ title }) => {
   );
 };
 
-export default SearchBar; 
-
+export default SearchBar;
