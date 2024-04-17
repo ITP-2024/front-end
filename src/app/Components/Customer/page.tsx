@@ -1,21 +1,52 @@
+// Import the 'Customer' component
+//import Customer from "./Components/Customer/page";
+//import Customerinfo from "./Components/Customerinfo/page";
 import Link from 'next/link';
 
-export default function Home() {
-  return (<div>
-    <div className="text-black text-[35px] font-bold font-['Work Sans']">My Account</div>
-<div className="w-[360px] h-[116px] bg-violet-200 shadow"></div>
-<div className="w-[141px] h-[38px] text-black text-xl font-normal font-['Inter']">   Information</div>
-<div className="w-[360px] h-[116px] bg-violet-200 shadow"></div>
-<div className="w-[360px] h-[116px] bg-violet-200 shadow"></div>
-<div className="w-[360px] h-[116px] bg-violet-200 shadow"></div>
-<div className="w-[360px] h-[116px] bg-violet-200 shadow"></div>
-<div className="w-[360px] h-[116px] bg-violet-200 shadow"></div>
-<div className="w-44 h-[39px] text-black text-xl font-normal font-['Inter']">      Old Orders</div>
-<div className="w-[204px] h-[39px] text-black text-xl font-normal font-['Inter']">          Addresses</div>
-<div className="w-[239px] h-[30px] text-black text-xl font-normal font-['Inter']">            Track Order</div>
-<div className="w-[275px] h-[47px] text-black text-xl font-normal font-['Inter']">   Order History and Details<br/></div>
-<div className="w-[218px] h-[29px] text-black text-xl font-normal font-['Inter']">            Vouchers</div>
 
-</div>
+// Use the 'Customer' component in your JSX
+export default function Home() {
+  return (
+    
+   
+    
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      
+    
+      <h2 style={{ marginBottom: '20px' }}> My Account </h2>
+      <div style={{ marginBottom: '10px' }}></div>
+       {/* Highlighted rectangle container */}
+       <div style={{ border: '2px solid #D8BFD8', borderRadius: '10px', padding: '20px', marginBottom: '30px' }}>
+          
+  
+  
+      <div>
+      <div>
+        {/* Use an <a> tag for navigation */}
+        <Link href="/Components/Customerinfo">
+          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>
+            Information
+          </button>
+        </Link>
+        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Addresses</button>
+        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Track Order</button>
+      </div>
+         
+         
+         
+      </div>
+     
+      <div style={{ marginBottom: '30px' }}></div>
+      {/* Second set of buttons */}
+      <div>
+          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Order History and Details</button>
+          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px' , backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>Old Orders</button>
+          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Vouchers</button>
+      </div>
+      </div>
+       
+      
+    </div>
+    
   );
 }
