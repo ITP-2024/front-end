@@ -122,7 +122,7 @@ const GiftBoxProducts: React.FC = () => {
                 </ul>
             </section>
             <div className="flex items-center justify-between">
-                        <Button label="back" onClick={backbtn}/>
+                        <Button label="Back" onClick={backbtn}/>
                         <Button label="Next" onClick={route}/>
                     </div>
         </div>

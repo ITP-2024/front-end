@@ -95,7 +95,7 @@ export default function Page() {
                     </div>
                     <MessageInput value={cardMessage} onChange={handleMessageChange} />
                     <div className="flex items-center justify-between">
-                        <Button label="back" onClick={backbtn}/>
+                        <Button label="Back" onClick={backbtn}/>
                         <Button label="Next" onClick={handleSubmit}/>
                     </div>
                 </form>
