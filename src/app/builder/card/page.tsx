@@ -30,7 +30,7 @@ export default function Page() {
             .then(response => {
                 console.log(response);
 
-                setOptions(response.data);
+                setOptions(response.data); 
             })
             .catch(error => {
                 console.error('Error fetching card options:', error);
