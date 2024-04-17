@@ -67,7 +67,7 @@ return (
           <div className="flex flex-col ml-5 w-[41%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col max-md:mt-10 max-md:max-w-full">
             <div>
-    <Link href="shareCart">
+    <Link href="members">
       <button className="justify-center py-5 pr-20 pl-16 mx-6 text-3xl font-bold text-white bg-fuchsia-800 rounded-xl tracking-[7.5px] max-md:pr-8 max-md:pl-7 max-md:mr-2.5 max-md:max-w-full">
         Share my cart
       </button>

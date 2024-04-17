@@ -1,80 +1,195 @@
-import Link from 'next/link';
+'use client';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import Header from '@/componants/header';
 
-export default function Page() {
-    return (
-    <div className="container mx-auto">
-    <h1 className="text-3xl font-bold text-center">Share My Cart</h1>
-    <div className="flex justify-center items-center mt-8">
-    <div className="self-stretch flex flex-row items-start justify-center gap-[141px] max-w-full text-xl lg:gap-[141px_70px] mq450:gap-[141px_18px] mq750:gap-[141px_35px] mq1050:flex-wrap">
-      <div className="flex-1 bg-thistle flex flex-col items-start justify-start pt-[23px] px-[21px] pb-[181px] box-border gap-[36px] min-w-[318px] max-w-full mq450:gap-[18px_36px] mq450:pt-5 mq450:pb-[118px] mq450:box-border mq1050:flex-1">
-        <div className="w-[489px] h-[426px] relative bg-thistle hidden max-w-full" />
-        <div className="w-[420px] h-[86px] flex flex-col items-start justify-start gap-[22px] max-w-full">
-          <div className="w-[238px] relative leading-[21px] flex items-center z-[1] mq450:text-base mq450:leading-[17px]">
-            <span className="w-full">
-              <span>{`Email Address `}</span>
-              <span className="text-tomato">*</span>
-            </span>
-          </div>
-          <div className="self-stretch h-[45px] rounded-md bg-white box-border flex flex-row items-start justify-start py-[11px] px-3 z-[1] border-[1px] border-solid border-lightgray">
-            <input
-              className="w-[116.1px] [border:none] [outline:none] font-inter text-sm bg-[transparent] h-[21px] relative leading-[21px] text-gray text-left flex items-center whitespace-nowrap p-0"
-              placeholder="swoo@gmail.com"
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="w-[296px] relative leading-[21px] flex items-center z-[1] mq450:text-base mq450:leading-[17px]">
-          <span className="w-full">
-            <span>{`Phone Number `}</span>
-            <span className="text-dimgray">(Optional)</span>
-          </span>
-        </div>
-        <div className="w-[422px] h-[45px] rounded-md bg-white box-border flex flex-row items-start justify-start py-[11px] px-3 max-w-full z-[1] border-[1px] border-solid border-lightgray">
-          <input
-            className="w-[121.5px] [border:none] [outline:none] font-inter text-sm bg-[transparent] h-[21px] relative leading-[21px] text-gray text-left flex items-center whitespace-nowrap p-0"
-            placeholder="+1 0231 4554 452"
-            type="text"
-          />
-        </div>
+const DynamicForm = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    accessType: '' // Added accessType field to store the selected access type
+  });
+
+  const [errors, setErrors] = useState({
+    emailError: '',
+    phoneError: ''
+  });
+
+  const [successMessage, setSuccessMessage] = useState('');
+  // Function to handle changes in form input fields
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!formData.emailAddress.includes('@') || !(formData.emailAddress.includes('.com') || formData.emailAddress.includes('.lk'))) {
+      setErrors(prevState => ({
+        ...prevState,
+        emailError: 'Valid email must be added'
+      }));
+      return;
+    }
+
+    if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      setErrors(prevState => ({
+        ...prevState,
+        phoneError: 'Phone number should contain exactly 10 numbers'
+      }));
+      return;
+    }
+
+    try {
+      // Send form data to backend for saving
+      const response = await fetch('http://localhost:8080/addShareCartMembers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        console.log('Data saved successfully');
+        setSuccessMessage('Data saved successfully');
+        // Clear form fields after successful submission
+        setFormData({
+          firstName: '',
+          lastName: '',
+          emailAddress: '',
+          phoneNumber: '',
+          accessType: ''
+        });
+      } else {
+        console.error('Failed to save data');
+        setSuccessMessage('');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSuccessMessage('');
+    }
+  };
+
+  useEffect(() => {
+    // This effect will only run on the client side
+    // You can add any client-side specific logic here
+  }, []);
+
+
+  return (
+    <div className="flex flex-col pb-10 bg-white">
+      <Header />
+      <div className="w-full bg-purple-400 min-h-[38px] max-md:max-w-full" />
+      <div className="self-center mt-9 text-4xl font-bold leading-7 text-black capitalize">
+        Share my cart
       </div>
-      <div className="flex-[0.7852] bg-thistle flex flex-col items-start justify-start pt-5 px-[69px] pb-[218px] box-border gap-[35px] min-w-[318px] max-w-full mq450:gap-[17px_35px] mq450:pl-5 mq450:pr-5 mq450:pb-[142px] mq450:box-border mq1050:flex-1">
-        <div className="w-[489px] h-[426px] relative bg-thistle hidden max-w-full" />
-        <div className="w-[238px] relative leading-[21px] flex items-center z-[1] mq450:text-base mq450:leading-[17px]">
-          <span className="w-full">
-            <span>{`Give access to `}</span>
-            <span className="text-tomato">*</span>
-          </span>
+      <div className="flex flex-col self-center px-5 mt-24 w-full max-w-[1222px] max-md:mt-10 max-md:max-w-full">
+        <div className="text-4xl font-bold leading-7 text-black capitalize max-md:max-w-full">
+          Add new member
         </div>
-        <div className="w-64 flex flex-col items-start justify-start gap-[34px] mq450:gap-[17px_34px]">
-          <div className="w-[150.1px] flex flex-row items-start justify-start gap-[7px]">
-            <input className="m-0 h-[17.5px] w-3.5" type="checkbox" />
-            <div className="flex-1 relative leading-[21px] z-[1] mq450:text-base mq450:leading-[17px]">
-              Add to cart
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col px-16 py-12 mt-11 bg-violet-200 max-md:px-5 max-md:mt-10 max-md:max-w-full">
+            <div className="flex gap-5 px-px max-md:flex-wrap max-md:max-w-full">
+              <div className="flex flex-col flex-1 self-start text-xl leading-5 text-black max-md:max-w-full">
+                <div className="self-start ml-2.5">First name</div>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="shrink-0 mt-4 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full"
+                />
+                <div className="mt-10 max-md:max-w-full">Last name</div>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="shrink-0 mt-4 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full"
+                />
+              </div>
+              <div className="flex flex-col flex-1 items-end max-md:max-w-full">
+                <div className="text-xl leading-5 text-red-600 max-md:max-w-full">
+                  Give access to <span className="text-red-600">*</span>
+                </div>
+                <div className="flex flex-col items-end mt-12 max-md:pr-5 max-md:mt-10 max-md:max-w-full text-black">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="accessType"
+                      value="View only"
+                      onChange={handleChange}
+                    />
+                    View only
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="accessType"
+                      value="Add items"
+                      onChange={handleChange}
+                    />
+                    Add items
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="accessType"
+                      value="Edit items"
+                      onChange={handleChange}
+                    />
+                    Edit items
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="mt-7 max-w-full w-[666px]">
+              <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                <div className="flex flex-col w-[67%] max-md:ml-0 max-md:w-full">
+                  <div className="flex flex-col text-xl leading-5 max-md:mt-8 max-md:max-w-full">
+                    <div className="text-red-600 max-md:max-w-full">
+                      Email Address <span className="text-red-600">*</span>
+                    </div>
+                    <input
+                      type="email"
+                      name="emailAddress"
+                      value={formData.emailAddress}
+                      onChange={handleChange}
+                      className={`shrink-0 mt-7 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.emailError ? 'border-red-500' : 'border-stone-300'} text-black`} // Add text-black class to change font color
+                    />
+                    {errors.emailError && <div className="text-red-500">{errors.emailError}</div>} {/* Display error message */}
+                    <div className="mt-10 text-stone-500 max-md:max-w-full">
+                      Phone Number{" "}
+                      <span className="text-stone-500">(Optional)</span>
+                    </div>
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      className={`shrink-0 mt-6 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.phoneError ? 'border-red-500' : 'border-stone-300'} text-black`} // Add text-black class to change font color
+                    />
+                    {errors.phoneError && <div className="text-red-500">{errors.phoneError}</div>} {/* Display error message */}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="self-stretch flex flex-row items-start justify-start gap-[7px]">
-            <input className="m-0 h-[17.5px] w-3.5" type="checkbox" />
-            <div className="flex-1 relative leading-[21px] z-[1] mq450:text-base mq450:leading-[17px]">
-              View cart only
-            </div>
+          <div className="flex justify-center">
+            <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save</button>
           </div>
-        </div>
-        <div className="w-[270px] flex flex-row items-start justify-start gap-[7px]">
-          <input className="m-0 h-[17.5px] w-3.5" type="checkbox" />
-          <div className="flex-1 relative leading-[21px] z-[1] mq450:text-base mq450:leading-[17px]">
-            Edit cart items
-          </div>
-        </div>
+        </form>
+        {successMessage && <p>{successMessage}</p>}
       </div>
     </div>
-    <div className="w-[1098px] flex flex-row items-start justify-center py-0 px-5 box-border max-w-full">
-    <button className="cursor-pointer [border:none] py-6 px-[62px] bg-darkmagenta w-[212px] rounded-3xs flex flex-row items-start justify-start box-border hover:bg-mediumorchid">
-      <div className="flex-1 relative text-xl leading-[18px] uppercase font-medium font-inter text-white text-center mq450:text-base mq450:leading-[14px]">
-        Share
-      </div>
-    </button>
-  </div>
-    </div>
-</div>
-);
-  }
+  );
+
+}
+
+export default DynamicForm;
