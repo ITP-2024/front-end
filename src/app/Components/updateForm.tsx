@@ -53,7 +53,6 @@ const UpdateForm: React.FC = () => {
 
     setSelectedOption("");
     setComplainId("");
-    setShowForm(false);
   };
 
   return (
@@ -109,14 +108,12 @@ const UpdateForm: React.FC = () => {
           >
             Update
           </button>
-          {showForm && (
-            <button
-              className="ml-2 mb-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-              onClick={closeForm}
-            >
-              Close Form
-            </button>
-          )}
+          <button
+            className="ml-2 mb-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+            onClick={closeForm}
+          >
+            Close Form
+          </button>
         </form>
       )}
     </div>

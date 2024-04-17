@@ -4,7 +4,6 @@ import Navbar from "../Components/navbar";
 const Dashboard = () => {
   return (
     <div>
-      <Navbar />
       <div className="ml-[330px] flex justify-start mt-[70px] gap-4">
         <Card
           icon={
@@ -77,7 +76,7 @@ const Dashboard = () => {
           <span>Download Report</span>
         </button>
       </div>
-      <div className="ml-[330px] mr-[20px] mt-[30px]">
+      <div className="ml-[330px] mr-[20px] mt-[10px]">
         <BarChart />
       </div>
     </div>

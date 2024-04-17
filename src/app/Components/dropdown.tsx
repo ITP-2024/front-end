@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 
 interface DropDown {
@@ -19,7 +20,7 @@ const DropDown: React.FC = () => {
     "Order Management": [
       { title: "Dashboard", link: "/Dashboard" },
       { title: "Orders", link: "/Order" },
-      { title: "Complains", link: "/Complian" },
+      { title: "Complains", link: "/Complain" },
     ],
     "Inventory Management": [
       { title: "Stock Management" },
@@ -98,7 +99,7 @@ const DropDown: React.FC = () => {
                   }`}
                   onClick={() => handleOrderByClick(order.title)}
                 >
-                  {order.title}
+                  <Link href={order.link!}>{order.title}</Link>
                 </div>
               ))}
             </div>

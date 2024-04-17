@@ -1,6 +1,7 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Card from "../Components/card";
-import Navbar from "../Components/navbar";
 import UpdateForm from "../Components/updateForm";
 
 import { MdCloudDone } from "react-icons/md";
@@ -9,7 +10,7 @@ import { IoNotifications } from "react-icons/io5";
 
 const Complain: React.FC = () => {
   interface TableData {
-    ComplainId: number;
+    ComplainId: string;
     orderId: string;
     customerMail: string;
     complainType: string;
@@ -63,7 +64,6 @@ const Complain: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
       <div
         className={`ml-[320px] mt-[90px] ${showForm ? "filter blur-sm" : ""}`}
       >
@@ -82,11 +82,11 @@ const Complain: React.FC = () => {
         <div className="flex justify-end">
           <button
             onClick={toggleForm}
-            className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4 mt-[25px] mr-[20px] rounded"
+            className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4  mr-[20px] rounded"
           >
             Update Status
           </button>
-          <button className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4 mt-[25px] mr-[20px] rounded">
+          <button className="bg-purple-400 hover:bg-fuchsia-800 text-black hover:text-white font-bold py-2 px-4  mr-[20px] rounded">
             Assign Complain
           </button>
         </div>

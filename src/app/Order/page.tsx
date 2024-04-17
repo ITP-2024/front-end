@@ -10,17 +10,16 @@ import { MdPendingActions } from "react-icons/md";
 
 const Orders: React.FC = () => {
   interface TableData {
-    ComplainId: number;
     orderId: string;
-    customerMail: string;
-    complainType: string;
-    complainStatus: string;
-    complainDetails: string;
+    customerId: string;
+    productId: string;
+    productQty: string;
+    adress: string;
+    date: string;
   }
 
   return (
     <div>
-      <Navbar />
       <div className="mt-[90px] ml-[320px]">
         <SearchBar
           title="Search "
@@ -30,7 +29,7 @@ const Orders: React.FC = () => {
         />
         <div className="flex justify-start mt-[20px] gap-4">
           <Card icon={<MdCloudDone />} title="Total Order " value={"234"} />
-          <Card icon={<MdPendingActions />} title="Pending" value={"4"} />
+          <Card icon={<MdPendingActions />} title="Pending Order" value={"4"} />
         </div>
         <div className="flex flex-col gap-4 mt-[20px] mr-[20px] ">
           <div className="max-h-[350px] overflow-y-auto">
@@ -43,6 +42,7 @@ const Orders: React.FC = () => {
                     "Product ID",
                     "Product Qty",
                     "Address",
+                    "Date",
                   ].map((header, index) => (
                     <th key={index} className="sticky top-0 bg-fuchsia-800">
                       {header}
@@ -52,6 +52,7 @@ const Orders: React.FC = () => {
               </thead>
               <tbody>
                 <tr className="h-12 text-center bg-zinc-300 text-black">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
