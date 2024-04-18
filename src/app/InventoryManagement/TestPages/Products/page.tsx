@@ -1,5 +1,5 @@
 "use client";
-import SearchBar from "./searchbar";
+import SearchBar from "../../../Components/searchbar";
 
 import React, { FC, useState, useEffect } from 'react';
 import axios from 'axios';

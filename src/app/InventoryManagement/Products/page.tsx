@@ -1,5 +1,6 @@
 "use client";
-import SearchBar from "./searchbar";
+
+import SearchBar from "../../Components/searchbar";
 
 import React, { FC, useState, useEffect } from 'react';
 import axios from 'axios';
@@ -136,7 +137,7 @@ const Products: FC = () => {
                 <SearchBar title="Search " onSearch={handleSearch} /> 
 
                 <button className="relative rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex  flex-row flex-wrap items-center justify-center py-[0.75rem] px-[1rem] text-left text-[1rem] text-white font-inter border-[1px] border-solid border-darkmagenta">
-                    <Link href="/InventoryManagement/addProduct">
+                    <Link href="/InventoryManagement/Products/AddProduct">
                         <div className="relative font-semibold">+ Add New Product</div>
                     </Link>
                 </button>
