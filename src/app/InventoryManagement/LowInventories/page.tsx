@@ -133,13 +133,25 @@ const LowInventories: React.FC = () => {
                 </div>
 
                 {/* product Id column */}   
-                <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5  text-sm text-white">
                         <b className="relative tracking-[0.01em]">Product ID</b>
                     </div>
                     {products.map((product, index) => (
                     <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
                         <div className="relative tracking-[0.01em]">{product.productId}</div>
+                    </div>
+                    ))}
+                </div>
+
+                {/* Product image */}
+                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
+                        <b className="relative tracking-[0.01em]">Image</b>
+                    </div>
+                    {products.map((product, index) => (
+                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                        <img className="w-10 relative h-10 object-cover" alt="" src={product.imageUrl} />
                     </div>
                     ))}
                 </div>
@@ -157,7 +169,7 @@ const LowInventories: React.FC = () => {
                 </div>
 
                 {/* Category column */}
-                <div className="w-[140px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[135px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">Category</b>
                     </div>
@@ -167,27 +179,39 @@ const LowInventories: React.FC = () => {
                     </div>
                     ))}
                 </div>
-                
-                {/* Price column */}
-                <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
-                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
-                        <b className="relative tracking-[0.01em]">Price</b>
-                    </div>
-                    {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
-                        <div className="relative tracking-[0.01em]">{product.price}</div>
-                    </div>
-                    ))}
-                </div>
 
                 {/* GiftBoxProduct column */}
-                <div className="w-[140px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[135px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">GiftBox Product</b>
                     </div>
                     {products.map((product, index) => (
                     <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
                         <div className="relative tracking-[0.01em]">{product.giftBoxProduct ? 'True' : 'False'}</div>
+                    </div>
+                    ))}
+                </div>
+
+                 {/* Price size */}
+                 <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
+                        <b className="relative tracking-[0.01em]">Size</b>
+                    </div>
+                    {products.map((product, index) => (
+                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                        <div className="relative tracking-[0.01em]">{product.size.name}</div>
+                    </div>
+                    ))}
+                </div>
+                
+                {/* Price column */}
+                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
+                        <b className="relative tracking-[0.01em]">Price</b>
+                    </div>
+                    {products.map((product, index) => (
+                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                        <div className="relative tracking-[0.01em]">{product.price}</div>
                     </div>
                     ))}
                 </div>
