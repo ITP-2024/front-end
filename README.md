@@ -89,6 +89,54 @@ src/
 |-- layout.tsx
 ```
 
+New Folder Structure
+```bash
+src/
+|-- pages/
+|   |-- OrderManagement/
+|   |   |-- index.tsx
+|   |   |-- orders.tsx
+|   |   |-- complain.tsx
+|   |   |-- searchbar.tsx
+|   |   |-- card.tsx
+|   |   |-- barChart.tsx
+|   |-- InventoryManagement/
+|   |   |-- index.tsx
+|   |   |-- products.tsx
+|   |   |-- lowInventories.tsx
+|   |   |-- addProduct.tsx
+|   |   |-- card.tsx
+|   |   |-- searchbar.tsx
+|   |-- financeManagement/
+|   |   |-- index.tsx
+|   |-- reviewManagement/
+|   |   |-- index.tsx
+|   |-- customerGiftbox/
+|   |   |-- index.tsx
+|   |-- customerCart/
+|   |   |-- index.tsx
+|   |-- api/
+|   |   |-- mongo.ts
+|   |   |-- products.ts
+|   |   |-- categories.ts
+|   |   |-- sizes.ts
+|   |   |-- giftBox.ts
+|-- components/
+|   |-- adminTopbar.tsx
+|   |-- adminDropdown.tsx
+|   |-- adminNavbar.tsx
+|   |-- header.tsx
+|   |-- foter.tsx
+|-- public/
+|   |-- user.svg
+|   |-- search.svg
+|-- globals.css
+|-- index.tsx
+|-- layout.tsx
+```
+
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Learn More
