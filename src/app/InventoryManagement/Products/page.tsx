@@ -46,11 +46,11 @@ const Products: FC = () => {
       }, []);
     
     const handleDelete = async (id: string) => {
-        if (selectedProduct?.id === id) { // Check if the product is selected
+        if (selectedProduct?.id === id) { 
             try {
                 await axios.delete(`http://localhost:8080/api/products/${id}`);
-                setProducts(products.filter(product => product.id !== id)); // Remove the deleted product from the state
-                setSelectedProduct(null); // Deselect the product
+                setProducts(products.filter(product => product.id !== id)); 
+                setSelectedProduct(null);
                 window.alert('Product successfully deleted!');
             } catch (error) {
                 console.error('Error deleting product:', error);
@@ -62,11 +62,9 @@ const Products: FC = () => {
 
     const handleCheckboxChange = (product: Product) => {
         if (selectedProduct?.id === product.id) {
-            // If the selected product is the same as the product of the checkbox, deselect it
             setSelectedProduct(null);
             setNewQuantity(0);
         } else {
-            // If the selected product is different from the product of the checkbox, select it
             setSelectedProduct(product);
             setNewQuantity(product.quantity);
         }
@@ -84,6 +82,22 @@ const Products: FC = () => {
           product.productId.toLowerCase().includes(lowerCaseQuery)
         );
         setFilteredProducts(filtered);
+    };
+
+    const handlePrint = () => {
+        axios({
+            url: 'http://localhost:8080/api/reports/all-inventory',
+            method: 'GET',
+            responseType: 'blob', 
+        })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Inventory_report.pdf');
+            document.body.appendChild(link);
+            link.click();
+        });
     };
   
     const handleEditClick = () => {
@@ -130,7 +144,9 @@ const Products: FC = () => {
 
                 <div className="self-stretch  flex flex-col items-start justify-start pt-[5rem] ">
                     <div className="w-[80rem] !m-[0] absolute top-[4.8rem] left-[calc(50%_-_490px)] flex flex-row items-start justify-between max-w-full gap-[1.25rem] mq1050:flex-wrap">
+                        
                         <SearchBar title="Search " onSearch={handleSearch} />
+
                         <div className="flex flex-row items-start justify-start gap-[2.125rem] max-w-full mq750:flex-wrap">
                         <button
                             className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid"
@@ -142,7 +158,7 @@ const Products: FC = () => {
                             </Link>
                         </button>
                         <button className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid">
-                            <b className="relative text-[1rem] inline-block  text-white text-left mq450:text-[1rem]">
+                            <b className="relative text-[1rem] inline-block  text-white text-left mq450:text-[1rem]" onClick={handlePrint}>
                                 Print
                             </b>
                         </button>
