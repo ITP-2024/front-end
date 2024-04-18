@@ -1,6 +1,6 @@
-import Card from "../Components/card";
-import BarChart from "../Components/barChart";
-import Navbar from "../Components/navbar";
+import Card from "@/app/Components/card";
+import BarChart from "@/app/Components/barChart";
+
 const Dashboard = () => {
   return (
     <div>

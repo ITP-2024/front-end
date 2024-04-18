@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Card from "../Components/card";
-import UpdateForm from "../Components/updateForm";
+import Card from "@/app/Components/card";
+import UpdateForm from "@/app/Components/updateForm";
 
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
@@ -22,41 +22,6 @@ const Complain: React.FC = () => {
   const [count, setCount] = useState<number>(4);
   const [pendingCount, setPendingCount] = useState<number>(0);
   const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
-    fetchTableData();
-  }, []);
-
-  const fetchTableData = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/api/complains/all");
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data: TableData[] = await response.json();
-      setTableData(data);
-
-      const countResponse = await fetch(
-        "http://localhost:8080/api/complains/count"
-      );
-      if (!countResponse.ok) {
-        throw new Error("Failed to fetch count");
-      }
-      const countData: number = await countResponse.json();
-      setCount(countData);
-
-      const pendingResponse = await fetch(
-        "http://localhost:8080/api/complains/pending"
-      );
-      if (!pendingResponse.ok) {
-        throw new Error("Failed to fetch pending count");
-      }
-      const pendingData: number = await pendingResponse.json();
-      setPendingCount(pendingData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
   const toggleForm = () => {
     setShowForm((prevState) => !prevState);
