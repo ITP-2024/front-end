@@ -351,7 +351,7 @@ const AddProduct = () => {
                 <div className="w-[863px] h-[68px] flex flex-row items-center justify-center text-white">
                     <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5">
                         <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
-                            <div className="relative font-semibold">Cancel</div>
+                            <div className="relative font-semibold">Clear</div>
                         </button>
                     </div>
                     <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5 ml-[-10px]">
