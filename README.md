@@ -1,17 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project
+
 
 ## Getting Started
 
 First, run the development server:
-
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+
+Commit all changes & Push changes
+```bash
+git add .
+git commit -m "Commit message describing your changes"
+# and
+git push origin <branch-name>
+```
+
+Now My Folder structure
+```bash
+src/
+|-- app/
+|   |-- ManagerUI/
+|   |   |-- navbar.tsx
+|   |   |-- dropdown.tsx
+|   |   |-- topbar.tsx
+|   |-- OrderManagement/
+|   |   |-- dashboard.tsx
+|   |   |-- orders.tsx
+|   |   |-- complain.tsx
+|   |   |-- searchbar.tsx
+|   |   |-- card.tsx
+|   |   |-- barChart.tsx
+|   |-- InventoryManagement/
+|   |   |-- dashboard.tsx
+|   |   |-- products.tsx
+|   |   |-- lowInventories.tsx
+|   |   |-- addProduct.tsx
+|   |   |-- card.tsx
+|   |   |-- searchbar.tsx
+|-- globals.css
+|-- page.tsx
+|-- layout.tsx
+```
+
+New Folder Structure
+```bash
+src/
+|-- pages/
+|   |-- OrderManagement/
+|   |   |-- index.tsx
+|   |   |-- orders.tsx
+|   |   |-- complain.tsx
+|   |   |-- searchbar.tsx
+|   |   |-- card.tsx
+|   |   |-- barChart.tsx
+|   |-- InventoryManagement/
+|   |   |-- index.tsx
+|   |   |-- products.tsx
+|   |   |-- lowInventories.tsx
+|   |   |-- addProduct.tsx
+|   |   |-- card.tsx
+|   |   |-- searchbar.tsx
+|   |-- financeManagement/
+|   |   |-- index.tsx
+|   |-- reviewManagement/
+|   |   |-- index.tsx
+|   |-- customerGiftbox/
+|   |   |-- index.tsx
+|   |-- customerCart/
+|   |   |-- index.tsx
+|   |-- api/
+|   |   |-- mongo.ts
+|   |   |-- products.ts
+|   |   |-- categories.ts
+|   |   |-- sizes.ts
+|   |   |-- giftBox.ts
+|-- components/
+|   |-- adminTopbar.tsx
+|   |-- adminDropdown.tsx
+|   |-- adminNavbar.tsx
+|   |-- header.tsx
+|   |-- foter.tsx
+|-- public/
+|   |-- user.svg
+|   |-- search.svg
+|-- globals.css
+|-- index.tsx
+|-- layout.tsx
 ```
 
 New Folder Structure
@@ -63,10 +138,6 @@ src/
 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
