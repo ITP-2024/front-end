@@ -1,4 +1,4 @@
-import Card from "../../Components/card";
+import Card from "../../../components/InventoryManagement/card";
 
 const Dashboard = () => {
   return (
