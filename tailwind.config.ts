@@ -14,12 +14,12 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        thistle: "#dec6ee",
+        black: "#000",
         darkmagenta: "#871a99",
+        shadeofpurple: "#C395D9",
+        thistle: "#dec6ee",
         white: "#fff",
         darkslategray: "#323c47",
-        shadeofpurple: "#C395D9",
-        black: "#000",
         "checkbox-empty": "#d5d5d5"
       },
       spacing: {},

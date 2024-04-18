@@ -1,10 +1,8 @@
 "use client";
-
 import SearchBar from "../../../components/InventoryManagement/searchbar";
 
 import React, { FC, useState, useEffect } from 'react';
 import axios from 'axios';
-import Router from 'next/router';
 import Link from 'next/link';
 
 interface Size {
@@ -46,10 +44,6 @@ const Products: FC = () => {
             console.error('There was an error!', error);
           });
       }, []);
-
-    const navigateToAddProduct = () => {
-        Router.push('/InventoryManagement/addProduct');
-    };
     
     const handleDelete = async (id: string) => {
         if (selectedProduct?.id === id) { // Check if the product is selected
@@ -134,13 +128,28 @@ const Products: FC = () => {
 
             <div className="mt-[30px] mt-[90px]">   
 
-                <SearchBar title="Search " onSearch={handleSearch} /> 
-
-                <button className="relative rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex  flex-row flex-wrap items-center justify-center py-[0.75rem] px-[1rem] text-left text-[1rem] text-white font-inter border-[1px] border-solid border-darkmagenta">
-                    <Link href="/InventoryManagement/Products/AddProduct">
-                        <div className="relative font-semibold">+ Add New Product</div>
-                    </Link>
-                </button>
+                <div className="self-stretch  flex flex-col items-start justify-start pt-[5rem] ">
+                    <div className="w-[80rem] !m-[0] absolute top-[4.8rem] left-[calc(50%_-_490px)] flex flex-row items-start justify-between max-w-full gap-[1.25rem] mq1050:flex-wrap">
+                        <SearchBar title="Search " onSearch={handleSearch} />
+                        <div className="flex flex-row items-start justify-start gap-[2.125rem] max-w-full mq750:flex-wrap">
+                        <button
+                            className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid"
+                        >
+                            <Link href="/InventoryManagement/Products/AddProduct">
+                                <b className="relative text-[1rem] text-white text-left " >
+                                    + Add Product
+                                </b>
+                            </Link>
+                        </button>
+                        <button className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid">
+                            <b className="relative text-[1rem] inline-block  text-white text-left mq450:text-[1rem]">
+                                Print
+                            </b>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
 
             {/* Product details section */}

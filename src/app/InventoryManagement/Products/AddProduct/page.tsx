@@ -157,11 +157,11 @@ const AddProduct = () => {
 
   	return (
         // Form layout
-        <div className="w-full relative [backdrop-filter:blur(2.5px)] h-[978px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
-            <div className="flex flex-col items-center bg-shadeofpurple justify-center">
-                <form>{/* Form fields */}
-                    <div className="w-[863px] h-[656px] flex flex-row items-center justify-center">
-                        <div className="w-[863px] relative bg-shadeofpurple h-[656px]">
+        <div className="w-full relative [backdrop-filter:blur(2.5px)]  h-[890px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
+            <div className="flex flex-col items-center bg-shadeofpurple rounded-[20px] justify-center">
+                <form >{/* Form fields */}
+                    <div className="w-[863px] h-[650px] flex flex-row items-center justify-center ">
+                        <div className="w-[863px] relative bg-transparent h-[640px]" >
                             {/* Product Id */}
                             <div className="absolute top-[2px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
@@ -342,13 +342,13 @@ const AddProduct = () => {
                 </form>
                 {/* Save and cancel buttons */}
                 <div className="w-[863px] h-[68px] flex flex-row items-center justify-center text-white">
-                    <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5">
-                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
+                    <div className="[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5" >
+                        <button className="rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-4 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
                             <div className="relative font-semibold">Clear</div>
                         </button>
                     </div>
-                    <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5 ml-[-10px]">
-                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleSubmit}>
+                    <div className="[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5 ml-[-10px]">
+                        <button className="rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-4 border-[1px] border-solid border-darkmagenta" onClick={handleSubmit}>
                             <div className="relative font-semibold">Save</div>
                         </button>
                     </div>

@@ -30,7 +30,7 @@ const DropDown: React.FC = () => {
     ],
     "Financial Management": [
       { title: "Accounting", link: "/InventoryManagement/TestPages/Products" },
-      { title: "Budgeting", link: "/FinancialManagement/budgeting" },
+      { title: "Budgeting", link: "/InventoryManagement/TestPages/LowInventories" },
       { title: "Reporting", link: "/FinancialManagement/reporting" },
     ],
   };
@@ -55,8 +55,8 @@ const DropDown: React.FC = () => {
           <button
             className={`w-[290px] h-[52px] mt-[15px] flex items-center justify-between pl-8 pr-4 font-semibold border-solid border-gray-300 text-black ${
               selectedMenu === menuItem.title
-                ? "bg-fuchsia-800 text-white"
-                : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                ? "bg-darkmagenta text-white"
+                : "bg-shadeofpurple hover:bg-darkmagenta hover:text-white"
             }`}
             onClick={() => handleMenuClick(menuItem.title)}
           >
@@ -94,10 +94,10 @@ const DropDown: React.FC = () => {
               {ordersByMenu[selectedMenu].map((order) => (
                 <div
                   key={order.title}
-                  className={`text-black h-[35px] px-2 mt-[2px] font-semibold font-['Inter'] flex items-center justify-between rounded-[15px] ${
+                  className={`text-black h-[35px] px-2 mt-[2px] font-semibold flex items-center justify-between rounded-[15px] ${
                     selectedOrderBy === order.title
-                      ? "bg-fuchsia-800 text-white"
-                      : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                      ? "bg-darkmagenta text-white"
+                      : "bg-shadeofpurple hover:bg-darkmagenta hover:text-white"
                   }`}
                   onClick={() => handleOrderByClick(order.title)}
                 >

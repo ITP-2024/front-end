@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import SearchBar from "../../Components/searchbar";
+import SearchBar from "../../../../components/InventoryManagement/searchbar";
 
 interface Size {
     id: string;
