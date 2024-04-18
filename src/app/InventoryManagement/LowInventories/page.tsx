@@ -1,8 +1,8 @@
 "use client";
+import SearchBar from "../../../components/InventoryManagement/searchbar";
 
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import SearchBar from "../../../components/InventoryManagement/searchbar";
 
 interface Size {
     id: string;
@@ -70,6 +70,22 @@ const LowInventories: React.FC = () => {
         setFilteredProducts(filtered);
     };
 
+    const handlePrint = () => {
+        axios({
+            url: 'http://localhost:8080/api/reports/low-inventory',
+            method: 'GET',
+            responseType: 'blob', // Important
+        })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'low_inventories_report.pdf');
+            document.body.appendChild(link);
+            link.click();
+        });
+    };
+
     const handleEditClick = () => {
         if (selectedProduct && selectedProduct.quantity !== newQuantity) {
             axios.put(`http://localhost:8080/api/products/${selectedProduct.id}`, {
@@ -89,30 +105,24 @@ const LowInventories: React.FC = () => {
 
   	return (
         <div className="ml-[320px]">
+
             <div className=" mt-[30px] mt-[90px]">
             
-            <SearchBar title="Search " onSearch={handleSearch} /> 
+                <div className="self-stretch  flex flex-col items-start justify-start pt-[5rem] ">
+                    <div className="w-[80rem] !m-[0] absolute top-[4.8rem] left-[calc(50%_-_490px)] flex flex-row items-start justify-between max-w-full gap-[1.25rem] mq1050:flex-wrap">
 
-                <button 
-                    className="relative rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row flex-wrap items-center justify-center py-[0.75rem] px-[1rem] text-left text-[1rem] text-white font-inter border-[1px] border-solid border-darkmagenta"
-                    onClick={() => {
-                        axios({
-                            url: 'http://localhost:8080/api/reports/low-inventory',
-                            method: 'GET',
-                            responseType: 'blob', // Important
-                        })
-                        .then((response) => {
-                            const url = window.URL.createObjectURL(new Blob([response.data]));
-                            const link = document.createElement('a');
-                            link.href = url;
-                            link.setAttribute('download', 'low_inventory_report.pdf');
-                            document.body.appendChild(link);
-                            link.click();
-                        });
-                    }}
-                >
-                    <div className="relative font-semibold">Print Report</div>
-                </button>
+                        <SearchBar title="Search " onSearch={handleSearch} />
+                        
+                        <div className="flex flex-row items-start justify-start gap-[2.125rem] max-w-full mq750:flex-wrap">
+                        <button className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid"
+                            onClick={handlePrint}>
+                            <b className="relative text-[1rem] inline-block  text-white text-left mq450:text-[1rem]">
+                                Print
+                            </b>
+                        </button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -133,13 +143,25 @@ const LowInventories: React.FC = () => {
                 </div>
 
                 {/* product Id column */}   
-                <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5  text-sm text-white">
                         <b className="relative tracking-[0.01em]">Product ID</b>
                     </div>
                     {products.map((product, index) => (
                     <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
                         <div className="relative tracking-[0.01em]">{product.productId}</div>
+                    </div>
+                    ))}
+                </div>
+
+                {/* Product image */}
+                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
+                        <b className="relative tracking-[0.01em]">Image</b>
+                    </div>
+                    {products.map((product, index) => (
+                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                        <img className="w-10 relative h-10 object-cover" alt="" src={product.imageUrl} />
                     </div>
                     ))}
                 </div>
@@ -157,7 +179,7 @@ const LowInventories: React.FC = () => {
                 </div>
 
                 {/* Category column */}
-                <div className="w-[140px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[135px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">Category</b>
                     </div>
@@ -167,27 +189,39 @@ const LowInventories: React.FC = () => {
                     </div>
                     ))}
                 </div>
-                
-                {/* Price column */}
-                <div className="w-[120px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
-                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
-                        <b className="relative tracking-[0.01em]">Price</b>
-                    </div>
-                    {products.map((product, index) => (
-                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
-                        <div className="relative tracking-[0.01em]">{product.price}</div>
-                    </div>
-                    ))}
-                </div>
 
                 {/* GiftBoxProduct column */}
-                <div className="w-[140px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                <div className="w-[135px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
                     <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
                         <b className="relative tracking-[0.01em]">GiftBox Product</b>
                     </div>
                     {products.map((product, index) => (
                     <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
                         <div className="relative tracking-[0.01em]">{product.giftBoxProduct ? 'True' : 'False'}</div>
+                    </div>
+                    ))}
+                </div>
+
+                 {/* Price size */}
+                 <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
+                        <b className="relative tracking-[0.01em]">Size</b>
+                    </div>
+                    {products.map((product, index) => (
+                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                        <div className="relative tracking-[0.01em]">{product.size.name}</div>
+                    </div>
+                    ))}
+                </div>
+                
+                {/* Price column */}
+                <div className="w-[100px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px]">
+                    <div className="self-stretch bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 text-sm text-white">
+                        <b className="relative tracking-[0.01em]">Price</b>
+                    </div>
+                    {products.map((product, index) => (
+                    <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5">
+                        <div className="relative tracking-[0.01em]">{product.price}</div>
                     </div>
                     ))}
                 </div>

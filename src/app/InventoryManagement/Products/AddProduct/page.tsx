@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 
 interface Size {
     id: string;
@@ -37,9 +37,6 @@ const AddProduct = () => {
         quantity: 0, // Set default value
     });
 
-    const [successMessage, setSuccessMessage] = useState<string>('');
-    const [errorMessage, setErrorMessage] = useState<string>('');
-
     // Mapping of category names to IDs
     const categoryMap: { [key: string]: string } = {
         "Astro": "66184676a1911b830d7893c0",
@@ -71,32 +68,35 @@ const AddProduct = () => {
 
     // Handle change in form fields
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
+    const { name, value } = e.target;
 
-        if (name === 'category') {
-            // If the user is selecting a category, map the selected name to its corresponding ID
-            const categoryId = categoryMap[value];
-            setProduct({ ...product, [name]: { id: categoryId, name: value } });
-        } else if (name === 'size') {
-            // If the user is selecting a size, map the selected name to its corresponding ID
-            const sizeId = sizeMap[value];
-            setProduct({ ...product, [name]: { id: sizeId, name: value } });
-        } else if (name === 'price') {
-            // For price, parse the value to a floating-point number before setting it
-            setProduct({ ...product, [name]: parseFloat(value) });
-        } else if (name === 'quantity') {
-            // For quantity, parse the value to an integer before setting it
-            setProduct({ ...product, [name]: parseInt(value, 10) });
-        } else {
-            // For other fields, simply update the value
-            setProduct({ ...product, [name]: value });
-        }
-    };
+    if (name === 'category') {
+        // If the user is selecting a category, map the selected name to its corresponding ID
+        const categoryId = categoryMap[value];
+        setProduct({ ...product, [name]: { id: categoryId, name: value } });
+    } else if (name === 'size') {
+        // If the user is selecting a size, map the selected name to its corresponding ID
+        const sizeId = sizeMap[value];
+        setProduct({ ...product, [name]: { id: sizeId, name: value } });
+    } else if (name === 'price') {
+        // For price, parse the value to a floating-point number before setting it
+        setProduct({ ...product, [name]: parseFloat(value) });
+    } else if (name === 'quantity') {
+        // For quantity, parse the value to an integer before setting it
+        setProduct({ ...product, [name]: parseInt(value, 10) });
+    } else if (name === 'giftBoxProduct') {
+        // For giftBoxProduct, keep the value as a string
+        setProduct({ ...product, [name]: value === "true" });
+    } else {
+        // For other fields, simply update the value
+        setProduct({ ...product, [name]: value });
+    }
+};
 
     // Handle form submission
     const handleSubmit = async () => {
         // Basic form validation
-        if (!product.name || !product.price || !product.quantity || !product.category || !product.imageUrl || !product.description || !product.giftBoxProduct) {
+        if (!product.name || !product.price || !product.quantity || !product.category || !product.imageUrl || !product.description ) {
             alert('Please fill in all required fields');
             return;
         }
@@ -110,9 +110,7 @@ const AddProduct = () => {
                 body: JSON.stringify(product),
             });
             if (response.ok) {
-                // If the request is successful, display success message and reset form
-                setSuccessMessage('Product successfully created!');
-                setErrorMessage(''); // Reset error message
+                alert('Product successfully created!');
                 
                 setProduct({
                     productId: '',
@@ -128,14 +126,12 @@ const AddProduct = () => {
             } else {
                 // Handle error (e.g., display error message)
                 const errorData = await response.json();
-                setErrorMessage(errorData.message || 'Error creating product.');
-                setSuccessMessage(''); // Reset success message
+                alert('Error creating product.');
             }
         } catch (error) {
             // If an error occurs, log it and display a generic error message
             console.error('Error:', error);
-            setErrorMessage('An error occurred while creating the product.');
-            setSuccessMessage(''); // Reset success message
+            alert('An error occurred while creating the product.');
         }
     };
 
@@ -161,11 +157,11 @@ const AddProduct = () => {
 
   	return (
         // Form layout
-        <div className="w-full relative [backdrop-filter:blur(2.5px)] h-[978px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
-            <div className="flex flex-col items-center bg-shadeofpurple justify-center">
-                <form>{/* Form fields */}
-                    <div className="w-[863px] h-[656px] flex flex-row items-center justify-center">
-                        <div className="w-[863px] relative bg-shadeofpurple h-[656px]">
+        <div className="w-full relative [backdrop-filter:blur(2.5px)]  h-[890px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
+            <div className="flex flex-col items-center bg-shadeofpurple rounded-[20px] justify-center">
+                <form >{/* Form fields */}
+                    <div className="w-[863px] h-[650px] flex flex-row items-center justify-center ">
+                        <div className="w-[863px] relative bg-transparent h-[640px]" >
                             {/* Product Id */}
                             <div className="absolute top-[2px] left-[12px] flex flex-row items-start justify-start">
                                 <div className="flex flex-col items-start justify-start relative">
@@ -344,18 +340,15 @@ const AddProduct = () => {
                         </div>
                     </div>
                 </form>
-                {/* Success and error messages */}
-                {successMessage && <div className="success-message">{successMessage}</div>}
-                {errorMessage && <div className="error-message">{errorMessage}</div>}
                 {/* Save and cancel buttons */}
                 <div className="w-[863px] h-[68px] flex flex-row items-center justify-center text-white">
-                    <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5">
-                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
+                    <div className="[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5" >
+                        <button className="rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-4 border-[1px] border-solid border-darkmagenta" onClick={handleCancel}>
                             <div className="relative font-semibold">Clear</div>
                         </button>
                     </div>
-                    <div className="rounded-31xl [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5 ml-[-10px]">
-                        <button className="rounded-31xl bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-2.5 border-[1px] border-solid border-darkmagenta" onClick={handleSubmit}>
+                    <div className="[filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] flex flex-col items-start justify-start p-2.5 ml-[-10px]">
+                        <button className="rounded-[50px] bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center py-3 px-4 border-[1px] border-solid border-darkmagenta" onClick={handleSubmit}>
                             <div className="relative font-semibold">Save</div>
                         </button>
                     </div>
