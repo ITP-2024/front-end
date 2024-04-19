@@ -20,33 +20,30 @@ git push origin <branch-name>
 Folder Structure
 ```bash
 src/
+|-- api/
+|   |-- mongo.ts
+|   |-- order.ts
+|   |-- products.ts
+|   |-- categories.ts
+|   |-- sizes.ts
+|   |-- giftBox.ts
 |-- app/
-|   |-- OrderManagement
-|   |-- InventoryManagement
-|   |-- financeManagement
-|   |-- reviewManagement
-|   |-- customerGiftbox
-|   |-- customerCart
+|   |-- OrderManagement/
+|   |-- InventoryManagement/
+|   |-- financeManagement/
+|   |-- reviewManagement/
+|   |-- customerGiftbox/
+|   |-- globals.css
+|   |-- layout.tsx
+|   |-- page.tsx
 |-- components/
-|   |-- cart
-|   |-- common
-|   |-- InventoryManagement
-|   |-- OrderManagement
-|-- public/
-|   |-- cart
-|   |-- common
-|   |-- inventoryManagement
-|   |-- OrderManagement
-|-- pages/api/
-|   |   |-- mongo.ts
-|   |   |-- products.ts
-|   |   |-- categories.ts
-|   |   |-- sizes.ts
-|   |   |-- giftBox.ts
-|   |   |-- order.ts
-|-- globals.css
-|-- index.tsx
-|-- layout.tsx
+|   |-- cart/
+|   |-- common/
+|   |-- InventoryManagement/
+|   |-- OrderManagement/
+|-- package.json
+|-- tailwind.config.ts
+|-- README.md
 ```
 
 
