@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-
-import SearchBar from "@/app/Components/searchbar";
-import Card from "@/app/Components/card";
+import SearchBar from "@/components/searchbar";
+import Card from "@/components/card";
 
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";

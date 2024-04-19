@@ -99,7 +99,7 @@ const UpdateForm: React.FC = () => {
             >
               <option value="">Select Status</option>
               <option value="Processing">Processing</option>
-              <option value="Done">Done</option>
+              <option value="Done">Resolved</option>
             </select>
           </div>
           <button
