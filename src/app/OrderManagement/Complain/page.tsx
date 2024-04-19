@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Card from "@/components/card";
-import UpdateForm from "@/components/updateForm";
+import Card from "@/components/orderManagement/card";
+import UpdateForm from "@/components/orderManagement/updateForm";
 
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";

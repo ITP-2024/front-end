@@ -2,7 +2,7 @@
 
 import React from "react";
 import SearchBar from "@/components/searchbar";
-import Card from "@/components/card";
+import Card from "@/components/orderManagement/card";
 
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
