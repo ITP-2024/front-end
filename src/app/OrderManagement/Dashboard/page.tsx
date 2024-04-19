@@ -1,9 +1,11 @@
 import Card from "@/components/orderManagement/card";
 import BarChart from "@/components/orderManagement/barChart";
+import Navbar from "@/components/common/navbar";
 
 const Dashboard = () => {
   return (
     <div>
+      <Navbar />
       <div className="ml-[330px] flex justify-start mt-[70px] gap-4">
         <Card
           icon={
