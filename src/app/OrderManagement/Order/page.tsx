@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import SearchBar from "@/components/searchbar";
+import SearchBar from "@/components/orderManagement/searchbar";
 import Card from "@/components/orderManagement/card";
 
 import { MdCloudDone } from "react-icons/md";

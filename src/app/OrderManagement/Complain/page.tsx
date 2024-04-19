@@ -18,7 +18,7 @@ const Complain: React.FC = () => {
     complainDetails: string;
   }
 
-  const [tableData, setTableData] = useState<TableData[]>([]);
+  const [tableData] = useState<TableData[]>([]);
   const [count, setCount] = useState<number>(4);
   const [pendingCount, setPendingCount] = useState<number>(0);
   const [showForm, setShowForm] = useState(false);
@@ -94,7 +94,7 @@ const Complain: React.FC = () => {
       </div>
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <UpdateForm />
+          <UpdateForm setShowForm={setShowForm} tableData={tableData} />
         </div>
       )}
     </div>
