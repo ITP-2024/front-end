@@ -20,7 +20,7 @@ const config: Config = {
         thistle: "#dec6ee",
         white: "#fff",
         darkslategray: "#323c47",
-        "checkbox-empty": "#d5d5d5"
+        "checkbox-empty": "#C395D9"
       },
       spacing: {},
       borderRadius: {

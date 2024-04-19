@@ -1,4 +1,3 @@
-// pages/api/categories.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import connectToDatabase from './mongo';
 

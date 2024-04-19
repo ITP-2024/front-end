@@ -24,7 +24,6 @@ interface Product {
 }
 
 const AddProduct = () => {
-    // State variables to manage the form fields, success message, and error message
     const [product, setProduct] = useState<Product>({
         productId: '',
         category: { id: '66184676a1911b830d7893c0', name: 'Astro' }, // Set default value
@@ -71,38 +70,29 @@ const AddProduct = () => {
     const { name, value } = e.target;
 
     if (name === 'category') {
-        // If the user is selecting a category, map the selected name to its corresponding ID
         const categoryId = categoryMap[value];
         setProduct({ ...product, [name]: { id: categoryId, name: value } });
     } else if (name === 'size') {
-        // If the user is selecting a size, map the selected name to its corresponding ID
         const sizeId = sizeMap[value];
         setProduct({ ...product, [name]: { id: sizeId, name: value } });
     } else if (name === 'price') {
-        // For price, parse the value to a floating-point number before setting it
         setProduct({ ...product, [name]: parseFloat(value) });
     } else if (name === 'quantity') {
-        // For quantity, parse the value to an integer before setting it
         setProduct({ ...product, [name]: parseInt(value, 10) });
     } else if (name === 'giftBoxProduct') {
-        // For giftBoxProduct, keep the value as a string
         setProduct({ ...product, [name]: value === "true" });
     } else {
-        // For other fields, simply update the value
         setProduct({ ...product, [name]: value });
     }
-};
+    };
 
-    // Handle form submission
     const handleSubmit = async () => {
-        // Basic form validation
         if (!product.name || !product.price || !product.quantity || !product.category || !product.imageUrl || !product.description ) {
             alert('Please fill in all required fields');
             return;
         }
         try {
-            // Send a POST request to the server with the product data
-            const response = await fetch('/api/products', {
+            const response = await fetch('http://localhost:8080/api/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,7 +114,6 @@ const AddProduct = () => {
                     quantity: 0,
                 });
             } else {
-                // Handle error (e.g., display error message)
                 const errorData = await response.json();
                 alert('Error creating product.');
             }
@@ -157,10 +146,10 @@ const AddProduct = () => {
 
   	return (
         // Form layout
-        <div className="w-full relative [backdrop-filter:blur(2.5px)]  h-[890px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
-            <div className="flex flex-col items-center bg-shadeofpurple rounded-[20px] justify-center">
+        <div className="w-full relative [backdrop-filter:blur(2.5px)] h-[890px] overflow-hidden shrink-0 flex flex-col items-center justify-center text-left text-xl text-black">
+            <div className="flex flex-col items-center ml-[340px] mt-[90px] bg-shadeofpurple rounded-[20px] justify-center">
                 <form >{/* Form fields */}
-                    <div className="w-[863px] h-[650px] flex flex-row items-center justify-center ">
+                    <div className="w-[863px] h-[650px]  flex flex-row items-center justify-center ">
                         <div className="w-[863px] relative bg-transparent h-[640px]" >
                             {/* Product Id */}
                             <div className="absolute top-[2px] left-[12px] flex flex-row items-start justify-start">
