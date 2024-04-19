@@ -7,6 +7,7 @@ import UpdateForm from "@/components/orderManagement/updateForm";
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
+import Navbar from "@/components/common/navbar";
 
 const Complain: React.FC = () => {
   interface TableData {
@@ -29,6 +30,7 @@ const Complain: React.FC = () => {
 
   return (
     <div>
+      <Navbar />
       <div
         className={`ml-[320px] mt-[90px] ${showForm ? "filter blur-sm" : ""}`}
       >

@@ -1,36 +1,40 @@
-import Link from "next/link";
 import React, { useState } from "react";
+import Link from "next/link";
 
-interface DropDown {
+interface DropDownItem {
   title: string;
   link?: string;
 }
-interface Menu {
+
+interface MenuItem {
   title: string;
 }
 
 const DropDown: React.FC = () => {
-  const menu: Menu[] = [
+  const menu: MenuItem[] = [
     { title: "Order Management" },
     { title: "Inventory Management" },
     { title: "Financial Management" },
   ];
 
-  const ordersByMenu: { [key: string]: DropDown[] } = {
+  const ordersByMenu: { [key: string]: DropDownItem[] } = {
     "Order Management": [
       { title: "Dashboard", link: "/OrderManagement/Dashboard" },
       { title: "Orders", link: "/OrderManagement/Order" },
       { title: "Complains", link: "/OrderManagement/Complain" },
     ],
     "Inventory Management": [
-      { title: "Stock Management" },
-      { title: "Product Management" },
-      { title: "Supplier Management" },
+      { title: "Dashboard", link: "/InventoryManagement/Dashboard" },
+      { title: "Products", link: "/InventoryManagement/Products" },
+      { title: "Low Inventories", link: "/InventoryManagement/LowInventories" },
     ],
     "Financial Management": [
-      { title: "Accounting" },
-      { title: "Budgeting" },
-      { title: "Reporting" },
+      { title: "Accounting", link: "/InventoryManagement/TestPages/Products" },
+      {
+        title: "Budgeting",
+        link: "/InventoryManagement/TestPages/LowInventories",
+      },
+      { title: "Reporting", link: "/FinancialManagement/reporting" },
     ],
   };
 
@@ -51,10 +55,10 @@ const DropDown: React.FC = () => {
       {menu.map((menuItem) => (
         <div key={menuItem.title} className="block mt-1">
           <button
-            className={`w-[290px] h-[52px] mt-[15px] flex items-center justify-between pl-8 pr-4 font-semibold border-solid border-gray-300 text-black ${
+            className={`w-[280px] h-[52px] mt-[15px] mr-[4px] ml-[4px] rounded-[10px] flex items-center justify-between  pl-2 pr-4 font-bold border-solid border-gray-300 text-black ${
               selectedMenu === menuItem.title
-                ? "bg-fuchsia-800 text-white"
-                : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                ? "bg-darkmagenta text-white"
+                : "bg-shadeofpurple hover:bg-darkmagenta hover:text-white"
             }`}
             onClick={() => handleMenuClick(menuItem.title)}
           >
@@ -92,10 +96,10 @@ const DropDown: React.FC = () => {
               {ordersByMenu[selectedMenu].map((order) => (
                 <div
                   key={order.title}
-                  className={`text-black h-[35px] px-2 mt-[2px] font-semibold font-['Inter'] flex items-center justify-between rounded-[15px] ${
+                  className={`text-black h-[35px] px-2 mt-[5px] mr-[6px]  font-bold flex items-center justify-between rounded-[10px] ${
                     selectedOrderBy === order.title
-                      ? "bg-fuchsia-800 text-white"
-                      : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                      ? "bg-darkmagenta text-white"
+                      : "bg-shadeofpurple hover:bg-darkmagenta hover:text-white"
                   }`}
                   onClick={() => handleOrderByClick(order.title)}
                 >

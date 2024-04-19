@@ -13,11 +13,10 @@ const Dashboard = () => {
               strokeWidth="1.5"
               stroke="currentColor"
               className="w-8 h-8"
-            >
-            </svg>
+            ></svg>
           }
-          title={"Notification"} 
-          value={"15"} 
+          title={"Notification"}
+          value={"15"}
         />
         <Card
           icon={
@@ -28,15 +27,13 @@ const Dashboard = () => {
               strokeWidth="1.5"
               stroke="currentColor"
               className="w-8 h-8"
-            >
-            </svg>
+            ></svg>
           }
           title={"Reports"}
           value={"02"}
         />
       </div>
-      <div className="ml-[330px] mr-[20px] mt-[30px]">
-      </div>
+      <div className="ml-[330px] mr-[20px] mt-[30px]"></div>
     </div>
   );
 };

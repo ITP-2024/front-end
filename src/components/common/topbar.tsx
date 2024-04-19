@@ -1,6 +1,6 @@
 const TopBar = () => {
   return (
-    <div className="w-full h-[55px] bg-thistle fixed top-0 border-[1px] border-solid border-darkmagenta">
+    <div className="w-full h-[55px] bg-thistle fixed top-0 ">
       <div className="flex justify-end mt-2 mr-9">
         <button>
           <svg
@@ -22,4 +22,3 @@ const TopBar = () => {
 };
 
 export default TopBar;
-

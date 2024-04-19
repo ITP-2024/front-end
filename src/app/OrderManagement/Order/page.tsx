@@ -3,6 +3,7 @@
 import React from "react";
 import SearchBar from "@/components/orderManagement/searchbar";
 import Card from "@/components/orderManagement/card";
+import Navbar from "@/components/common/navbar";
 
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
@@ -19,6 +20,7 @@ const Orders: React.FC = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="mt-[90px] ml-[320px]">
         <SearchBar
           title="Search "
