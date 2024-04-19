@@ -43,6 +43,7 @@ src/
 |   |   |-- categories.ts
 |   |   |-- sizes.ts
 |   |   |-- giftBox.ts
+|   |   |-- order.ts
 |-- globals.css
 |-- index.tsx
 |-- layout.tsx
