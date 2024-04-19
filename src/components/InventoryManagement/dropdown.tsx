@@ -30,7 +30,7 @@ const DropDown: React.FC = () => {
     ],
     "Financial Management": [
       { title: "Accounting", link: "/InventoryManagement/TestPages/Products" },
-      { title: "Budgeting", link: "/FinancialManagement/budgeting" },
+      { title: "Budgeting", link: "/InventoryManagement/TestPages/LowInventories" },
       { title: "Reporting", link: "/FinancialManagement/reporting" },
     ],
   };
@@ -53,10 +53,10 @@ const DropDown: React.FC = () => {
       {menu.map((menuItem) => (
         <div key={menuItem.title} className="block mt-1">
           <button
-            className={`w-[290px] h-[52px] mt-[15px] flex items-center justify-between pl-8 pr-4 font-semibold border-solid border-gray-300 text-black ${
+            className={`w-[280px] h-[52px] mt-[15px] mr-[4px] ml-[4px] rounded-[10px] flex items-center justify-between  pl-2 pr-4 font-bold border-solid border-gray-300 text-black ${
               selectedMenu === menuItem.title
-                ? "bg-fuchsia-800 text-white"
-                : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                ? "bg-darkmagenta text-white"
+                : "bg-shadeofpurple hover:bg-darkmagenta hover:text-white"
             }`}
             onClick={() => handleMenuClick(menuItem.title)}
           >
@@ -94,10 +94,10 @@ const DropDown: React.FC = () => {
               {ordersByMenu[selectedMenu].map((order) => (
                 <div
                   key={order.title}
-                  className={`text-black h-[35px] px-2 mt-[2px] font-semibold font-['Inter'] flex items-center justify-between rounded-[15px] ${
+                  className={`text-black h-[35px] px-2 mt-[5px] mr-[6px]  font-bold flex items-center justify-between rounded-[10px] ${
                     selectedOrderBy === order.title
-                      ? "bg-fuchsia-800 text-white"
-                      : "bg-purple-400 hover:bg-fuchsia-800 hover:text-white"
+                      ? "bg-darkmagenta text-white"
+                      : "bg-shadeofpurple hover:bg-darkmagenta hover:text-white"
                   }`}
                   onClick={() => handleOrderByClick(order.title)}
                 >

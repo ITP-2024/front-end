@@ -1,4 +1,3 @@
-// pages/api/sizes.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import connectToDatabase from './mongo';
 

@@ -1,4 +1,3 @@
-// pages/api/mongo.ts
 import { MongoClient, Db } from 'mongodb';
 
 let cachedDb: Db | null = null;
