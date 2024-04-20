@@ -45,11 +45,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { id } = req.query;
         const result = await db.collection('Complain').deleteOne({ _id: new ObjectId(id as string) });
         if (result.deletedCount === 0) {
-          return res.status(404).json({ message: 'Complaint not found' });
+          return res.status(404).json({ message: 'Complain not found' });
         }
-        res.json({ message: 'Complaint deleted successfully' });
+        res.json({ message: 'Complain deleted successfully' });
       } catch (error) {
-        res.status(500).json({ message: 'Error deleting complaint', error });
+        res.status(500).json({ message: 'Error deleting complain', error });
       }
       break;
     default:
