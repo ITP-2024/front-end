@@ -1,10 +1,4 @@
 'use client'
-import React, { useEffect } from 'react';
-
-useEffect(() => {
-   
-  localStorage.clear();
-}, []);
 
 export default function Home() {
   return (
