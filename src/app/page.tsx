@@ -28,7 +28,11 @@ export default function Home() {
             Information
           </button>
         </Link>
-        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Addresses</button>
+        <Link href="/Components/AddAddress">
+        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>
+            Address
+          </button>
+        </Link>
         <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Track Order</button>
       </div>
          

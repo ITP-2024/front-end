@@ -8,11 +8,15 @@ const CreateUserForm = () => {
     userName: '',
     address: '',
     password: '',
-    email: ''
+    email: '',
+    street: '',
+    city: '',
+    zipCode: ''
   });
 
   const [errors, setErrors] = useState({
-    emailError: ''
+    emailError: '',
+    zipCodeError: ''
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -36,6 +40,16 @@ const CreateUserForm = () => {
       return;
     }
 
+    // Validate ZIP code format (5 digits)
+    const zipRegex = /^\d{5}$/;
+    if (!zipRegex.test(formData.zipCode)) {
+      setErrors(prevState => ({
+        ...prevState,
+        zipCodeError: 'ZIP code must be 5 digits'
+      }));
+      return;
+    }
+
     try {
       // Send form data to backend for saving
       const response = await fetch('http://localhost:8080/users', {
@@ -53,7 +67,10 @@ const CreateUserForm = () => {
           userName: '',
           address: '',
           password: '',
-          email: ''
+          email: '',
+          street: '',
+          city: '',
+          zipCode: ''
         });
       } else {
         console.error('Failed to save data');
@@ -116,6 +133,40 @@ const CreateUserForm = () => {
               required
             />
             {errors.emailError && <span style={{ color: 'red', fontSize: '14px' }}>{errors.emailError}</span>}
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="street" style={{ fontSize: '18px', fontWeight: 'bold' }}>Street:</label>
+            <input
+              type="text"
+              id="street"
+              name="street"
+              value={formData.street}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="city" style={{ fontSize: '18px', fontWeight: 'bold' }}>City:</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="zipCode" style={{ fontSize: '18px', fontWeight: 'bold' }}>ZIP Code:</label>
+            <input
+              type="text"
+              id="zipCode"
+              name="zipCode"
+              value={formData.zipCode}
+              onChange={handleChange}
+              required
+            />
+            {errors.zipCodeError && <span style={{ color: 'red', fontSize: '14px' }}>{errors.zipCodeError}</span>}
           </div>
           <button type="submit" style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px', fontWeight: 'bold' }}>Create User</button>
         </div>
