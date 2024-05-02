@@ -1,24 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project
+
 
 ## Getting Started
 
 First, run the development server:
-
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
+Commit all changes & Push changes
+```bash
+git add .
+git commit -m "Commit message describing your changes"
+# and
+git push origin <branch-name>
+```
+
+Folder Structure
+```bash
+src/
+|-- api/
+|   |-- mongo.ts
+|   |-- order.ts
+|   |-- products.ts
+|   |-- categories.ts
+|   |-- sizes.ts
+|   |-- giftBox.ts
+|-- app/
+|   |-- OrderManagement/
+|   |-- InventoryManagement/
+|   |-- financeManagement/
+|   |-- reviewManagement/
+|   |-- customerGiftbox/
+|   |-- globals.css
+|   |-- layout.tsx
+|   |-- page.tsx
+|-- components/
+|   |-- cart/
+|   |-- common/
+|   |-- InventoryManagement/
+|   |-- OrderManagement/
+|-- package.json
+|-- tailwind.config.ts
+|-- README.md
+```
+
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
