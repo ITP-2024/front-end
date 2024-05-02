@@ -1,52 +1,78 @@
-// Import the 'Customer' component
-//import Customer from "./Components/Customer/page";
-import Customerinfo from "./Components/Customerinfo/page";
-import Link from 'next/link';
+"use client";
 
+import React, { useState } from "react";
 
-// Use the 'Customer' component in your JSX
 export default function Home() {
   return (
-    
-   
-    
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      
-    
-      <h2 style={{ marginBottom: '20px' }}> My Account </h2>
-      <div style={{ marginBottom: '10px' }}></div>
-       {/* Highlighted rectangle container */}
-       <div style={{ border: '2px solid #D8BFD8', borderRadius: '10px', padding: '20px', marginBottom: '30px' }}>
-          
-  
-  
-      <div>
-      <div>
-        {/* Use an <a> tag for navigation */}
-        <Link href="/Components/Customerinfo">
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>
-            Information
-          </button>
-        </Link>
-        <Link href="/Components/AddAddress">
-        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>
-            Address
-          </button>
-        </Link>
-        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Track Order</button>
-      </div>
-         
-         
-         
-      </div>
-     
-      <div style={{ marginBottom: '30px' }}></div>
-      {/* Second set of buttons */}
-      <div>
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Order History and Details</button>
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px' , backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>Old Orders</button>
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Vouchers</button>
-      </div>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+        <a
+          href="http://localhost:3000/InventoryManagement/Dashboard"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Inventory Management{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Explore Inventory Management features and API.
+          </p>
+        </a>
+
+        <a
+          href="http://localhost:3000/OrderManagement/Welcome"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Order Management{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Explore Oredr Management features and API.
+          </p>
+        </a>
+
+        <a
+          href="http://localhost:3000/builder"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Custom Gift Box Builder{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+            Explore Custom Gift Box Builder features and API.
+          </p>
+        </a>
+
+        <a
+          href="http://localhost:3000/Example"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`mb-3 text-2xl font-semibold`}>
+            Example{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
+            Explore Example features and API.
+          </p>
+        </a>
       </div>
        
       
