@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, disabled }) => {
       onClick={onClick} 
       disabled={disabled}
     >
-      <span className="text-m">{label}</span> {/* Adjust the text size here */}
+      <span className="text-m">{label}</span>
     </button>
   );
 };
