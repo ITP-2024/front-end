@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Header from "@/componants/header";
+import Header from "@/components/common/header";
 import Link from 'next/link';
 
 

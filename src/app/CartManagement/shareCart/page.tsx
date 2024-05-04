@@ -1,7 +1,7 @@
 'use client';
 import * as React from "react";
 import { useState, useEffect } from "react";
-import Header from '@/componants/header';
+import Header from '@/components/common/header';
 
 const DynamicForm = () => {
   const [formData, setFormData] = useState({
