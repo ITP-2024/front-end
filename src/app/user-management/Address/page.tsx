@@ -14,23 +14,34 @@ interface AddressProps {
 
 const Address: React.FC<AddressProps> = ({ addresses, handleDeleteAddress, successMessage }) => {
   return (
-    <div>
-      <h2 style={{ marginBottom: "20px", fontSize: "24px", fontWeight: "bold" }}>Addresses</h2>
-      {addresses && addresses.length > 0 ? (
-        addresses.map(address => (
-          <div key={address.addressID} style={{ border: "2px solid #D8BFD8", borderRadius: "10px", padding: "20px", marginBottom: "20px" }}>
-            
-            <p><strong>Street:</strong> {address.street}</p>
-            <p><strong>City:</strong> {address.city}</p>
-            <p><strong>ZIP Code:</strong> {address.zipCode}</p>
-            <button onClick={() => handleDeleteAddress(address)} style={{ padding: "10px 20px", fontSize: "16px", backgroundColor: "#DC143C", border: "none", borderRadius: "5px", fontWeight: "bold" }}>Delete Address</button>
-          </div>
-        ))
-      ) : (
-        <p>No addresses found.</p>
-      )}
-      {successMessage && <p style={{ fontSize: "16px", color: "green", fontWeight: "bold" }}>{successMessage}</p>}
-    </div>
+    <div className="mt-8">
+    <h2 className="mb-4 text-2xl font-bold">Addresses</h2>
+    {addresses && addresses.length > 0 ? (
+      addresses.map((address) => (
+        <div key={address.addressID} className="border-2 border-gray-300 rounded-lg p-4 mb-4">
+          <p className="mb-2">
+            <strong>Street:</strong> {address.street}
+          </p>
+          <p className="mb-2">
+            <strong>City:</strong> {address.city}
+          </p>
+          <p className="mb-2">
+            <strong>ZIP Code:</strong> {address.zipCode}
+          </p>
+          <button
+            onClick={() => handleDeleteAddress(address)}
+            className="px-4 py-2 bg-red-600 text-white rounded-md font-semibold"
+          >
+            Delete Address
+          </button>
+        </div>
+      ))
+    ) : (
+      <p>No addresses found.</p>
+    )}
+    {successMessage && <p className="text-green-600 font-semibold">{successMessage}</p>}
+  </div>
+  
   );
 };
 

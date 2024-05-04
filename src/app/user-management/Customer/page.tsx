@@ -23,12 +23,12 @@ export default function Home() {
       <div>
       <div>
         {/* Use an <a> tag for navigation */}
-        <Link href="/Components/Customerinfo">
+        <Link href="/user-management/Customerinfo">
           <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>
             Information
           </button>
         </Link>
-        <Link href="/Components/AddAddress">
+        <Link href="/user-management/AddAddress">
         <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>
           Address
           </button>
