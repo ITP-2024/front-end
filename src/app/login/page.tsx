@@ -11,28 +11,24 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    // e.preventDefault(); // Prevent default form submission behavior
+  const handleLogin = () => {
+    // Get the email input value
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    if (emailInput) {
+        const email = emailInput.value;
+        
+        // Set the email as a cookie for the current session
+        document.cookie = `email=${email}; path=/`;
+        
+        // Perform other login actions, such as submitting the form
+        // For example, you can submit the form using JavaScript
+        // document.getElementById('loginForm').submit();
+        router.push('/builder/theme');
 
-    // try {
-    //const response = await axios.post('/api/login', { email, password }); // Make POST request to login API endpoint
-    //if (response.status === 200) {
-    // Login successful
-    // Save user email to localStorage
-    localStorage.setItem('userEmail', email);
-    const emails = localStorage.getItem('userEmail');
-    console.log('userEmail'+emails);
-    // Redirect to the desired page
-    router.push('/builder/');
-    //} else {
-    // Handle login failure
-    // console.error('Login failed');
-    // }
-    // } catch (error) {
-    // Handle error
-    //  console.error('Error occurred:', error);
-  //}
+    }
 };
+
+
 
 return (
   <main className="flex justify-end bg-violet-200">

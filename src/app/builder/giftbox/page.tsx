@@ -5,6 +5,7 @@ import Button from '@/components/gift-box/button';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import ConfirmationModal from '@/components/gift-box/toast-confirm';
+import html2pdf from 'html2pdf.js';
 
 interface Product {
   id: string;
@@ -61,6 +62,19 @@ const GiftBoxSummary: React.FC = () => {
       }
     }
 
+    const getCookie = (name:string) => {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          const email = cookie.substring(name.length + 1); // Extract email value
+          console.log('Email retrieved from cookie:', email); // Log the email value
+          return email;
+        }
+      }
+      return '';
+    };
+
     try {
       const productDataPromises = storedSelectedProducts.map(async ({ productId }) => {
         try {
@@ -81,14 +95,19 @@ const GiftBoxSummary: React.FC = () => {
         quantity: selectedProduct.quantity
       }));
 
+      // Get email from cookie
+      const email = getCookie('email');
+
+      
 
       const giftBoxPayload = {
         giftBoxId: giftBoxId,
+        userEmail: email,
         boxColor: boxColorData,
         cardType: cardTypeData,
         message: cardMessage,
         products: giftBoxProducts,
-        totalAmount: totalAmount
+        totalAmount: totalAmount,
       };
 
       let response;
@@ -101,19 +120,21 @@ const GiftBoxSummary: React.FC = () => {
         response = await axios.post('http://localhost:8080/giftBox', giftBoxPayload);
         const createdGiftBoxId = response.data.giftBoxId;
 
-
         // Update the giftBoxId state with the newly created or updated gift box ID
         setGiftBoxId(createdGiftBoxId);
         localStorage.setItem('giftBoxId', createdGiftBoxId);
       }
-      console.log('GiftBox saved:', response.data);
       toast.success('Gift Box Successfully Saved');
 
     } catch (error) {
       console.error('Error saving GiftBox:', error);
     }
-
+    const email = getCookie('email');
+    console.log('Email retrieved from cookie:', email);
   };
+
+  
+
 
 
 
@@ -219,8 +240,8 @@ const GiftBoxSummary: React.FC = () => {
     }
   }, []);
 
-  console.log('GiftBox :' + giftBoxId + 'products' + selectedProducts);
-  console.log(JSON.stringify(selectedProducts, null, 2));
+  // console.log('GiftBox :' + giftBoxId + 'products' + selectedProducts);
+  // console.log(JSON.stringify(selectedProducts, null, 2));
 
   const handleDelete = async () => {
     setIsModalOpen(true);
@@ -237,77 +258,159 @@ const GiftBoxSummary: React.FC = () => {
     }
   };
 
+  const summary = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/giftBox/generate-pdf');
+      const message = response.data;
+
+      // Check if the PDF was generated successfully
+      if (message === 'PDF reports generated successfully!') {
+        // PDF was generated successfully, prompt the user to download it
+        window.open('http://localhost:8080/gift_box_report.pdf');
+      } else {
+        // Handle error if PDF generation failed
+        console.error('Error generating PDF report:', message);
+        // Show error message to the user
+        toast.error('Error generating PDF');
+      }
+    } catch (error) {
+      // Handle network error
+      console.error('Error generating PDF report:', error);
+      // Show error message to the user
+      toast.error('Error generating PDF report');
+    }
+  };
+
+  const handlePrint = () => {
+    const printContent = document.getElementById('print-content');
+    if (printContent) {
+      // Get current date and time
+      const now = new Date();
+      const formattedDateTime = now.toLocaleString();
+  
+      // Define the heading content
+      const heading = `
+        <h1 class="text-xl font-bold mb-4 text-center text-gray-500">Gift Box Summary</h1>
+      `;
+      const header = `
+        <h1 class="text-xl font-semi-bold mt-8 text-center text-gray-500">KpopShop Nexus</h1>
+      `;
+  
+      // Create a new HTML element to wrap the content
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Gift Box Summary</title>
+          <!-- Load Tailwind CSS -->
+          <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        </head>
+        ${header}<header class="mb-8 text-sm text-gray-500 text-center">
+        No: 87, Kandy Road, Kiribathgoda, Sri Lanka. </br> 076 366 3881 </br> <hr class="mt-4 w-9/10 mx-auto border-t border-gray-400">
+          </header>
+          
+        <body class="flex flex-col items-center justify-center h-full">
+          ${heading}
+          <div class="gift-box-summary flex flex-col items-center justify-center h-full">
+            ${printContent.innerHTML}
+          </div>
+          <footer class="mt-8 mb-4 text-sm text-gray-500 text-center">
+          <hr class="w-full mx-auto border-t border-gray-400">Generated by Custom Gift Box Builder </br>${formattedDateTime}</br>
+          </footer>
+        </body>
+        </html>
+      `;
+  
+      // Convert the wrapper HTML content to a PDF
+      html2pdf()
+        .from(wrapper)
+        .save('gift_box_summary.pdf');
+    } else {
+      console.error('Print content not found');
+    }
+  };
+  
+
+
   const newGiftBox = () => {
     router.push('/builder');
-};
+  };
 
 
 
   return (
     <div className='flex justify-center'>
       <div>
-        <h2 className='text-xl, font-bold text-center leading-10 text-black' >Gift Box Summary</h2>
-        <table className="min-w-half divide-y divide-gray-200">
-          <thead className="bg-gray-100">
-            <tr>
-              <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/2">
-                Product
-              </th>
-              <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/8">
-                Price
-              </th>
-              <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/8">
-                Quantity
-              </th>
-              <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/8">
-                Total
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {selectedProducts.map((selectedProduct, index) => (
-              selectedProduct.quantity > 0 && (
-                <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">{selectedProduct.name}</div>                      
-                   
-                  </td>
-                  <td className="text-sm font-medium text-center text-gray-900">{selectedProduct.price}</td>
-                  <td className="text-sm font-medium text-center text-gray-900">{selectedProduct.quantity}</td>
-                  <td className="text-sm font-medium text-center text-gray-900">{selectedProduct.quantity * selectedProduct.price}</td>
+        <div>
+
+          <h2 className='text-xl, font-bold text-center leading-10 text-black' >Gift Box Summary</h2>
+          <div className='flex justify-center' id="print-content">
+          <table className="min-w-half divide-y divide-gray-200 margin: auto">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/2">
+                    Product
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/8">
+                    Price
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/8">
+                    Quantity
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-700 tracking-wider w-1/8">
+                    Total
+                  </th>
                 </tr>
-              )))}
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {selectedProducts.map((selectedProduct, index) => (
+                  selectedProduct.quantity > 0 && (
+                    <tr key={index}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{selectedProduct.name}</div>
 
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">{selectedTheme} Color Gift Box</td>
-              <td className="text-sm font-medium text-center text-gray-900">1200</td>
-              <td className="text-sm font-medium text-center text-gray-900">1</td>
-              <td className="text-sm font-medium text-center text-gray-900">1200</td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Greeting Card: {selectedGreetingCard} </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Greeting Card message : {cardMessage ? cardMessage : 'None'}</td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Total Amount</td>
-              <td></td>
-              <td></td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center text-gray-900">{totalAmount}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="flex items-center justify-between">
+                      </td>
+                      <td className="text-sm font-medium text-center text-gray-900">{selectedProduct.price}</td>
+                      <td className="text-sm font-medium text-center text-gray-900">{selectedProduct.quantity}</td>
+                      <td className="text-sm font-medium text-center text-gray-900">{selectedProduct.quantity * selectedProduct.price}</td>
+                    </tr>
+                  )))}
 
-          <Button label="Save Gift Box" onClick={saveGiftBox} />
-          <Button label="Create New" onClick={newGiftBox} />
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">{selectedTheme} Color Gift Box</td>
+                  <td className="text-sm font-medium text-center text-gray-900">1200</td>
+                  <td className="text-sm font-medium text-center text-gray-900">1</td>
+                  <td className="text-sm font-medium text-center text-gray-900">1200</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Greeting Card: {selectedGreetingCard} </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Greeting Card message : {cardMessage ? cardMessage : 'None'}</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">Total Amount</td>
+                  <td></td>
+                  <td></td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center text-gray-900">{totalAmount}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex items-center justify-between" >
 
-        </div>
-        <div className="flex items-center justify-between">
-          <ConfirmationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleModalConfirm} />
-          <Button label="Add to Cart" onClick={saveGiftBox} />
-          {giftBoxId && !isDeleted && <Button label="Delete Gift Box" onClick={handleDelete} />}
+            <Button label="Save Gift Box" onClick={saveGiftBox} />
+            <Button label="Create New" onClick={newGiftBox} />
+
+          </div>
+          <div className="flex items-center justify-between">
+            <ConfirmationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleModalConfirm} />
+            <Button label="Summary" onClick={handlePrint} />
+            {giftBoxId && !isDeleted && <Button label="Delete Gift Box" onClick={handleDelete} />}
+          </div>
         </div>
       </div>
     </div>

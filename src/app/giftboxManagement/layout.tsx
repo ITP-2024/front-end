@@ -14,14 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
       
-      <body className={inter.className}>
+      <div className={inter.className}>
       <div><Navbar />
-       <div className="ml-[300px] mt-[30px] mt-[90px]" > 
+       <div className="ml-[320px] mt-[30px] mt-[90px]" > 
        {children}</div>
        </div>
-      </body>
-    </html>
+      </div>
   );
 }
