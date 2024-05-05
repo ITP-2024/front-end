@@ -84,7 +84,7 @@ const LowInventories: React.FC = () => {
         axios({
             url: 'http://localhost:8080/reports/low-inventory',
             method: 'GET',
-            responseType: 'blob', // Important
+            responseType: 'blob',
         })
         .then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -93,6 +93,9 @@ const LowInventories: React.FC = () => {
             link.setAttribute('download', 'low_inventories_report.pdf');
             document.body.appendChild(link);
             link.click();
+        })
+        .catch((error) => {
+            console.error('Error downloading the report:', error);
         });
     };
 
@@ -103,7 +106,9 @@ const LowInventories: React.FC = () => {
                 quantity: newQuantity
             })
             .then(response => {
-                setProducts(filteredProducts.map(product => product.id === response.data.id ? response.data : product));
+                const updatedProducts = filteredProducts.map(product => product.id === response.data.id ? response.data : product);
+                setProducts(updatedProducts);
+                setFilteredProducts(updatedProducts);
                 setSelectedProduct(null);
                 window.alert('Product successfully edited!');
             })

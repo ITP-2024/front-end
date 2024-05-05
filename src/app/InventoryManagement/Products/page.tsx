@@ -45,11 +45,14 @@ const Products: FC = () => {
           });
       }, []);
     
-    const handleDelete = async (id: string) => {
+      const handleDelete = async (id: string) => {
         if (selectedProduct?.id === id) { 
             try {
                 await axios.delete(`http://localhost:8080/products/${id}`);
-                setProducts(products.filter(product => product.id !== id)); 
+                const updatedProducts = products.filter(product => product.id !== id);
+                const updatedFilteredProducts = filteredProducts.filter(product => product.id !== id);
+                setProducts(updatedProducts); 
+                setFilteredProducts(updatedFilteredProducts);
                 setSelectedProduct(null);
                 window.alert('Product successfully deleted!');
             } catch (error) {
@@ -107,6 +110,9 @@ const Products: FC = () => {
             link.setAttribute('download', 'Inventory_report.pdf');
             document.body.appendChild(link);
             link.click();
+        })
+        .catch((error) => {
+            console.error('Error downloading the report:', error);
         });
     };
   
@@ -114,7 +120,10 @@ const Products: FC = () => {
         if (selectedProduct) {
             axios.put(`http://localhost:8080/products/${selectedProduct.id}`, selectedProduct)
             .then(response => {
-                setProducts(filteredProducts.map(product => product.id === response.data.id ? response.data : product));
+                const updatedProducts = filteredProducts.map(product => product.id === response.data.id ? response.data : product);
+                const updatedFilteredProducts = filteredProducts.map(product => product.id === response.data.id ? response.data : product);
+                setProducts(updatedProducts);
+                setFilteredProducts(updatedFilteredProducts);
                 setSelectedProduct(null);
                 window.alert('Product successfully edited!');
             })
