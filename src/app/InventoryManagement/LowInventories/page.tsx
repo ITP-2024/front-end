@@ -241,7 +241,7 @@ const LowInventories: React.FC = () => {
                 {/* Action column */}
                 <div className="w-[80px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-col items-end justify-start gap-[8px] text-sm text-white">
                     <div className="self-stretch rounded-tl-none rounded-tr-3xs rounded-b-none bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-center p-2.5">
-                        <b className="relative tracking-[0.01em]">Action</b>
+                        <b className="relative tracking-[0.01em]">Reorder</b>
                     </div>
                     {products.map((product, index) => (
                     <div className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] flex flex-row items-center justify-center p-2.5 gap-[10px]">
