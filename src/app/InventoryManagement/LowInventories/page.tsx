@@ -34,7 +34,7 @@ const LowInventories: React.FC = () => {
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/products/low-inventory')
+        axios.get('http://localhost:8080/products/low-inventory')
           .then(response => {
             setProducts(response.data);
             setFilteredProducts(response.data);
@@ -72,7 +72,7 @@ const LowInventories: React.FC = () => {
 
     const handlePrint = () => {
         axios({
-            url: 'http://localhost:8080/api/reports/low-inventory',
+            url: 'http://localhost:8080/reports/low-inventory',
             method: 'GET',
             responseType: 'blob', // Important
         })
@@ -88,7 +88,7 @@ const LowInventories: React.FC = () => {
 
     const handleEditClick = () => {
         if (selectedProduct && selectedProduct.quantity !== newQuantity) {
-            axios.put(`http://localhost:8080/api/products/${selectedProduct.id}`, {
+            axios.put(`http://localhost:8080/products/${selectedProduct.id}`, {
                 ...selectedProduct,
                 quantity: newQuantity
             })

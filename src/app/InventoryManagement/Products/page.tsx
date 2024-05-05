@@ -35,7 +35,7 @@ const Products: FC = () => {
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/products')
+        axios.get('http://localhost:8080/products')
           .then(response => {
             setProducts(response.data);
             setFilteredProducts(response.data);
@@ -48,7 +48,7 @@ const Products: FC = () => {
     const handleDelete = async (id: string) => {
         if (selectedProduct?.id === id) { 
             try {
-                await axios.delete(`http://localhost:8080/api/products/${id}`);
+                await axios.delete(`http://localhost:8080/products/${id}`);
                 setProducts(products.filter(product => product.id !== id)); 
                 setSelectedProduct(null);
                 window.alert('Product successfully deleted!');
@@ -86,7 +86,7 @@ const Products: FC = () => {
 
     const handlePrint = () => {
         axios({
-            url: 'http://localhost:8080/api/reports/all-inventory',
+            url: 'http://localhost:8080/reports/all-inventory',
             method: 'GET',
             responseType: 'blob', 
         })
@@ -102,7 +102,7 @@ const Products: FC = () => {
   
     const handleEditClick = () => {
         if (selectedProduct) {
-            axios.put(`http://localhost:8080/api/products/${selectedProduct.id}`, selectedProduct)
+            axios.put(`http://localhost:8080/products/${selectedProduct.id}`, selectedProduct)
             .then(response => {
                 setProducts(products.map(product => product.id === response.data.id ? response.data : product));
                 setSelectedProduct(null);
