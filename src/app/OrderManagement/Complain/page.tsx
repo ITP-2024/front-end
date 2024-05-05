@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import Card from "@/components/orderManagement/card";
 import UpdateForm from "@/components/orderManagement/updateForm";
-
+import axios from "axios";
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
-import { IoNotifications } from "react-icons/io5";
+
 import Navbar from "@/components/common/navbar";
 
 const Complain: React.FC = () => {
@@ -19,10 +19,22 @@ const Complain: React.FC = () => {
     complainDetails: string;
   }
 
-  const [tableData] = useState<TableData[]>([]);
-  const [count, setCount] = useState<number>(4);
+  const [TableData, setTableData] = useState<TableData[]>([]);
+  const [count, setCount] = useState<number[]>([]);
   const [pendingCount, setPendingCount] = useState<number>(0);
   const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/complains")
+      .then((response) => {
+        setTableData(response.data);
+        // Calculate pending count or any other logic if needed
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, []);
 
   const toggleForm = () => {
     setShowForm((prevState) => !prevState);
@@ -78,25 +90,27 @@ const Complain: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="h-12 text-center bg-zinc-300 text-black">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {TableData.map((data, index) => (
+                  <tr
+                    key={index}
+                    className="h-12 text-center bg-zinc-300 text-black"
+                  >
+                    <td>{data.ComplainId}</td>
+                    <td>{data.orderId}</td>
+                    <td>{data.customerMail}</td>
+                    <td>{data.complainType}</td>
+                    <td>{data.complainStatus}</td>
+                    <td>{data.complainDetails}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
-        <button>
-          <IoNotifications />
-        </button>
       </div>
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <UpdateForm setShowForm={setShowForm} tableData={tableData} />
+          <UpdateForm setShowForm={setShowForm} tableData={TableData} />
         </div>
       )}
     </div>
