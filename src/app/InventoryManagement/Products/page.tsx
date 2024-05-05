@@ -1,9 +1,8 @@
 "use client";
-import SearchBar from "../../../components/InventoryManagement/searchbar";
-
 import React, { FC, useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import SearchBar from "../../../components/InventoryManagement/searchbar";
 
 interface Size {
     id: string;
@@ -45,7 +44,7 @@ const Products: FC = () => {
           });
       }, []);
     
-      const handleDelete = async (id: string) => {
+    const handleDelete = async (id: string) => {
         if (selectedProduct?.id === id) { 
             try {
                 await axios.delete(`http://localhost:8080/products/${id}`);

@@ -1,8 +1,7 @@
 "use client";
-import SearchBar from "../../../components/InventoryManagement/searchbar";
-
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import SearchBar from "../../../components/InventoryManagement/searchbar";
 
 interface Size {
     id: string;
