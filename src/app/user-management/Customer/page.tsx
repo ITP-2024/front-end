@@ -4,53 +4,50 @@
 import Link from 'next/link';
 
 
+
 // Use the 'Customer' component in your JSX
 export default function Home() {
   return (
-    
-   
-    
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
-    
-      <h2 style={{ marginBottom: '20px' }}> My Account </h2>
-      <div style={{ marginBottom: '10px' }}></div>
-       {/* Highlighted rectangle container */}
-       <div style={{ border: '2px solid #D8BFD8', borderRadius: '10px', padding: '20px', marginBottom: '30px' }}>
-          
-  
-  
-      <div>
-      <div>
-        {/* Use an <a> tag for navigation */}
-        <Link href="/user-management/Customerinfo">
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>
-            Information
+
+    <div className="flex flex-col items-center"style={{ backgroundColor: '#EED9FF', padding: '50px' }}>
+    <h2 className="mb-6 text-2xl font-bold"style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '20px' }}>My Account</h2>
+    <div className="mb-10"></div>
+    {/* Highlighted rectangle container */}
+    <div className="border-2 border-purple-400 rounded-lg p-6 mb-30 h-95">
+      <div className="flex">
+        <div className="mr-6">
+          {/* Use an <a> tag for navigation */}
+          <Link href="/user-management/Customerinfo">
+            <button className="mr-4 px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+              Information
+            </button>
+          </Link>
+          <Link href="/user-management/AddAddress">
+            <button className="mr-4 px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+              Address
+            </button>
+          </Link>
+          <button className="px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+            Track Order
           </button>
-        </Link>
-        <Link href="/user-management/AddAddress">
-        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>
-          Address
-          </button>
-        </Link>
-        <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Track Order</button>
+        </div>
       </div>
-         
-         
-         
-      </div>
-     
-      <div style={{ marginBottom: '30px' }}></div>
+      <div className="mb-10"></div>
       {/* Second set of buttons */}
-      <div>
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Order History and Details</button>
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px' , backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px' }}>Old Orders</button>
-          <button style={{ marginRight: '20px', padding: '20px 30px', fontSize: '20px', backgroundColor: '#D8BFD8', border: 'none', borderRadius: '5px'  }}>Vouchers</button>
+      <div className="flex">
+        <button className="mr-4 px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+          Order History and Details
+        </button>
+        <button className="mr-4 px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+          Old Orders
+        </button>
+        <button className="px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+          Vouchers
+        </button>
       </div>
-      </div>
-       
-      
     </div>
+  </div>
     
   );
 }
