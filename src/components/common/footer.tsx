@@ -22,7 +22,7 @@ const Footer = () => {
         </div>
 
         <div className="flex justify-center items-center space-x-4">
-            <a href="http://www.linkedin.com" target="_blank">
+            <a href="https://www.facebook.com" target="_blank">
                 <img className="h-8" src="fb1.png"/>
             </a>
             <a href="http://www.twitter.com" target="_blank">
