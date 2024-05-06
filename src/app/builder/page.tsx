@@ -18,7 +18,7 @@ const BuilderMain: FunctionComponent = () => {
     }
     return (
         <div>
-            <div className="bg-darkmagenta h-[350px]">
+            <div className="bg-fuchsia-900 h-[350px]">
                 <div className="flex items-center justify-between text-white">
                     <img
                         className="left-[275px] w-[445px] h-[371px] object-cover"

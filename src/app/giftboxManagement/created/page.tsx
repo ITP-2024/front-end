@@ -173,7 +173,6 @@ const GiftBoxTable = () => {
 
                             <thead>
                                 <tr>
-                                    <th className="border border-white-400 p-2 bg-fuchsia-900 text-white">Email</th>
                                     <th className="border border-white-400 p-2 bg-fuchsia-900 text-white">Box Color</th>
                                     <th className="border border-white-400 p-2 bg-fuchsia-900 text-white">Card Type</th>
                                     <th className="border border-white-400 p-2 bg-fuchsia-900 text-white">Message</th>
@@ -184,7 +183,6 @@ const GiftBoxTable = () => {
                             <tbody>
                                 {giftBoxes.map((giftBox) => (
                                     <tr key={giftBox.giftBoxId}>
-                                        <td className="border border-white-400 p-2 bg-thistle">{giftBox.userEmail}</td>
                                         <td className="border border-white-400 p-2 bg-thistle">{giftBox.boxColor.color}</td>
                                         <td className="border border-white-400 p-2 bg-thistle">{giftBox.cardType.type}</td>
                                         <td className="border border-white-400 p-2 bg-thistle">{giftBox.message}</td>

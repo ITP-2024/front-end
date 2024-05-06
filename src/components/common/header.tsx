@@ -9,7 +9,7 @@ const Header = () => {
         <ul className="flex">
           <li className="mr-4"><a href="/" className="text-white uppercase">Products</a></li>
           <li className="mr-4"><a href="/builder" className="text-white uppercase">Gift Box</a></li>
-          <li className="mr-4"><a href="/review-management" className="text-white uppercase">Reviews</a></li>
+          <li className="mr-4"><a href="/review-management/review" className="text-white uppercase">Reviews</a></li>
           <li className="mr-4"><a href="/CartManagement" className="text-white uppercase">Contact</a></li>
           <li><a href="faqs.php" className="text-white uppercase">FAQs</a></li>
         </ul>
