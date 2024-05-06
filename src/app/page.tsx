@@ -1,13 +1,13 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import Header from '@/components/common/header';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import Button from '@/components/gift-box/button';
-import ProductItem from '@/components/common/cart-item';
-import { toast } from 'react-toastify';
-import { useGiftBoxContext } from '@/context/giftBox';
+"use client";
+import React, { useState, useEffect } from "react";
+import Header from "@/components/common/header";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Button from "@/components/gift-box/button";
+import ProductItem from "@/components/common/cart-item";
+import { toast } from "react-toastify";
 import CartItem from '@/components/common/cart-item';
+import Footer from "@/components/common/footer";
 
 interface Product {
   id: string;
@@ -18,7 +18,7 @@ interface Product {
   quantity: number;
 }
 
-const GiftBoxProducts: React.FC = () => {
+const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   //const [selectedProducts, setSelectedProducts] = useState<{ productId: string; name: string; price: number; quantity: number; }[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
@@ -133,8 +133,9 @@ const handleClick = (product: Product) => {
                     
                         <Button label="Next" onClick={route}/>
                     </div>
+                    <Footer/>
         </div>
     );
 };
 
-export default GiftBoxProducts;
+export default Home;
