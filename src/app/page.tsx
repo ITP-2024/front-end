@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "@/components/common/header";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Button from "@/components/gift-box/button";
 import ProductItem from "@/components/common/product-item";
 import { toast } from "react-toastify";
-import { useGiftBoxContext } from "@/context/giftBox";
+import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
+
 
 interface Product {
   id: string;
@@ -130,6 +131,7 @@ const GiftBoxProducts: React.FC = () => {
         <Button label="Back" onClick={backbtn} />
         <Button label="Next" onClick={route} />
       </div>
+    <Footer/>
     </div>
   );
 };
