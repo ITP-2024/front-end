@@ -3,8 +3,20 @@ import React, { useState, useEffect } from 'react';
 import Header from '@/components/common/header';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import CartSummary from '../cartSummary/page';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+
+interface ReportItem {
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+  total: number;
+}
+
 
 interface Product {
     id: string;
@@ -25,6 +37,8 @@ const CartUI: React.FC = () => {
             setSelectedProducts(JSON.parse(storedSelectedProducts));
         }
     }, []);
+
+   
 
     const handleRemove = (productId: string) => {
         const updatedProducts = selectedProducts.filter(product => product.productId !== productId);
@@ -48,7 +62,34 @@ const CartUI: React.FC = () => {
             return total + (product.price * product.quantity);
         }, 0);
     };
+const generateCartSummaryReport = () => {
+        // Gather details about the saved products in the cart
+        const cartSummary: ReportItem[] = selectedProducts.map(product => ({
+          id: product.id,
+          productId: product.productId,
+          name: product.name,
+          price: product.price,
+          imageUrl: product.imageUrl,
+          quantity: product.quantity,
+          total: product.price * product.quantity
+        }));
 
+        // Generate a formatted report
+        const formattedReport = cartSummary.map(item => (
+            `${item.name}: Quantity - ${item.quantity}, Price - ${item.price}, Total - ${item.total}`
+        )).join('\n');
+
+        // Log or display the report (for demonstration purposes, you can modify this to save or display the report as needed)
+        console.log(formattedReport);
+
+          // Update the state with the cart summary report
+          setSelectedProducts(cartSummary);
+        // Optionally, you can also use libraries like FileSaver.js to save the report as a file
+    };
+
+
+  
+  
     return (
         <div>
             <Header />
@@ -87,7 +128,12 @@ const CartUI: React.FC = () => {
                         </Link>
                     </div>
                     <div className="md:ml-2">
-                        <button onClick={() => router.push('/cartSummary')} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900 w-full md:w-auto">Cart Summary</button>
+                    <div className="md:ml-2">
+                    <Link href="cartSummary"> {/* Adjust the href path as needed */}
+    <button className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900 w-full md:w-auto">Cart Summary</button>
+</Link>
+
+</div>
                     </div>
                 </div>
             </div>
