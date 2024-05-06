@@ -14,7 +14,6 @@ interface Product {
   price: number;
   imageUrl: string;
   quantity: number;
-
 }
 
 const GiftBoxSummary: React.FC = () => {
@@ -408,7 +407,7 @@ const GiftBoxSummary: React.FC = () => {
           </div>
           <div className="flex items-center justify-between">
             <ConfirmationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleModalConfirm} />
-            <Button label="Summary" onClick={handlePrint} />
+            <Button label="Print Summary" onClick={handlePrint} />
             {giftBoxId && !isDeleted && <Button label="Delete Gift Box" onClick={handleDelete} />}
           </div>
         </div>
