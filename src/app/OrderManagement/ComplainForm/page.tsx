@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -14,8 +15,12 @@ const ComplainForm: React.FC = () => {
     console.log(values);
   };
 
+  const handleClose = (resetForm: Function) => {
+    resetForm();
+  };
+
   return (
-    <div className="max-w-lg mx-auto mt-20 border border-gray-300 rounded-md p-6">
+    <div className="max-w-lg mx-auto mt-[150px] border border-violet-500 rounded-md p-6 bg-violet-200">
       <Formik
         initialValues={{
           complainId: "",
@@ -28,26 +33,26 @@ const ComplainForm: React.FC = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, resetForm }) => (
           <Form className="space-y-6">
             <div>
               <label
                 htmlFor="orderId"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-gray-700"
               >
                 Order ID
               </label>
               <Field
                 type="text"
                 name="orderId"
-                id="complainId"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-48 h-8 text-black border-gray-300 rounded-md"
+                id="orderId"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-48 h-8 text-gray-800 border-gray-300 rounded-md"
               />
             </div>
             <div>
               <label
                 htmlFor="customerMail"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-gray-700"
               >
                 Mail Address
               </label>
@@ -55,7 +60,7 @@ const ComplainForm: React.FC = () => {
                 type="email"
                 name="customerMail"
                 id="customerMail"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-64 h-8 text-black border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-64 h-8 text-gray-800 border-gray-300 rounded-md"
               />
               <ErrorMessage
                 name="customerMail"
@@ -66,7 +71,7 @@ const ComplainForm: React.FC = () => {
             <div>
               <label
                 htmlFor="complainType"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-gray-700"
               >
                 Complain Type
               </label>
@@ -74,7 +79,7 @@ const ComplainForm: React.FC = () => {
                 as="select"
                 name="complainType"
                 id="complainType"
-                className="mt-1 block w-64 h-8 py-2 px-3 border border-gray-300 bg-darkmagenta text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 block w-64 h-8 py-2 px-3 border border-gray-900 bg-gray-100 text-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
                 <option value="">Select</option>
                 <option value="Refund">Refund</option>
@@ -83,8 +88,16 @@ const ComplainForm: React.FC = () => {
             </div>
             <div>
               <label
+                htmlFor="image"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Image
+              </label>
+            </div>
+            <div>
+              <label
                 htmlFor="complainDetails"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-gray-700"
               >
                 Complain Details
               </label>
@@ -93,17 +106,28 @@ const ComplainForm: React.FC = () => {
                 name="complainDetails"
                 id="complainDetails"
                 rows={3}
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full text-black border-gray-300 rounded-md"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full text-gray-800 border-gray-300 rounded-md"
               />
             </div>
-            <div>
-              <button
-                type="submit"
-                className={`w-24 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-darkmagenta text-white hover:bg-darkmagenta hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                disabled={isSubmitting}
-              >
-                Submit
-              </button>
+            <div className="flex flex-row gap-5">
+              <div className="flex">
+                <button
+                  type="submit"
+                  className={`w-24 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => handleClose(resetForm)}
+                  className={`w-24 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                >
+                  Clear
+                </button>
+              </div>
             </div>
           </Form>
         )}
