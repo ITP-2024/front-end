@@ -18,7 +18,7 @@ interface Product {
   quantity: number;
 }
 
-const GiftBoxProducts: React.FC = () => {
+const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   //const [selectedProducts, setSelectedProducts] = useState<{ productId: string; name: string; price: number; quantity: number; }[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
@@ -136,4 +136,4 @@ const GiftBoxProducts: React.FC = () => {
   );
 };
 
-export default GiftBoxProducts;
+export default Home;

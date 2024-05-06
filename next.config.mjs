@@ -13,14 +13,25 @@ const nextConfig = {
         {
           protocol: "https",
           hostname: "i.ibb.co"
+        },
+        {
+          protocol: "https",
+          hostname: "icon-library.com"
+        },
+        {
+          protocol: "http",
+          hostname: "res.cloudinary.com"
         }
       ],
     },
+    env: {
+      MONGODB_URI: process.env.MONGODB_URI,
+      MONGODB_DB: process.env.MONGODB_DB,
+    },
+  };
+
   
-  env: {
-    MONGODB_URI: process.env.MONGODB_URI,
-    MONGODB_DB: process.env.MONGODB_DB,
-  },
-};
   
-  export default nextConfig;  
+  export default nextConfig;
+  
+
