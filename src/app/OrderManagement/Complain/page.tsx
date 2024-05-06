@@ -29,7 +29,6 @@ const Complain: React.FC = () => {
       .get("http://localhost:8080/api/complains")
       .then((response) => {
         setTableData(response.data);
-        // Calculate pending count or any other logic if needed
       })
       .catch((error) => {
         console.error("There was an error!", error);
