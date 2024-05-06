@@ -17,7 +17,7 @@ const Header = () => {
       </div>
 
       <div className="flex gap-5 justify-between my-auto mr-10">
-        <a href="#" >
+        <a href="/login" >
           <img
             loading="lazy"
             src="/image1.png"
