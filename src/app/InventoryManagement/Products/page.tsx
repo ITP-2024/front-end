@@ -235,7 +235,7 @@ const Products: FC = () => {
                     </div>
                     {filteredProducts.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="text" value={selectedProduct?.id === product.id ? selectedProduct.category.name : product.category.name} disabled={selectedProduct?.id !== product.id} onChange={(e) => handleAttributeChange(e, product, 'category')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <div className="relative tracking-[0.01em]">{product.category.name}</div>
                         </div>
                     ))}
                 </div>
@@ -259,7 +259,7 @@ const Products: FC = () => {
                     </div>
                     {filteredProducts.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="text" value={selectedProduct?.id === product.id ? selectedProduct.size.name : product.size.name} disabled={selectedProduct?.id !== product.id} onChange={(e) => handleAttributeChange(e, product, 'size')} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <div className="relative tracking-[0.01em]">{product.size.name}</div>
                         </div>
                     ))}
                 </div>
@@ -283,7 +283,7 @@ const Products: FC = () => {
                     </div>
                     {filteredProducts.map((product, index) => (
                         <div key={index} className="self-stretch bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] h-11 flex flex-row items-center justify-start p-2.5 ">
-                            <input type="number" value={selectedProduct?.id === product.id ? newQuantity : product.quantity} disabled={selectedProduct?.id !== product.id} onChange={(e) => handleQuantityChange(e, product)} className="relative tracking-[0.01em]" style={{backgroundColor: 'transparent', width: '100%'}} />
+                            <div className="relative tracking-[0.01em]">{product.quantity}</div>
                         </div>
                     ))}
                 </div>
