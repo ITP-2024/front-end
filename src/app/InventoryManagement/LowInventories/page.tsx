@@ -128,9 +128,9 @@ const LowInventories: React.FC = () => {
                         <SearchBar title="Search " onSearch={handleSearch} />
                         
                         <div className="flex flex-row items-start justify-start gap-[2.125rem] max-w-full mq750:flex-wrap">
-                        <button className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid"
+                        <button className="cursor-pointer hover:bg-darkmagenta py-[0.687rem] px-[3.062rem] bg-shadeofpurple rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] border-[1px] border-solid border-shadeofpurple rounded-[50px] overflow-hidden flex flex-row items-center justify-center"
                             onClick={handlePrint}>
-                            <b className="relative text-[1rem] inline-block  text-white text-left mq450:text-[1rem]">
+                            <b className="relative text-[1rem] inline-block text-black hover:text-white text-left mq450:text-[1rem]">
                                 Print
                             </b>
                         </button>
