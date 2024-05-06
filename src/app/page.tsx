@@ -4,9 +4,10 @@ import Header from '@/components/common/header';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/gift-box/button';
-import ProductItem from '@/components/common/product-item';
+import ProductItem from '@/components/common/cart-item';
 import { toast } from 'react-toastify';
 import { useGiftBoxContext } from '@/context/giftBox';
+import CartItem from '@/components/common/cart-item';
 
 interface Product {
     id: string;
@@ -54,35 +55,42 @@ const GiftBoxProducts: React.FC = () => {
         console.log(selectedProducts);
     };*/
 
-    const addToGiftBox = (product: Product) => {
+    const addToCart = (product: Product) => {
         setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, product]);
     };
 
-    const handleClick = (product: Product) => {
-        const index = selectedProducts.findIndex(p => p.productId === product.productId);
-        if (index === -1) {
-            addToGiftBox(product);
-        } else {
-            const updatedProducts = [...selectedProducts];
-            updatedProducts.splice(index, 1);
-            setSelectedProducts(updatedProducts);
-        }
-    };
+  // Updated handleClick function
+const handleClick = (product: Product) => {
+    const index = selectedProducts.findIndex(p => p.productId === product.productId);
+    if (index !== -1) {
+        // Product already in the cart, update its quantity
+        const updatedProducts = [...selectedProducts];
+        updatedProducts[index] = { ...updatedProducts[index], quantity: updatedProducts[index].quantity + 1 };
+        setSelectedProducts(updatedProducts);
+    } else {
+        // Product not in the cart, add it with quantity 1
+        setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { ...product, quantity: 1 }]);
+    }
+    // Save selected products to local storage
+    localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+};
+
+    
+    
+    
+    
 
     const router = useRouter();
 
     const route = () => {
         if (selectedProducts.length > 0) {
-            router.push('/builder/giftbox');
+            router.push('/CartManagement/cartUI');
             console.log('selected products' + selectedProducts)
         } else {
             toast.error('Please select at least one product');
         }
     };
 
-    const backbtn = () => {
-        router.push('/builder/card');
-    };
 
     console.log('products' + selectedProducts);
     console.log(JSON.stringify(selectedProducts, null, 2));
@@ -112,7 +120,7 @@ const GiftBoxProducts: React.FC = () => {
             <section className="mx-auto max-w-7xl pb-16">
                 <ul className="flex flex-wrap">
                 {filteredProducts.map((product) => (
-                    <ProductItem
+                    <CartItem
                         key={product.id}
                         product={{ ...product, quantity: getQuantity(product.id) }}
                         action={'Add to Cart'}
@@ -124,7 +132,7 @@ const GiftBoxProducts: React.FC = () => {
                 </ul>
             </section>
             <div className="flex items-center justify-between">
-                        <Button label="Back" onClick={backbtn}/>
+                    
                         <Button label="Next" onClick={route}/>
                     </div>
         </div>
