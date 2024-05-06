@@ -8,7 +8,7 @@ const Footer = () => {
 
         <div className="text-left">
             <div className="font-bold">KpopShop Nexus</div>
-            <p className="text-xs">Created By: © 2023 Group ITP24_B11_04 </p>
+            <p className="text-xs">Created By: © 2024 Group ITP24_B11_04 </p>
         </div>
 
         <div className="text-center">
