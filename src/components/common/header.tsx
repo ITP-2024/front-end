@@ -23,7 +23,7 @@ const Header = () => {
             src="/image1.png"
             className="shrink-0 aspect-square fill-black w-[30px]"
           /></a>
-        <a href="/CartManagement" >
+        <a href="/CartManagement/cartUI" >
           <img
             loading="lazy"
             src="/image2.png"
