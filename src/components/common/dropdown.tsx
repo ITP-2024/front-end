@@ -27,21 +27,17 @@ const DropDown: React.FC = () => {
       { title: "Complains", link: "/OrderManagement/Complain" },
     ],
     "Inventory Management": [
-      { title: "Dashboard", link: "/InventoryManagement/Dashboard" },
       { title: "Products", link: "/InventoryManagement/Products" },
       { title: "Low Inventories", link: "/InventoryManagement/LowInventories" },
     ],
     "Financial Management": [
-      { title: "Accounting", link: "/InventoryManagement/TestPages/Products" },
-      {
-        title: "Budgeting",link: "/InventoryManagement/TestPages/LowInventories",
-      },
-      { title: "Reporting", link: "/FinancialManagement/reporting" },
+      { title: "Accounting", link: "" },
+      { title: "Budgeting", link: "" },
+      { title: "Reporting", link: "" },
     ],
     "Gift Box Management": [
       { title: "Created Gift Boxes", link: "/giftboxManagement/created" },
-      {
-        title: "Purchased Gift Boxes",link: "/giftboxManagement/purchased"}
+      { title: "Purchased Gift Boxes", link: "" }
     ],
   };
 
