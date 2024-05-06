@@ -8,6 +8,7 @@ interface DropDownItem {
 
 interface MenuItem {
   title: string;
+  link?: string;
 }
 
 const DropDown: React.FC = () => {
@@ -15,7 +16,9 @@ const DropDown: React.FC = () => {
     { title: "Order Management" },
     { title: "Inventory Management" },
     { title: "Financial Management" },
+    { title: "Gift Box Management"}
   ];
+
 
   const ordersByMenu: { [key: string]: DropDownItem[] } = {
     "Order Management": [
@@ -34,6 +37,11 @@ const DropDown: React.FC = () => {
         title: "Budgeting",link: "/InventoryManagement/TestPages/LowInventories",
       },
       { title: "Reporting", link: "/FinancialManagement/reporting" },
+    ],
+    "Gift Box Management": [
+      { title: "Created Gift Boxes", link: "/giftboxManagement/created" },
+      {
+        title: "Purchased Gift Boxes",link: "/giftboxManagement/purchased"}
     ],
   };
 

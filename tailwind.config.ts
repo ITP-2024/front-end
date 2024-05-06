@@ -31,7 +31,8 @@ const config: Config = {
     fontSize: {
       sm: "0.875rem",
       smi: "0.813rem",
-      inherit: "inherit"
+      inherit: "inherit",
+      l: "1.5rem"
     },
   },
   plugins: [],
