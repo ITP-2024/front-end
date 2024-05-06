@@ -167,16 +167,17 @@ const Products: FC = () => {
 
                         <div className="flex flex-row items-start justify-start gap-[2.125rem] max-w-full mq750:flex-wrap">
                         <button
-                            className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid"
+                            className="cursor-pointer hover:bg-darkmagenta py-[0.687rem] px-[3.062rem] bg-shadeofpurple rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-shadeofpurple rounded-[50px]"
                         >
                             <Link href="/InventoryManagement/Products/AddProduct">
-                                <b className="relative text-[1rem] text-white text-left " >
+                                <b className="relative text-[1rem] text-black hover:text-white text-left " >
                                     + Add Product
                                 </b>
                             </Link>
+
                         </button>
-                        <button className="cursor-pointer py-[0.687rem] px-[3.062rem] bg-darkmagenta rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] overflow-hidden flex flex-row items-center justify-center border-[1px] border-solid border-darkmagenta rounded-[50px] hover:bg-mediumorchid hover:box-border hover:border-[1px] hover:border-solid hover:border-mediumorchid">
-                            <b className="relative text-[1rem] inline-block  text-white text-left mq450:text-[1rem]" onClick={handlePrint}>
+                        <button className="cursor-pointer hover:bg-darkmagenta py-[0.687rem] px-[3.062rem] bg-shadeofpurple rounded-6xl shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] border-[1px] border-solid border-shadeofpurple rounded-[50px] overflow-hidden flex flex-row items-center justify-center">
+                            <b className="relative text-[1rem] inline-block text-black hover:text-white text-left mq450:text-[1rem]" onClick={handlePrint}>
                                 Print
                             </b>
                         </button>
