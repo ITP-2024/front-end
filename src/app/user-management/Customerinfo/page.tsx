@@ -52,7 +52,7 @@ export default function CustomerInfo() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center" >
       <h2 className="mb-6 text-2xl font-bold">Customer Information</h2>
       <div className="mb-10">
         <div className="border-4 border-purple-400 rounded-lg p-6 mb-10">

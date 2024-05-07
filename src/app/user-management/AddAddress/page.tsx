@@ -1,5 +1,8 @@
 'use client'
 import React, { useState } from "react";
+import Link from 'next/link';
+//import Header from "@/components/common/header";
+//import Link from 'next/link';
 
 const AddAddress: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +13,12 @@ const AddAddress: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validate ZIP code format
+  if (formData.zipCode.length !== 5 || !/^\d{5}$/.test(formData.zipCode)) {
+    alert('Please enter a valid 5-digit ZIP code');
+    return;
+  }
 
     try {
       const response = await fetch('http://localhost:8080/addresses', {
@@ -37,7 +46,7 @@ const AddAddress: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center"style={{ backgroundColor: '#DEC6EE', paddingBottom: '20px', border: '2px solid white' }}>
+    <div className="mx-auto mt-10 p-10 bg-white shadow-md rounded-md flex flex-col items-center"style={{ backgroundColor: '#DEC6EE', paddingBottom: '20px', border: '2px solid white' ,width: '800px', height: '600px' }}>
       <div style={{ border: '2px solid #C395D9', padding: '20px', borderRadius: '10px' }}>
       <h2 className="mb-8 text-3xl font-bold"style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '20px' }}>Add Address</h2>
       <form onSubmit={handleSubmit}>
@@ -78,8 +87,19 @@ const AddAddress: React.FC = () => {
           />
         </div>
         <button type="submit" className="mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold"style={{ backgroundColor: '#871A99'}}>Add Address</button>
+        <Link href="/user-management/AddressList">
+        <button className="mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold"style={{ backgroundColor: '#871A99'}}>
+          View
+        </button>
+      </Link>
       </form>
-    </div>
+      </div>
+      <Link href="/user-management/Customer">
+        <button className="mt-8 mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold">
+          Back 
+        </button>
+      </Link>
+    
     </div>
   );
 };

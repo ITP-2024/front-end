@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from "react";
+import Link from 'next/link';
 //import EditAddress from "./EditAddress"; 
 
 interface Address {
@@ -106,8 +107,10 @@ const AddressList: React.FC = () => {
   }
 
   return (
-    <div style={{ backgroundColor: '#DEC6EE', paddingBottom: '20px' }}>
-      <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '20px' }}>Address List</h2>
+    <div className="flex flex-col items-center"style={{ backgroundColor: '#EED9FF', padding: '100px' }}>
+      
+      <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '30px', paddingBottom: '20px' }}>Address List</h2>
+      
       <table style={{ borderCollapse: 'collapse', width: '100%',border: '2px solid white' }}>
         <thead>
           <tr style={{ borderBottom: '2px solid black' }}>
@@ -131,6 +134,11 @@ const AddressList: React.FC = () => {
           ))}
         </tbody>
       </table>
+      <Link href="/user-management/Customer">
+        <button className="mt-8 mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold,paddingTop: '5px'">
+          Back 
+        </button>
+      </Link>
       {selectedAddressID && (
         <div className="flex flex-col items-center">
           <h2 className="mb-8 text-3xl font-bold">Edit Address</h2>

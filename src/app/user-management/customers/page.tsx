@@ -1,6 +1,7 @@
 // src/app/user-management/customers/components/CreateUserForm.tsx
 'use client'
 import React, { useState } from "react";
+import Link from 'next/link';
 //import Header from '@/components/common/header';
 
 const CreateUserForm = () => {
@@ -53,16 +54,16 @@ const CreateUserForm = () => {
   
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-  <div className="self-center mt-9 text-4xl font-bold leading-7 text-black capitalize text-center"> {/* Added text-center class */}
+    <div className=" mx-auto mt-10 p-6 bg-white shadow-md rounded-md"style={{width: '800px', height: '600px', backgroundColor: '#EED9FF', padding: '80px' }}>
+  <div className="mb-6 text-2xl font-bold text-center"style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '10px',marginBottom: '40px' }}> {/* Added text-center class */}
   User Registration
 </div>
 
-  <h2 className="text-2xl font-bold mb-6">Create User</h2>
+  
   <form onSubmit={handleSubmit}>
     <div className="grid grid-cols-2 gap-4">
       <div>
-        <label htmlFor="userName" className="block text-sm font-semibold mb-1 text-black">Username:</label>
+        <label htmlFor="userName" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }} >Username:</label>
         <input
           type="text"
           id="userName"
@@ -74,7 +75,7 @@ const CreateUserForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="address" className="block text-sm font-semibold mb-1 text-black">Address:</label>
+        <label htmlFor="address" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}> Address:</label>
         <input
           type="text"
           id="address"
@@ -86,7 +87,7 @@ const CreateUserForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="email" className="block text-sm font-semibold mb-1 text-black">Email:</label>
+        <label htmlFor="email" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>Email:</label>
         <input
           type="email"
           id="email"
@@ -98,7 +99,7 @@ const CreateUserForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="street" className="block text-sm font-semibold mb-1 text-black">Street:</label>
+        <label htmlFor="street" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>Street:</label>
         <input
           type="text"
           id="street"
@@ -110,7 +111,7 @@ const CreateUserForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="city" className="block text-sm font-semibold mb-1 text-black">City:</label>
+        <label htmlFor="city" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>City:</label>
         <input
           type="text"
           id="city"
@@ -122,7 +123,7 @@ const CreateUserForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="zipCode" className="block text-sm font-semibold mb-1 text-black">ZIP Code:</label>
+        <label htmlFor="zipCode" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>ZIP Code:</label>
         <input
           type="text"
           id="zipCode"
@@ -135,6 +136,9 @@ const CreateUserForm = () => {
       </div>
     </div>
     <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">Register</button>
+    <Link href="/user-management/Customer">
+    <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">User Account</button>
+    </Link>
   </form>
 </div>
 
