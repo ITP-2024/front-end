@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import CartSummary from '../cartSummary/page';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+import UpdateGiftBox from '@/app/builder/giftbox/giftbox-update/page';
 
 interface ReportItem {
     id: string;
@@ -108,7 +109,8 @@ const CartUI: React.FC = () => {
                         <img src={giftBoxDetails.boxColor.image} alt={giftBoxDetails.boxColor.color} className="w-44 h-24 object-cover" />
 
                         <p className="text-gray-500">Rs. {giftBoxDetails.totalAmount}</p>
-                        <div>
+                        <div className="flex items-center justify-between">
+                            <button onClick={() => router.push('/builder/theme')} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900">Update Gift Box</button>
                             <button onClick={() => handleRemove(giftBoxDetails.giftBoxId)} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900">Remove</button>
                         </div>
                     </div>
