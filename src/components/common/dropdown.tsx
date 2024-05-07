@@ -16,6 +16,7 @@ const DropDown: React.FC = () => {
     { title: "Order Management" },
     { title: "Inventory Management" },
     { title: "Payment Management" },
+    { title: "User Management" },
     { title: "Gift Box Management"}
   ];
 
@@ -32,8 +33,13 @@ const DropDown: React.FC = () => {
     ],
     "Payment Management": [
       { title: "Dashboard", link: "/payment_management" },
-      { title: "payment",link: "/payment_management/Payment" },
+      { title: "Payment",link: "/payment_management/Payment" },
       { title: "Reporting", link: "" },
+    ],
+    "User Management": [
+      { title: "Users", link: "/user-management/customersList" },
+      { title: "Address",link: "/user-management/AddressList" },
+      { title: "Reporting", link: "/user-management/UserReport" },
     ],
     "Gift Box Management": [
       { title: "Created Gift Boxes", link: "/giftboxManagement/created" },
