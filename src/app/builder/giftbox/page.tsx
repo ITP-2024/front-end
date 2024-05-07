@@ -331,9 +331,14 @@ const GiftBoxSummary: React.FC = () => {
   
 
 
-  const newGiftBox = () => {
-    router.push('/builder');
-  };
+  const addToCart = () => {
+    localStorage.setItem('giftBoxId', giftBoxId || '');
+    router.push('/CartManagement/cartUI');
+    console.log('boxid'+giftBoxId);
+};
+
+  
+
 
 
 
@@ -399,7 +404,7 @@ const GiftBoxSummary: React.FC = () => {
           <div className="flex items-center justify-between" >
 
             <Button label="Save Gift Box" onClick={saveGiftBox} />
-            <Button label="Create New" onClick={newGiftBox} />
+            <Button label="Add to cart" onClick={addToCart} />
 
           </div>
           <div className="flex items-center justify-between">
