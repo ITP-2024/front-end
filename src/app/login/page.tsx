@@ -28,8 +28,6 @@ export default function Home() {
     }
 };
 
-
-
 return (
   <main className="flex justify-end bg-violet-200">
 
@@ -48,7 +46,6 @@ return (
           </div>
           <div className="flex items-center">
             <Button label="Login" onClick={handleLogin} />
-
           </div>
           <div className="mt-4 flex justify-between">
             <div>

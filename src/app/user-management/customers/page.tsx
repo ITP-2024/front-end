@@ -1,14 +1,11 @@
-// src/app/user-management/customers/components/CreateUserForm.tsx
 'use client'
 import React, { useState } from "react";
-import Link from 'next/link';
-//import Header from '@/components/common/header';
 
 const CreateUserForm = () => {
   const [formData, setFormData] = useState({
     userName: '',
     address: '',
-    //password: '',
+    password: '',
     email: '',
     street: '',
     city: '',
@@ -38,6 +35,7 @@ const CreateUserForm = () => {
         setFormData({
           userName: "",
           address: "",
+          password: "",
           email: "",
           street: "",
           city: "",
@@ -54,95 +52,108 @@ const CreateUserForm = () => {
   
 
   return (
-    <div className=" mx-auto mt-10 p-6 bg-white shadow-md rounded-md"style={{width: '800px', height: '600px', backgroundColor: '#EED9FF', padding: '80px' }}>
-  <div className="mb-6 text-2xl font-bold text-center"style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '10px',marginBottom: '40px' }}> {/* Added text-center class */}
-  User Registration
-</div>
+    <main className="flex justify-end bg-violet-200">
+      <div className="container mx-auto flex justify-center items-center h-screen">
+        <div className="w-2/5">
+          <h1 className="text-l font-bold text-center mb-8">Registration</h1>
 
-  
-  <form onSubmit={handleSubmit}>
-    <div className="grid grid-cols-2 gap-4">
-      <div>
-        <label htmlFor="userName" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }} >Username:</label>
-        <input
-          type="text"
-          id="userName"
-          name="userName"
-          value={formData.userName}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-purple-500"
-          required
-        />
+          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <div>
+                <label htmlFor="userName" className="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                <input
+                  type="text"
+                  id="userName"
+                  name="userName"
+                  value={formData.userName}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2"> Address:</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="street" className="block text-gray-700 text-sm font-bold mb-2">Street:</label>
+                <input
+                  type="text"
+                  id="street"
+                  name="street"
+                  value={formData.street}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="city" className="block text-gray-700 text-sm font-bold mb-2">City:</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="zipCode" className="block text-gray-700 text-sm font-bold mb-2">ZIP Code:</label>
+                <input
+                  type="text"
+                  id="zipCode"
+                  name="zipCode"
+                  value={formData.zipCode}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <button type="submit" className="bg-fuchsia-800 text-white px-10 py-2 rounded-md mt-10 hover:bg-fuchsia-900 w-40 h-15">Register</button>
+            </div>
+            <div className="mt-4 text-center">
+                <p className="text-sm">Already have an account? <a className="text-blue-500" href="/login">Login</a></p>
+            </div>
+          </form>
+        </div>
       </div>
-      <div>
-        <label htmlFor="address" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}> Address:</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="email" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="street" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>Street:</label>
-        <input
-          type="text"
-          id="street"
-          name="street"
-          value={formData.street}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="city" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>City:</label>
-        <input
-          type="text"
-          id="city"
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="zipCode" className="block text-sm font-semibold mb-1 text-black"style={{ fontSize: '17px', color: 'black', fontWeight: 'bold',paddingTop: '10px' }}>ZIP Code:</label>
-        <input
-          type="text"
-          id="zipCode"
-          name="zipCode"
-          value={formData.zipCode}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
-    </div>
-    <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">Register</button>
-    <Link href="/login">
-    <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">Login</button>
-    </Link>
-  </form>
-</div>
-
-
+    </main>
   );
 };
 
