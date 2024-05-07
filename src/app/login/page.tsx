@@ -23,7 +23,7 @@ export default function Home() {
         // Perform other login actions, such as submitting the form
         // For example, you can submit the form using JavaScript
         // document.getElementById('loginForm').submit();
-        router.push('/builder/theme');
+        router.push('/user-management/Customer');
 
     }
 };
@@ -54,10 +54,10 @@ return (
             <div>
               <input className="mr-2 leading-tight" type="checkbox" id="rememberMe" name="rememberMe" />
               <label className="text-sm" htmlFor="rememberMe">Remember me</label></div>
-            <a className="text-sm text-blue-500" href="htmlForgotPassword.php">Forgot password?</a>
+            <a className="text-sm text-blue-500" href="#">Forgot password?</a>
           </div>
           <div className="mt-4 text-center">
-            <p className="text-sm">Don't have an account? <a className="text-blue-500" href="userSignup.php">Sign up</a></p>
+            <p className="text-sm">Don't have an account? <a className="text-blue-500" href="/user-management/customers">Sign up</a></p>
           </div>
         </form>
       </div>

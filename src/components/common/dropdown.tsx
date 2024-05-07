@@ -15,7 +15,8 @@ const DropDown: React.FC = () => {
   const menu: MenuItem[] = [
     { title: "Order Management" },
     { title: "Inventory Management" },
-    { title: "Financial Management" },
+    { title: "Payment Management" },
+    { title: "User Management" },
     { title: "Gift Box Management"}
   ];
 
@@ -27,21 +28,22 @@ const DropDown: React.FC = () => {
       { title: "Complains", link: "/OrderManagement/Complain" },
     ],
     "Inventory Management": [
-      { title: "Dashboard", link: "/InventoryManagement/Dashboard" },
       { title: "Products", link: "/InventoryManagement/Products" },
       { title: "Low Inventories", link: "/InventoryManagement/LowInventories" },
     ],
-    "Financial Management": [
-      { title: "Accounting", link: "/InventoryManagement/TestPages/Products" },
-      {
-        title: "Budgeting",link: "/InventoryManagement/TestPages/LowInventories",
-      },
-      { title: "Reporting", link: "/FinancialManagement/reporting" },
+    "Payment Management": [
+      { title: "Dashboard", link: "/payment_management" },
+      { title: "Payment",link: "/payment_management/Payment" },
+      { title: "Reporting", link: "" },
+    ],
+    "User Management": [
+      { title: "Users", link: "/user-management/customersList" },
+      { title: "Address",link: "/user-management/AddressList" },
+      { title: "Reporting", link: "/user-management/UserReport" },
     ],
     "Gift Box Management": [
       { title: "Created Gift Boxes", link: "/giftboxManagement/created" },
-      {
-        title: "Purchased Gift Boxes",link: "/giftboxManagement/purchased"}
+      { title: "Purchased Gift Boxes", link: "" }
     ],
   };
 
