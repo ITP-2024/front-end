@@ -48,10 +48,7 @@ const GiftBoxProducts: React.FC = () => {
         }
     }, []);
 
-    /*const addToCart = (product: Product) => {
-        setSelectedProducts(prevCart => [...prevCart, product]);
-        console.log(selectedProducts);
-    };*/
+    
 
     const addToGiftBox = (product: Product) => {
         setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, product]);
