@@ -9,25 +9,37 @@ const DynamicForm = () => {
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
-    accessType: '' // Added accessType field to store the selected access type
+    accessType: ''
   });
 
   const [errors, setErrors] = useState({
+    firstNameError: '',
+    lastNameError: '',
     emailError: '',
     phoneError: ''
   });
 
   const [successMessage, setSuccessMessage] = useState('');
-  // Function to handle changes in form input fields
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    let error = '';
+    if (name === "firstName" || name === "lastName") {
+      if (!/^[A-Za-z ]+$/.test(value)) {
+        error = 'Only letters and spaces are allowed';
+      }
+    }
+    setErrors(prevState => ({
+      ...prevState,
+      [`${name}Error`]: error
+    }));
     setFormData(prevState => ({
       ...prevState,
       [name]: value
     }));
   };
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formData.emailAddress.includes('@') || !(formData.emailAddress.includes('.com') || formData.emailAddress.includes('.lk'))) {
@@ -46,8 +58,23 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       return;
     }
 
+    if (formData.firstName.trim() === '') {
+      setErrors(prevState => ({
+        ...prevState,
+        firstNameError: 'First name is required'
+      }));
+      return;
+    }
+
+    if (formData.lastName.trim() === '') {
+      setErrors(prevState => ({
+        ...prevState,
+        lastNameError: 'Last name is required'
+      }));
+      return;
+    }
+
     try {
-      // Send form data to backend for saving
       const response = await fetch('http://localhost:8080/addShareCartMembers', {
         method: 'POST',
         headers: {
@@ -58,7 +85,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       if (response.ok) {
         console.log('Data saved successfully');
         setSuccessMessage('Data saved successfully');
-        // Clear form fields after successful submission
         setFormData({
           firstName: '',
           lastName: '',
@@ -78,9 +104,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   useEffect(() => {
     // This effect will only run on the client side
-    // You can add any client-side specific logic here
   }, []);
-
 
   return (
     <div className="flex flex-col pb-10 bg-white">
@@ -103,16 +127,18 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="shrink-0 mt-4 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full"
+                  className={`shrink-0 mt-4 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.firstNameError ? 'border-red-500' : 'border-stone-300'}`}
                 />
+                {errors.firstNameError && <div className="text-red-500">{errors.firstNameError}</div>}
                 <div className="mt-10 max-md:max-w-full">Last name</div>
                 <input
                   type="text"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="shrink-0 mt-4 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full"
+                  className={`shrink-0 mt-4 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.lastNameError ? 'border-red-500' : 'border-stone-300'}`}
                 />
+                {errors.lastNameError && <div className="text-red-500">{errors.lastNameError}</div>}
               </div>
               <div className="flex flex-col flex-1 items-end max-md:max-w-full">
                 <div className="text-xl leading-5 text-red-600 max-md:max-w-full">
@@ -161,9 +187,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                       name="emailAddress"
                       value={formData.emailAddress}
                       onChange={handleChange}
-                      className={`shrink-0 mt-7 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.emailError ? 'border-red-500' : 'border-stone-300'} text-black`} // Add text-black class to change font color
+                      className={`shrink-0 mt-7 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.emailError ? 'border-red-500' : 'border-stone-300'}`}
                     />
-                    {errors.emailError && <div className="text-red-500">{errors.emailError}</div>} {/* Display error message */}
+                    {errors.emailError && <div className="text-red-500">{errors.emailError}</div>}
                     <div className="mt-10 text-stone-500 max-md:max-w-full">
                       Phone Number{" "}
                       <span className="text-stone-500">(Optional)</span>
@@ -173,9 +199,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
-                      className={`shrink-0 mt-6 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.phoneError ? 'border-red-500' : 'border-stone-300'} text-black`} // Add text-black class to change font color
+                      className={`shrink-0 mt-6 bg-white rounded-md border border-solid border-stone-300 h-[45px] max-md:max-w-full ${errors.phoneError ? 'border-red-500' : 'border-stone-300'}`}
                     />
-                    {errors.phoneError && <div className="text-red-500">{errors.phoneError}</div>} {/* Display error message */}
+                    {errors.phoneError && <div className="text-red-500">{errors.phoneError}</div>}
                   </div>
                 </div>
               </div>

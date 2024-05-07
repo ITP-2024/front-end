@@ -78,7 +78,7 @@ export default function Page() {
             
             <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">
                 <form onSubmit={handleSubmit}>
-                    <div className="SelectCard w-80 h-12 text-stone-900 text-xl font-medium">
+                    <div className="SelectCard w-80 h-12 text-stone-900  font-medium">
                         Select a greeting card  {selectedTheme}
                     </div>
                     <div className="flex justify-left flex-col md:flex-row md:overflow-hidden">

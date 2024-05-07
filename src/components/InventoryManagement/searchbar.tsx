@@ -17,15 +17,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ title, onSearch }) => {
 
   return (
     <form className=" w-[345px] relative" onSubmit={handleSubmit}>
-      <div className="relative ">
+      <div className="relative">
         <input
           type="search"
           placeholder={title} 
-          className="w-full h-[50px] bg-thistle shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] border-[1px] border-solid border-darkmagenta rounded-[30px] p-4 placeholder-darkmagenta"
+          className="w-full h-[50px] bg-shadeofpurple hover:bg-darkmagenta shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-[30px] p-4 placeholder-black hover:placeholder-white"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button className="absolute right-1 p-3 text-darkmagenta ">
+        <button className="absolute right-1 p-3 text-black">
           <CgSearch className="font-bold w-6 h-6" />
         </button>
       </div>

@@ -95,7 +95,11 @@ const ExistingMembersPage: React.FC = () => {
       const response = await fetch(`http://localhost:8080/addShareCartMembers/firstName/${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
-        setExistingMembers(data);
+        // Convert search term to lowercase
+        const searchTermLower = searchTerm.toLowerCase();
+        // Filter existing members based on the search term (case-insensitive)
+        const filteredMembers = data.filter((member: Member) => member.firstName.toLowerCase().includes(searchTermLower));
+        setExistingMembers(filteredMembers);
       } else {
         console.error('Failed to fetch existing members by search term');
       }
@@ -103,6 +107,7 @@ const ExistingMembersPage: React.FC = () => {
       console.error('Error:', error);
     }
   };
+  
   
 
   return (

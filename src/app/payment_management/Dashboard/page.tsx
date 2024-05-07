@@ -1,4 +1,4 @@
-import Card from "../../../components/InventoryManagement/card";
+import Card from "../../../components/payment_management/card";
 
 const Dashboard = () => {
   return (
@@ -15,8 +15,8 @@ const Dashboard = () => {
               className="w-8 h-8"
             ></svg>
           }
-          title={"Notification"}
-          value={"15"}
+          title={"Total Payment"}
+          value={"25"}
         />
         <Card
           icon={
@@ -29,8 +29,8 @@ const Dashboard = () => {
               className="w-8 h-8"
             ></svg>
           }
-          title={"Reports"}
-          value={"02"}
+          title={"panding payment"}
+          value={"05"}
         />
       </div>
       <div className="ml-[330px] mr-[20px] mt-[30px]"></div>
