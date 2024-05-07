@@ -15,7 +15,7 @@ const DropDown: React.FC = () => {
   const menu: MenuItem[] = [
     { title: "Order Management" },
     { title: "Inventory Management" },
-    { title: "Financial Management" },
+    { title: "Payment Management" },
     { title: "Gift Box Management"}
   ];
 
@@ -30,9 +30,9 @@ const DropDown: React.FC = () => {
       { title: "Products", link: "/InventoryManagement/Products" },
       { title: "Low Inventories", link: "/InventoryManagement/LowInventories" },
     ],
-    "Financial Management": [
-      { title: "Accounting", link: "" },
-      { title: "Budgeting", link: "" },
+    "Payment Management": [
+      { title: "Dashboard", link: "/payment_management" },
+      { title: "payment",link: "/payment_management/Payment" },
       { title: "Reporting", link: "" },
     ],
     "Gift Box Management": [
