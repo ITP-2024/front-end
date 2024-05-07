@@ -6,7 +6,7 @@ import UpdateForm from "@/components/orderManagement/updateForm";
 import axios from "axios";
 import { MdCloudDone } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
-
+import ImageCard from "@/components/orderManagement/imageCard";
 import Navbar from "@/components/common/navbar";
 
 const Complain: React.FC = () => {
@@ -17,12 +17,101 @@ const Complain: React.FC = () => {
     complainType: string;
     complainStatus: string;
     complainDetails: string;
+    image: string;
   }
+
+  const sampleData: TableData[] = [
+    {
+      ComplainId: "001",
+      orderId: "ORD001",
+      customerMail: "customer1@example.com",
+      complainType: "Delivery",
+      complainStatus: "Pending",
+      complainDetails: "Delayed delivery",
+      image: "/path/to/image1.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+    {
+      ComplainId: "002",
+      orderId: "ORD002",
+      customerMail: "customer2@example.com",
+      complainType: "Product Quality",
+      complainStatus: "Solved",
+      complainDetails: "Received damaged product",
+      image: "/path/to/image2.jpg",
+    },
+  ];
 
   const [TableData, setTableData] = useState<TableData[]>([]);
   const [count, setCount] = useState<number[]>([]);
   const [pendingCount, setPendingCount] = useState<number>(0);
   const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    setTableData(sampleData);
+  }, []);
 
   useEffect(() => {
     axios
@@ -104,6 +193,19 @@ const Complain: React.FC = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="mt-4 max-h-[400px] overflow-y-auto border border-purple-300">
+            <div className="grid grid-cols-4 gap-4 mt-[10px] mr-[20px]">
+              {TableData.map((data: TableData, index: number) => (
+                <ImageCard
+                  key={index}
+                  image={data.image}
+                  complainId={data.ComplainId}
+                  customerMail={data.customerMail}
+                  orderId={data.orderId}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
