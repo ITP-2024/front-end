@@ -9,26 +9,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const order = await db.collection('Order').find({}).toArray(); 
-        res.status(200).json(order);
+        const complain = await db.collection('Complain').find({}).toArray(); 
+        res.status(200).json(complain);
       } catch (error) {
-        res.status(500).json({ message: 'Error fetching Order Details', error });
+        res.status(500).json({ message: 'Error fetching Complain Details', error });
       }
       break;
     case 'POST':
       try {
-        const order = req.body;
-        const result = await db.collection('Order').insertOne(order); 
-        res.status(201).json({ _id: result.insertedId, ...order });
+        const complain = req.body;
+        const result = await db.collection('Complain').insertOne(complain); 
+        res.status(201).json({ _id: result.insertedId, ...complain });
       } catch (error) {
-        res.status(500).json({ message: 'Error to Save Order Details', error });
+        res.status(500).json({ message: 'Error creating product', error });
       }
       break;
     case 'PUT':  
       try {
         const { id } = req.query;
         const updateComplain = req.body;
-        const result = await db.collection('Order').updateOne(
+        const result = await db.collection('Complain').updateOne(
           { _id: new ObjectId(id as string) },
           { $set: updateComplain }
         );

@@ -1,8 +1,25 @@
 import Card from "@/components/orderManagement/card";
 import BarChart from "@/components/orderManagement/barChart";
 import Navbar from "@/components/common/navbar";
+import axios from "axios";
 
 const Dashboard = () => {
+  const downloadReport = async () => {
+    try {
+      const response = await axios.get("http://your-backend-url/generate-pdf", {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "report.pdf");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error downloading report:", error);
+    }
+  };
+
   return (
     <div>
       <Navbar />

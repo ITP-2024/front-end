@@ -10,47 +10,45 @@ import { useGiftBoxContext } from '@/context/giftBox';
 import CartItem from '@/components/common/cart-item';
 
 interface Product {
-    id: string;
-    productId: string;
-    name: string;
-    price: number;
-    imageUrl: string;
-    quantity: number;
-
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
 }
 
-
-
 const GiftBoxProducts: React.FC = () => {
-    
-    const [products, setProducts] = useState<Product[]>([]);
-    //const [selectedProducts, setSelectedProducts] = useState<{ productId: string; name: string; price: number; quantity: number; }[]>([]);
-    const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const getQuantity = (productId: string): number => {
-        const selectedProduct = selectedProducts.find(product => product.productId === productId);
-        return selectedProduct ? selectedProduct.quantity : 0; // Return the quantity if the product is found, otherwise return 0
-    };
+  const [products, setProducts] = useState<Product[]>([]);
+  //const [selectedProducts, setSelectedProducts] = useState<{ productId: string; name: string; price: number; quantity: number; }[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const getQuantity = (productId: string): number => {
+    const selectedProduct = selectedProducts.find(
+      (product) => product.productId === productId
+    );
+    return selectedProduct ? selectedProduct.quantity : 0; // Return the quantity if the product is found, otherwise return 0
+  };
 
+  useEffect(() => {
+    // Fetch gift box products from backend
+    axios
+      .get<Product[]>("http://localhost:8080/products")
+      .then((response) => {
+        console.log("response" + response.data);
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching gift box products:", error);
+      });
 
-    useEffect(() => {
-        // Fetch gift box products from backend
-        axios.get<Product[]>('http://localhost:8080/products')
-            .then(response => {
-                console.log('response' + response.data);
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching gift box products:', error);
-            });
+    const storedSelectedProducts = localStorage.getItem("selectedProducts");
+    if (storedSelectedProducts) {
+      setSelectedProducts(JSON.parse(storedSelectedProducts));
+    }
+  }, []);
 
-        const storedSelectedProducts = localStorage.getItem('selectedProducts');
-        if (storedSelectedProducts) {
-            setSelectedProducts(JSON.parse(storedSelectedProducts));
-        }
-    }, []);
-
-    /*const addToCart = (product: Product) => {
+  /*const addToCart = (product: Product) => {
         setSelectedProducts(prevCart => [...prevCart, product]);
         console.log(selectedProducts);
     };*/
@@ -80,7 +78,7 @@ const handleClick = (product: Product) => {
     
     
 
-    const router = useRouter();
+  const router = useRouter();
 
     const route = () => {
         if (selectedProducts.length > 0) {
@@ -92,17 +90,17 @@ const handleClick = (product: Product) => {
     };
 
 
-    console.log('products' + selectedProducts);
-    console.log(JSON.stringify(selectedProducts, null, 2));
+  console.log("products" + selectedProducts);
+  console.log(JSON.stringify(selectedProducts, null, 2));
 
-    const handleSearch = (query: string) => {
-        setSearchQuery(query);
-    };
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
 
-    // Filter products based on search query
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  // Filter products based on search query
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
     return (
 
