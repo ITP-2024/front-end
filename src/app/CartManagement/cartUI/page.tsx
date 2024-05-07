@@ -62,33 +62,8 @@ const CartUI: React.FC = () => {
             return total + (product.price * product.quantity);
         }, 0);
     };
-const generateCartSummaryReport = () => {
-        // Gather details about the saved products in the cart
-        const cartSummary: ReportItem[] = selectedProducts.map(product => ({
-          id: product.id,
-          productId: product.productId,
-          name: product.name,
-          price: product.price,
-          imageUrl: product.imageUrl,
-          quantity: product.quantity,
-          total: product.price * product.quantity
-        }));
-
-        // Generate a formatted report
-        const formattedReport = cartSummary.map(item => (
-            `${item.name}: Quantity - ${item.quantity}, Price - ${item.price}, Total - ${item.total}`
-        )).join('\n');
-
-        // Log or display the report (for demonstration purposes, you can modify this to save or display the report as needed)
-        console.log(formattedReport);
-
-          // Update the state with the cart summary report
-          setSelectedProducts(cartSummary);
-        // Optionally, you can also use libraries like FileSaver.js to save the report as a file
-    };
 
 
-  
   
     return (
         <div>
@@ -103,7 +78,9 @@ const generateCartSummaryReport = () => {
                             <h2 className="text-lg font-semibold">{product.name}</h2>
                             <p className="text-gray-500">Rs. {product.price}</p>
                             <div className="flex items-center">
-                                <button onClick={() => handleUpdateQuantity(product.productId, product.quantity - 1)} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900">-</button>
+                            <button
+    onClick={() => handleUpdateQuantity(product.productId, Math.max(0, product.quantity - 1))}
+    className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900">-</button>
                                 <p className="text-gray-500 mx-2">Quantity: {product.quantity}</p>
                                 <button onClick={() => handleUpdateQuantity(product.productId, product.quantity + 1)} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900">+</button>
                             </div>
