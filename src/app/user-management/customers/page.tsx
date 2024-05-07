@@ -136,8 +136,8 @@ const CreateUserForm = () => {
       </div>
     </div>
     <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">Register</button>
-    <Link href="/user-management/Customer">
-    <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">User Account</button>
+    <Link href="/login">
+    <button type="submit" className="mt-6 w-full px-4 py-2 bg-purple-600 text-white rounded-md font-semibold">Login</button>
     </Link>
   </form>
 </div>

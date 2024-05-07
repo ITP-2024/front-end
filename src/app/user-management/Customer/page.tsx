@@ -22,7 +22,7 @@ export default function Home() {
       <div className="flex">
         <div className="mr-6">
           {/* Use an <a> tag for navigation */}
-          <Link href="/user-management/UserReport">
+          <Link href="#">
             <button className="mr-4 px-6 py-4 text-lg bg-purple-400 rounded-md"style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
               Information
             </button>

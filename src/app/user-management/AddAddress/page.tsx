@@ -87,11 +87,6 @@ const AddAddress: React.FC = () => {
           />
         </div>
         <button type="submit" className="mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold"style={{ backgroundColor: '#871A99'}}>Add Address</button>
-        <Link href="/user-management/AddressList">
-        <button className="mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold"style={{ backgroundColor: '#871A99'}}>
-          View
-        </button>
-      </Link>
       </form>
       </div>
       <Link href="/user-management/Customer">

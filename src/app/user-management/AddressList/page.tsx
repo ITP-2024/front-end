@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import Link from 'next/link';
 //import EditAddress from "./EditAddress"; 
 
 interface Address {
@@ -134,11 +133,6 @@ const AddressList: React.FC = () => {
           ))}
         </tbody>
       </table>
-      <Link href="/user-management/Customer">
-        <button className="mt-8 mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold,paddingTop: '5px'">
-          Back 
-        </button>
-      </Link>
       {selectedAddressID && (
         <div className="flex flex-col items-center">
           <h2 className="mb-8 text-3xl font-bold">Edit Address</h2>
