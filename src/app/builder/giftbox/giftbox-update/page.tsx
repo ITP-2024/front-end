@@ -13,7 +13,6 @@ interface Product {
   quantity: number;
 }
 
-
 interface GiftBoxColor {
   boxColorId: string;
   color: string;

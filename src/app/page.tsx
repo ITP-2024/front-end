@@ -1,79 +1,99 @@
 "use client";
+import React, { useState, useEffect } from "react";
+import Header from "@/components/common/header";
+import axios from "axios";
+import CartItem from '@/components/common/cart-item';
+import Footer from "@/components/common/footer";
 
-import React, { useState } from "react";
-
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="http://localhost:3000/InventoryManagement/Dashboard"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Inventory Management{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore Inventory Management features and API.
-          </p>
-        </a>
-
-        <a
-          href="http://localhost:3000/OrderManagement/Welcome"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Order Management{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore Oredr Management features and API.
-          </p>
-        </a>
-
-        <a
-          href="http://localhost:3000/builder"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Custom Gift Box Builder{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore Custom Gift Box Builder features and API.
-          </p>
-        </a>
-
-        <a
-          href="http://localhost:3000/Example"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Example{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Explore Example features and API.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+interface Product {
+  id: string;
+  productId: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
 }
+
+const Home: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const getQuantity = (productId: string): number => {
+    const selectedProduct = selectedProducts.find(
+      (product) => product.productId === productId
+    );
+    return selectedProduct ? selectedProduct.quantity : 0;
+  };
+
+  useEffect(() => {
+    axios
+      .get<Product[]>("http://localhost:8080/products")
+      .then((response) => {
+        setProducts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching gift box products:", error);
+      });
+
+    const storedSelectedProducts = localStorage.getItem("selectedProducts");
+    if (storedSelectedProducts) {
+      setSelectedProducts(JSON.parse(storedSelectedProducts));
+    }
+  }, []);
+
+  const addToCart = (product: Product) => {
+    setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, product]);
+  };
+
+  const handleClick = (product: Product) => {
+    const index = selectedProducts.findIndex(p => p.productId === product.productId);
+    if (index !== -1) {
+        const updatedProducts = [...selectedProducts];
+        updatedProducts[index] = { ...updatedProducts[index], quantity: updatedProducts[index].quantity + 1 };
+        setSelectedProducts(updatedProducts);
+    } else {
+        setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { ...product, quantity: 1 }]);
+    }
+    localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <div>
+      <Header />
+      <div className="p-4">
+        <input
+          type="text"
+          placeholder="Search products"
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="border p-2 rounded w-full"
+        />
+      </div>
+      <section className="mx-auto max-w-7xl pb-16">
+        <ul className="flex flex-wrap">
+          {filteredProducts.map((product) => (
+            <CartItem
+              key={product.id}
+              product={{ ...product, quantity: getQuantity(product.id) }}
+              action={'Add to Cart'}
+              handleClick={handleClick}
+              isVisible={product.name.toLowerCase().includes(searchQuery.toLowerCase())}
+            />
+          ))}
+        </ul>
+      </section>
+      <Footer/>
+    </div>
+  );
+};
+
+export default Home;

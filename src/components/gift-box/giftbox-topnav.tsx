@@ -60,7 +60,7 @@ export default function TopNav() {
                 <div 
                     key={link.name} 
                     onClick={() => router.push(link.href)}
-                    className={`cursor-pointer flex h-[40px] w-[200px] items-center justify-center p-3 font-medium md:flex-none md:p-2 md:px-3 
+                    className={`cursor-pointer flex h-[40px] w-[240px] items-center justify-center p-3 font-medium md:flex-none md:p-2 md:px-3 
                                 ${pathname === link.href ? 'bg-fuchsia-900 text-white' : 'bg-violet-200'}`}
                     style={{ marginRight: index < links.length - 1 ? '10px' : '0' }}
                 >
