@@ -144,7 +144,7 @@ const CartUI: React.FC = () => {
                 </div>
                 <div className="mt-4 space-y-2 md:space-y-0 md:flex md:justify-between">
                     <div className="md:mr-2">
-                        <button onClick={() => router.push('/checkout')} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900 w-full md:w-auto">Proceed to Checkout</button>
+                        <button onClick={() => router.push('/payment/checkout')} className="bg-fuchsia-800 text-white px-4 py-2 rounded-md hover:bg-fuchsia-900 w-full md:w-auto">Proceed to Checkout</button>
                     </div>
                     <div className="md:mx-2">
                         <Link href="members">
