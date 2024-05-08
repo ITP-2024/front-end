@@ -183,10 +183,10 @@ const GiftBoxTable = () => {
                             <tbody>
                                 {giftBoxes.map((giftBox) => (
                                     <tr key={giftBox.giftBoxId}>
-                                        <td className="border border-white-400 p-2 bg-thistle">{giftBox.boxColor.color}</td>
-                                        <td className="border border-white-400 p-2 bg-thistle">{giftBox.cardType.type}</td>
-                                        <td className="border border-white-400 p-2 bg-thistle">{giftBox.message}</td>
-                                        <td className="border border-white-400 p-2 bg-thistle">
+                                        <td className="border border-white-400 p-2 bg-thistle text-black">{giftBox.boxColor.color}</td>
+                                        <td className="border border-white-400 p-2 bg-thistle text-black">{giftBox.cardType.type}</td>
+                                        <td className="border border-white-400 p-2 bg-thistle text-black">{giftBox.message}</td>
+                                        <td className="border border-white-400 p-2 bg-thistle text-black">
                                             <ul className="list-disc p-5">
                                                 {giftBox.products.map((product, index) => (
                                                     <li key={index}>
@@ -195,7 +195,7 @@ const GiftBoxTable = () => {
                                                 ))}
                                             </ul>
                                         </td>
-                                        <td className="border border-white-400 p-2 bg-thistle">{giftBox.totalAmount}</td>
+                                        <td className="border border-white-400 p-2 bg-thistle text-black">{giftBox.totalAmount}</td>
                                     </tr>
                                 ))}
                             </tbody>
