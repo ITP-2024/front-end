@@ -37,14 +37,14 @@ const UserReport = () => {
 
     return (
         <div>
-            <h2 style={{ fontSize: '24px', color: 'white', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline', textAlign: 'center' }}>Kpop Shop</h2>
-            <h2 style={{ fontSize: '20px', color: 'white', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline' }}>User Report</h2>
+            <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline', textAlign: 'center' }}>Kpop Shop</h2>
+            <h2 style={{ fontSize: '20px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline' }}>User Report</h2>
             <button onClick={handlePrint}>Print Report</button>
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 userReport && (
-                    <table style={{ borderCollapse: 'collapse', width: '100%', color: 'white' }}>
+                    <table style={{ borderCollapse: 'collapse', width: '100%', color: 'black' }}>
                         <thead>
                             <tr>
                                 <th>User ID</th>
