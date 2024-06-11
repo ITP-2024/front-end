@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/gift-box/button';
 import { useRouter } from 'next/navigation';
-import Header from "@/components/common/header";
-import Footer from "@/components/common/footer";
 import axios from 'axios';
 
 export default function Home() {
@@ -30,7 +28,6 @@ export default function Home() {
 
 return (
   <>
-  <Header />
     <main className="flex justify-end bg-violet-200">
       <div className="container mx-auto flex justify-center items-center h-screen">
         <div className="w-2/5">
@@ -63,7 +60,6 @@ return (
         </div>
       </div>
     </main>
-  <Footer/>
   </>
   );
 }
