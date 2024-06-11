@@ -41,7 +41,6 @@ const DropDown: React.FC = () => {
     ],
     "Gift Box Management": [
       { title: "Created Gift Boxes", link: "/giftboxManagement/created" },
-      { title: "Purchased Gift Boxes", link: "" }
     ],
   };
 
