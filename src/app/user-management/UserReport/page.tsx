@@ -36,39 +36,43 @@ const UserReport = () => {
     };
 
     return (
-        <div>
-            <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline', textAlign: 'center' }}>Kpop Shop</h2>
-            <h2 style={{ fontSize: '20px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline' }}>User Report</h2>
-            <button onClick={handlePrint}>Print Report</button>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                userReport && (
-                    <table style={{ borderCollapse: 'collapse', width: '100%', color: 'black' }}>
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {userReport.users.map(user => (
-                                <tr key={user.userID}>
-                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.userID}</td>
-                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.userName}</td>
-                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.email}</td>
-                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.address}</td>
-                                </tr>
-                            ))}
-                            <tr>
-                                <td colSpan={4} style={{  fontSize: '20px',textAlign: 'left', fontWeight: 'bold', borderTop: '2px solid black', padding: '8px' }}>Total Users: {userReport.userCount}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                )
-            )}
+        <div className="ml-[320px]">
+            <div className="mt-[30px] mt-[60px]"> 
+                <div>
+                    <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline', textAlign: 'center' }}>Kpop Shop</h2>
+                    <h2 style={{ fontSize: '20px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline' }}>User Report</h2>
+                    <button onClick={handlePrint}>Print Report</button>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        userReport && (
+                            <table style={{ borderCollapse: 'collapse', width: '100%', color: 'black' }}>
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {userReport.users.map(user => (
+                                        <tr key={user.userID}>
+                                            <td style={{ border: '1px solid black', padding: '8px' }}>{user.userID}</td>
+                                            <td style={{ border: '1px solid black', padding: '8px' }}>{user.userName}</td>
+                                            <td style={{ border: '1px solid black', padding: '8px' }}>{user.email}</td>
+                                            <td style={{ border: '1px solid black', padding: '8px' }}>{user.address}</td>
+                                        </tr>
+                                    ))}
+                                    <tr>
+                                        <td colSpan={4} style={{  fontSize: '20px',textAlign: 'left', fontWeight: 'bold', borderTop: '2px solid black', padding: '8px' }}>Total Users: {userReport.userCount}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        )
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
