@@ -34,7 +34,6 @@ const DropDown: React.FC = () => {
     "Payment Management": [
       { title: "Dashboard", link: "/payment_management" },
       { title: "Payment",link: "/payment_management/Payment" },
-      { title: "Reporting", link: "" },
     ],
     "User Management": [
       { title: "Users", link: "/user-management/customersList" },
