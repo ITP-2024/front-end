@@ -37,14 +37,14 @@ const UserReport = () => {
 
     return (
         <div>
-            <h2 style={{ fontSize: '24px', color: 'white', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline', textAlign: 'center' }}>Kpop Shop</h2>
-            <h2 style={{ fontSize: '20px', color: 'white', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline' }}>User Report</h2>
+            <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline', textAlign: 'center' }}>Kpop Shop</h2>
+            <h2 style={{ fontSize: '20px', color: 'black', fontWeight: 'bold', paddingTop: '20px', textDecoration: 'underline' }}>User Report</h2>
             <button onClick={handlePrint}>Print Report</button>
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 userReport && (
-                    <table style={{ borderCollapse: 'collapse', width: '100%', color: 'white' }}>
+                    <table style={{ borderCollapse: 'collapse', width: '100%', color: 'black' }}>
                         <thead>
                             <tr>
                                 <th>User ID</th>
@@ -56,14 +56,14 @@ const UserReport = () => {
                         <tbody>
                             {userReport.users.map(user => (
                                 <tr key={user.userID}>
-                                    <td style={{ border: '1px solid white', padding: '8px' }}>{user.userID}</td>
-                                    <td style={{ border: '1px solid white', padding: '8px' }}>{user.userName}</td>
-                                    <td style={{ border: '1px solid white', padding: '8px' }}>{user.email}</td>
-                                    <td style={{ border: '1px solid white', padding: '8px' }}>{user.address}</td>
+                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.userID}</td>
+                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.userName}</td>
+                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.email}</td>
+                                    <td style={{ border: '1px solid black', padding: '8px' }}>{user.address}</td>
                                 </tr>
                             ))}
                             <tr>
-                                <td colSpan={4} style={{  fontSize: '20px',textAlign: 'left', fontWeight: 'bold', borderTop: '2px solid white', padding: '8px' }}>Total Users: {userReport.userCount}</td>
+                                <td colSpan={4} style={{  fontSize: '20px',textAlign: 'left', fontWeight: 'bold', borderTop: '2px solid black', padding: '8px' }}>Total Users: {userReport.userCount}</td>
                             </tr>
                         </tbody>
                     </table>
