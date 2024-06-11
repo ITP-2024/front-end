@@ -56,6 +56,9 @@ return (
             <div className="mt-4 text-center">
               <p className="text-sm">Don't have an account? <a className="text-blue-500" href="/register">Sign up</a></p>
             </div>
+            <div className="mt-4 text-center">
+              <p className="text-sm">Are you admin? <a className="text-blue-500" href="/InventoryManagement/">Login</a></p>
+            </div>
           </form>
         </div>
       </div>
