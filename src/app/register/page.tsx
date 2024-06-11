@@ -1,7 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import Header from "@/components/common/header";
-import Footer from "@/components/common/footer";
 
 const CreateUserForm = () => {
   const [formData, setFormData] = useState({
@@ -54,7 +52,6 @@ const CreateUserForm = () => {
   
   return (
     <>
-    <Header />
       <main className="flex justify-end bg-violet-200">
         <div className="container mx-auto flex justify-center items-center h-screen">
           <div className="w-2/5">
@@ -157,7 +154,6 @@ const CreateUserForm = () => {
           </div>
         </div>
       </main>
-    <Footer/>
     </>
   );
 };
