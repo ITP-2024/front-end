@@ -130,63 +130,65 @@ const UserList = () => {
   }
 
   return (
-    <div style={{ backgroundColor: '#DEC6EE', paddingBottom: '20px' }}>
-      <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '20px' }}>User List</h2>
-      <input
-      type="text"
-      placeholder="Search by username..."
-      value={searchTerm}
-      onChange={handleSearch}
-      style={{ color: 'black' }}
-    />
-      <table style={{ borderCollapse: 'collapse', width: '100%',border: '2px solid white' }}>
-        <thead>
-          <tr style={{ borderBottom: '2px solid black' }}>
-            <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>UserName</th>
-            <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>Email</th>
-            <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody style={{ backgroundColor: '#f3e5f5' }}>
-          {users.map((user) => (
-            <tr key={user.userID}>
-              <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{user.userName}</td>
-              <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{user.email}</td>
-              <td>
-                <button style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleDeleteClick(user.userID)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2">Delete</button>
-                <button style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleEditUser(user.userID)} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {selectedUserId && (
-        <div className="flex flex-col items-center">
-          <h2 className="mb-8 text-3xl font-bold"style={{ color: 'black' }}>Edit User</h2>
-          <form onSubmit={() => handleUpdateUser(selectedUserId)}>
-            <div className="mb-4">
-              <label htmlFor="street" className="block text-xl font-bold"style={{ color: 'black' }}>email</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                value={selectedUserId.street}
-                onChange={(e) =>
-                  setSelectedUserId({ ...selectedUserId, email: e.target.value })
-                }
-                className="w-full p-2 border rounded"
-                required
-              />
+    <div className="ml-[295px]">
+      <div className="mt-[30px] mt-[60px]"> 
+        <div style={{ backgroundColor: '#DEC6EE', paddingBottom: '20px' }}>
+          <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '20px' }}>User List</h2>
+          <input
+          type="text"
+          placeholder="Search by username..."
+          value={searchTerm}
+          onChange={handleSearch}
+          style={{ color: 'black' }}
+        />
+          <table style={{ borderCollapse: 'collapse', width: '100%',border: '2px solid white' }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid black' }}>
+                <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>UserName</th>
+                <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>Email</th>
+                <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody style={{ backgroundColor: '#f3e5f5' }}>
+              {users.map((user) => (
+                <tr key={user.userID}>
+                  <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{user.userName}</td>
+                  <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{user.email}</td>
+                  <td>
+                    <button style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleDeleteClick(user.userID)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded mr-2">Delete</button>
+                    <button style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleEditUser(user.userID)} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {selectedUserId && (
+            <div className="flex flex-col items-center">
+              <h2 className="mb-8 text-3xl font-bold"style={{ color: 'black' }}>Edit User</h2>
+              <form onSubmit={() => handleUpdateUser(selectedUserId)}>
+                <div className="mb-4">
+                  <label htmlFor="street" className="block text-xl font-bold"style={{ color: 'black' }}>email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    value={selectedUserId.street}
+                    onChange={(e) =>
+                      setSelectedUserId({ ...selectedUserId, email: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                
+                
+                <button type="submit" className="mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold"style={{ backgroundColor: '#871A99' }}>Update User</button>
+              </form>
             </div>
-            
-            
-            <button type="submit" className="mr-8 px-8 py-4 text-xl bg-purple-400 rounded-lg font-bold"style={{ backgroundColor: '#871A99' }}>Update User</button>
-          </form>
+          )}
         </div>
-      )}
+      </div>
     </div>
-      
-   
   );
 };
 

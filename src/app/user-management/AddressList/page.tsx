@@ -106,83 +106,87 @@ const AddressList: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center"style={{ backgroundColor: '#EED9FF', padding: '100px' }}>
-      
-      <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '30px', paddingBottom: '20px' }}>Address List</h2>
-      
-      <table style={{ borderCollapse: 'collapse', width: '100%',border: '2px solid white' }}>
-        <thead>
-          <tr style={{ borderBottom: '2px solid black' }}>
-            <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>Street</th>
-            <th style={{ padding: '10px', textAlign: 'left' ,color: 'black',fontWeight: 'bold'}}>City</th>
-            <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>ZIP Code</th>
-           
-          </tr>
-        </thead>
-        <tbody style={{ backgroundColor: '#f3e5f5' }}>
-          {addresses.map((address) => (
-            <tr key={address.addressId}>
-              <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{address.street}</td>
-              <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{address.city}</td>
-              <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{address.zipCode}</td>
-              <td style={{ padding: '10px', textAlign: 'left' ,color: 'black'}}>
-                <button style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleEditAddress(address.addressId)}>Edit</button>
-                <button  style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleDeleteAddress(address.addressId)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {selectedAddressID && (
-        <div className="flex flex-col items-center">
-          <h2 className="mb-8 text-3xl font-bold">Edit Address</h2>
-          <form onSubmit={() => handleUpdateAddress(selectedAddressID)}>
-            <div className="mb-4">
-              <label htmlFor="street" className="block text-xl font-bold">Street:</label>
-              <input
-                type="text"
-                id="street"
-                name="street"
-                value={selectedAddressID.street}
-                onChange={(e) =>
-                  setSelectedAddressID({ ...selectedAddressID, street: e.target.value })
-                }
-                className="w-full p-2 border rounded"
-                required
-              />
+    <div className="ml-[295px]">
+      <div className="mt-[30px] mt-[60px]"> 
+        <div className="flex flex-col items-center"style={{ backgroundColor: '#EED9FF', padding: '100px' }}>
+          
+          <h2 style={{ fontSize: '24px', color: 'black', fontWeight: 'bold',paddingTop: '30px', paddingBottom: '20px' }}>Address List</h2>
+          
+          <table style={{ borderCollapse: 'collapse', width: '100%',border: '2px solid white' }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid black' }}>
+                <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>Street</th>
+                <th style={{ padding: '10px', textAlign: 'left' ,color: 'black',fontWeight: 'bold'}}>City</th>
+                <th style={{ padding: '10px', textAlign: 'left',color: 'black',fontWeight: 'bold' }}>ZIP Code</th>
+              
+              </tr>
+            </thead>
+            <tbody style={{ backgroundColor: '#f3e5f5' }}>
+              {addresses.map((address) => (
+                <tr key={address.addressId}>
+                  <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{address.street}</td>
+                  <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{address.city}</td>
+                  <td style={{ padding: '10px', textAlign: 'left',color: 'black' }}>{address.zipCode}</td>
+                  <td style={{ padding: '10px', textAlign: 'left' ,color: 'black'}}>
+                    <button style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleEditAddress(address.addressId)}>Edit</button>
+                    <button  style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}onClick={() => handleDeleteAddress(address.addressId)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {selectedAddressID && (
+            <div className="flex flex-col items-center">
+              <h2 className="mb-8 text-3xl font-bold">Edit Address</h2>
+              <form onSubmit={() => handleUpdateAddress(selectedAddressID)}>
+                <div className="mb-4">
+                  <label htmlFor="street" className="block text-xl font-bold">Street:</label>
+                  <input
+                    type="text"
+                    id="street"
+                    name="street"
+                    value={selectedAddressID.street}
+                    onChange={(e) =>
+                      setSelectedAddressID({ ...selectedAddressID, street: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="city" className="block text-xl font-bold">City:</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value={selectedAddressID.city}
+                    onChange={(e) =>
+                      setSelectedAddressID({ ...selectedAddressID, city: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="zipCode" className="block text-xl font-bold">ZIP Code:</label>
+                  <input
+                    type="text"
+                    id="zipCode"
+                    name="zipCode"
+                    value={selectedAddressID.zipCode}
+                    onChange={(e) =>
+                      setSelectedAddressID({ ...selectedAddressID, zipCode: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                <button type="submit"style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}>Update Address</button>
+              </form>
             </div>
-            <div className="mb-4">
-              <label htmlFor="city" className="block text-xl font-bold">City:</label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                value={selectedAddressID.city}
-                onChange={(e) =>
-                  setSelectedAddressID({ ...selectedAddressID, city: e.target.value })
-                }
-                className="w-full p-2 border rounded"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="zipCode" className="block text-xl font-bold">ZIP Code:</label>
-              <input
-                type="text"
-                id="zipCode"
-                name="zipCode"
-                value={selectedAddressID.zipCode}
-                onChange={(e) =>
-                  setSelectedAddressID({ ...selectedAddressID, zipCode: e.target.value })
-                }
-                className="w-full p-2 border rounded"
-                required
-              />
-            </div>
-            <button type="submit"style={{ backgroundColor: '#871A99', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}>Update Address</button>
-          </form>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

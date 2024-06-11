@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/gift-box/button';
 import { useRouter } from 'next/navigation';
-import Header from "@/components/common/header";
-import Footer from "@/components/common/footer";
 import axios from 'axios';
 
 export default function Home() {
@@ -24,13 +22,12 @@ export default function Home() {
         // Perform other login actions, such as submitting the form
         // For example, you can submit the form using JavaScript
         // document.getElementById('loginForm').submit();
-        router.push('/user-management/Customer');
+        router.push('/');
     }
 };
 
 return (
   <>
-  <Header />
     <main className="flex justify-end bg-violet-200">
       <div className="container mx-auto flex justify-center items-center h-screen">
         <div className="w-2/5">
@@ -56,11 +53,13 @@ return (
             <div className="mt-4 text-center">
               <p className="text-sm">Don't have an account? <a className="text-blue-500" href="/register">Sign up</a></p>
             </div>
+            <div className="mt-4 text-center">
+              <p className="text-sm">Are you admin? <a className="text-blue-500" href="/InventoryManagement/">Login</a></p>
+            </div>
           </form>
         </div>
       </div>
     </main>
-  <Footer/>
   </>
   );
 }
