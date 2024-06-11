@@ -22,7 +22,7 @@ export default function Home() {
         // Perform other login actions, such as submitting the form
         // For example, you can submit the form using JavaScript
         // document.getElementById('loginForm').submit();
-        router.push('/user-management/Customer');
+        router.push('/');
     }
 };
 
